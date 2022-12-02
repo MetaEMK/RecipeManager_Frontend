@@ -5,6 +5,23 @@
 }
 
 .main-content {
-  padding: 24px;
+  padding-left: 24px;
   flex: 1;
 }
+
+.header-nav {
+  display: flex;
+  line-height: 56px;
+  flex-direction: row;
+}
+
+.branch{
+  display: flex;
+}
+.test {
+  flex-direction: row;
+}
+a {
+  color: white;
+  text-decoration: none;
+} 

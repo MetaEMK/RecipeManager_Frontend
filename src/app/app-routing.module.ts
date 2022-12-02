@@ -12,6 +12,10 @@ const routes: Routes = [
     component: PageNotFoundComponent
   },
   {
+    path: 'branch',
+    loadChildren: () => import('./pages/branch/branch.module').then(m => m.BranchModule)
+  },
+  {
     path: '**',
     redirectTo: '404'
   }

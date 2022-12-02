@@ -1,0 +1,26 @@
+<h1>Konditorei</h1>
+
+<h3>Kategorien:</h3>
+<div>
+    <div *ngFor="let category of categories">
+        <ion-chip (click)="toggleCategory(category)" [mode]="mode" [color]="getColor(category)">
+            <ion-label>{{category.name}}</ion-label>
+        </ion-chip>
+    </div>
+</div>
+
+
+<h3>Rezepte</h3>
+<div class="rec">
+    <div class="recipes" *ngFor="let recipe of recipes">
+        <ion-card>
+            <img src="https://d12xickik43a9a.cloudfront.net/images/magazine/de/M115165-Skyr-Kuchen_87185-1-Q75-750.jpg">
+            <ion-card-header>
+                <ion-card-title>{{recipe.name}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <p>{{recipe.description}}</p>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</div>

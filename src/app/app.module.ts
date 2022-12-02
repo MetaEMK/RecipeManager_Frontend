@@ -9,13 +9,15 @@ import {HeaderComponent} from './core/header/header.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import { IonicModule } from '@ionic/angular';
+import { LandingPageComponent } from './pages/branch/landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,

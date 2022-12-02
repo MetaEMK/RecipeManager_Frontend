@@ -1,5 +1,33 @@
-<app-header></app-header>
-<div class="main-content">
-  <router-outlet></router-outlet>
+<ion-menu contentId="main-content">
+  <ion-header [mode]="mode">
+    <ion-toolbar [mode]="mode" [color]="color">
+      <ion-title>Menu Content</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content [color]="color" class="ion-padding">
+    <ion-list [mode]="mode">
+      <ion-title>Abteilungen</ion-title>
+      <ion-item [color]="color" *ngFor="let branch of branches">
+        <a routerLink="/branch">
+          <ion-label>{{branch.name}}</ion-label>
+        </a>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar [color]="color">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title><a routerLink="">Rezept Verwaltung</a></ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
 </div>
-<app-footer></app-footer>
+
