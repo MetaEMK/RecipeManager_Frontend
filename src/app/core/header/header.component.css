@@ -1,19 +1,11 @@
-.header {
-  background-color: #000000;
-  padding: 0 24px;
-  height: 56px;
-}
 
 .header-nav {
-  color: #fff;
-  display: inline-block;
+  display: flex;
   line-height: 56px;
+  flex-direction: row;
 }
 
-.left {
-  float: left;
-}
-
-.right {
-  float: right;
+.branch{
+  display: flex;
+  margin-left: 15px;
 }
