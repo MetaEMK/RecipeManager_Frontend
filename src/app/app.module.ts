@@ -1,24 +1,20 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {PageNotFoundComponent} from './pages/page-not-found/page-not-found.component';
-import {FooterComponent} from './core/footer/footer.component';
-import {HeaderComponent} from './core/header/header.component';
-import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { FooterComponent } from './core/footer/footer.component';
+import { HttpClientModule } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
 import { IonicModule } from '@ionic/angular';
 
-import { BranchOverview } from './pages/branch/branch_overview/branch_overview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    FooterComponent,
-    HeaderComponent,
-    BranchOverview
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -30,5 +26,6 @@ import { BranchOverview } from './pages/branch/branch_overview/branch_overview.c
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
+export class AppModule
+{
 }

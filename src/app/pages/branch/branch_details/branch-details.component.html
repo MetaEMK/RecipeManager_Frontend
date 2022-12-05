@@ -1,0 +1,15 @@
+<h1>Abteilungsansicht</h1>
+
+<ion-input type="text" (ionChange)="checkInput($event)" placeholder="Abteilungsname"></ion-input>
+<ion-button (click)="addNewBranch()">Speichern</ion-button>
+
+<div style="width: 80%;" *ngIf="branches.length > 0">
+    <ion-list>
+        <ion-list-header>
+            <ion-label>Abteilungsname</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let branch of branches">
+            {{branch.name}}
+        </ion-item>
+    </ion-list>
+</div>

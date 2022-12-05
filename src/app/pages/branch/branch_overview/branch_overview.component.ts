@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BranchService } from 'src/app/core/services/branch.service';
 import { ThemeServiceService } from 'src/app/core/services/theme-service.service';
-import { Category, Recipe, categories, recipes } from 'src/test';
+import { Branch } from 'src/app/shared/entity/branch';
+import { Category } from 'src/app/shared/entity/category';
+import { Recipe } from 'src/app/shared/entity/recipe';
 
 @Component({
   selector: 'branch_overview',
@@ -9,40 +13,33 @@ import { Category, Recipe, categories, recipes } from 'src/test';
 })
 export class BranchOverview implements OnInit {
 
-  public categories: Category[] = [];
+  public bra: Branch|undefined;
 
-  public recipes: Recipe[] = [];
+  public categories: Category[] = [];
+  public recipe: Recipe[] = [];
 
   public mode: string;
   public color: string;
 
-  constructor(themeService: ThemeServiceService) {
+  constructor(themeService: ThemeServiceService, private route: ActivatedRoute, private branchService: BranchService, private router: Router) {
     this.color = "dark"
     this.mode = themeService.mode;
   }
 
-  public getColor(cat: Category)
-  {
-    if(cat.activated)
-    {
-      return "success";
+  ngOnInit(): void {
+    console.log(this.route.snapshot.data);
+    let data = this.route.snapshot.data['id'];
+    console.log(data);
+    let test = this.branchService.branches.filter(b => b?.id === data);
+    if (test && test.length === 1) {
+      this.bra = test[0];
     }
     else
     {
-      return "dark";
+      this.router.navigate(['addBranch']);
     }
+    console.log(test);
   }
 
-  public toggleCategory(cat: Category)
-  {
-    cat.activated = !cat.activated;
-  }
-
-  ngOnInit(): void {
-    Category.addDummyCategories();
-    this.categories = categories;
-    Recipe.addDummyRecipes();
-    this.recipes = recipes;
-  }
 
 }

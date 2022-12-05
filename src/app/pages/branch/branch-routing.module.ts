@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { branches } from 'src/test';
+import { BranchDetailsComponent } from './branch_details/branch-details.component';
 import { BranchOverview } from './branch_overview/branch_overview.component';
 
 const routes: Routes = [
+  {path: 'addBranch', component: BranchDetailsComponent},
   {path: '', component: BranchOverview}
 ];
 

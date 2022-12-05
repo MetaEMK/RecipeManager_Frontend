@@ -1,5 +1,12 @@
 <h1>Wilkommen auf der Startseite</h1>
 
-<div>
-test
+<h3>Wähle deine Abteilung:</h3>
+
+<a routerLink="branch/addBranch">+</a>
+
+<div *ngIf="branches.length">
+
+    <div *ngFor="let branch of branches">
+        <p (click)="routeToBranch(branch)">{{branch.name}}</p>        
+    </div>
 </div>
