@@ -3,11 +3,11 @@ import { ThemeServiceService } from 'src/app/core/services/theme-service.service
 import { Category, Recipe, categories, recipes } from 'src/test';
 
 @Component({
-  selector: 'app-landing-page',
-  templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.css']
+  selector: 'branch_overview',
+  templateUrl: './branch_overview.component.html',
+  styleUrls: ['./branch_overview.component.css']
 })
-export class LandingPageComponent implements OnInit {
+export class BranchOverview implements OnInit {
 
   public categories: Category[] = [];
 
@@ -44,8 +44,5 @@ export class LandingPageComponent implements OnInit {
     Recipe.addDummyRecipes();
     this.recipes = recipes;
   }
-
-
-
 
 }

@@ -8,7 +8,7 @@
     <ion-list [mode]="mode">
       <ion-title>Abteilungen</ion-title>
       <ion-item [color]="color" *ngFor="let branch of branches">
-        <a routerLink="/branch">
+        <a routerLink="/{{branch.slug()}}">
           <ion-label>{{branch.name}}</ion-label>
         </a>
       </ion-item>

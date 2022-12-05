@@ -9,7 +9,8 @@ import {HeaderComponent} from './core/header/header.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import { IonicModule } from '@ionic/angular';
-import { LandingPageComponent } from './pages/branch/landing-page/landing-page.component';
+
+import { BranchOverview } from './pages/branch/branch_overview/branch_overview.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { LandingPageComponent } from './pages/branch/landing-page/landing-page.c
     PageNotFoundComponent,
     FooterComponent,
     HeaderComponent,
-    LandingPageComponent
+    BranchOverview
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,11 @@ export let recipes: Recipe[] = []
 export class Branch {
     public id: number;
     public name: string;
+    public slug = () => {
+        return this.name.toLowerCase().replace(' ', '_');
+    }
+
+
     public constructor(id: number, name: string) {
         this.id = id;
         this.name = name;
