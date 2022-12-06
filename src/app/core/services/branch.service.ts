@@ -60,7 +60,7 @@ export class BranchService {
   private doesPathExist(branch: Branch): boolean {
     let status = false;
     this.router.config.forEach(route => {
-      if(route.path == branch.slug && route.data && route.data["id"] === branch.id) status = true;
+      if(route.path === branch.slug && route.data && route.data["id"] === branch.id) status = true;
     });
     return status;
   }

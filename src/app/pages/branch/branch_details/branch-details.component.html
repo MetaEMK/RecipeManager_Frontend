@@ -21,10 +21,10 @@
     <ion-title>Abteilungen</ion-title>
     <ion-list>
         <ion-item *ngFor="let branch of branches">
-            <ion-input [readonly]="branch.editMode" class="branchName" [value]="branch.name" (ionBlur)="branch.editMode = true;" (ionChange)="updateBranch($event, branch)" ></ion-input>
+            <ion-input [readonly]="branch.editMode" ngModel branch="newBranchName" class="branchName" [value]="branch.name" (ionBlur)="branch.editMode = true;" (ionChange)="updateBranch($event, branch)" ></ion-input>
             <p style="color: red;" *ngIf="branch.errorValue">{{branch.errorValue}}</p>
             <ion-buttons slot="end">
-                <ion-button mode="ios" (click)="acceptUpdate(branch.name)" *ngIf="!branch.editMode">
+                <ion-button mode="ios"  (click)="acceptUpdate(branch.name)" *ngIf="!branch.editMode">
                     <ion-icon color="success" name="checkmark-circle-outline"></ion-icon>
                 </ion-button>
                 <ion-button (click)="activateUpdateMenu(branch)" mode="ios">

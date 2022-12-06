@@ -8,13 +8,15 @@ import { FooterComponent } from './core/footer/footer.component';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from '@ionic/angular';
+import { TestComponent } from './src/test/test.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    FooterComponent
+    FooterComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
