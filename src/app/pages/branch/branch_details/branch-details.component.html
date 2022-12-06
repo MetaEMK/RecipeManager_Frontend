@@ -6,27 +6,28 @@
     <ion-card-content>
         <ion-item>
             <div>
-                <ion-label position="floating">Abteilungname</ion-label>
+                <ion-label position="floating">Abteilungsname</ion-label>
                 <ion-input mode="ios" type="text" [color]="newBranchColor" (ionChange)="checkInput($event)" [value]="newBranchName" placeholder="Abteilungsname"></ion-input>
+                <p style="color: red;" *ngIf="errorValue">{{errorValue}}</p>
             </div>
-                <ion-fab-button mode="ios" size="small" slot="end" (click)="addNewBranch()">
-                    <ion-icon name="add-circle-outline"></ion-icon>
-                </ion-fab-button>
+            <ion-fab-button mode="ios" size="small" slot="end" (click)="addNewBranch()">
+                <ion-icon name="add-circle-outline"></ion-icon>
+            </ion-fab-button>
         </ion-item>
     </ion-card-content>
 </ion-card>
-
 
 <div *ngIf="branches.length > 0">
     <ion-title>Abteilungen</ion-title>
     <ion-list>
         <ion-item *ngFor="let branch of branches">
             <ion-input [readonly]="branch.editMode" class="branchName" [value]="branch.name" (ionBlur)="branch.editMode = true;" (ionChange)="updateBranch($event, branch)" ></ion-input>
+            <p style="color: red;" *ngIf="branch.errorValue">{{branch.errorValue}}</p>
             <ion-buttons slot="end">
                 <ion-button mode="ios" (click)="acceptUpdate(branch.name)" *ngIf="!branch.editMode">
                     <ion-icon color="success" name="checkmark-circle-outline"></ion-icon>
                 </ion-button>
-                <ion-button (click)="updateBranchName(branch)" mode="ios">
+                <ion-button (click)="activateUpdateMenu(branch)" mode="ios">
                     <ion-icon name="pencil"></ion-icon>
                 </ion-button>
                 <ion-button (click)="deleteBranch(branch)" mode="ios">

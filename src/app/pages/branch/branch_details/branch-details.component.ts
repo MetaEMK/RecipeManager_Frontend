@@ -18,6 +18,8 @@ export class BranchDetailsComponent implements OnInit {
   public newBranchName: string|undefined;
 
   public newBranchColor: string = "dark";
+  public slot: string = "error";
+  public errorValue: string|undefined;
 
   constructor(private branchService: BranchService, private router: ActivatedRoute, private designService: ThemeServiceService)
   {
@@ -25,7 +27,9 @@ export class BranchDetailsComponent implements OnInit {
 
   ngOnInit(): void
   {
-    this.getAllBranches();
+    this.branchService.updateFromServer().then(() => {
+      this.getAllBranches();
+    });
   }
 
   getAllBranches()
@@ -38,40 +42,64 @@ export class BranchDetailsComponent implements OnInit {
 
   checkInput(event: any) {
   
+    this.errorValue= undefined;
     this.newBranchColor = "dark";
     this.newBranchName = event.detail.value;
   }
 
-  public addNewBranch()
+
+  private checkError(error: any): string|undefined
+  {
+    if(!error) return undefined;
+    this.newBranchColor = "danger";
+    if(error === 19) {
+      return "Dieser Name existiert bereits. Bitte einen anderen Wählen.";
+    } else if (error === "NAME_INVALID") {
+      return "Der Name darf keine Sonderzeichen oder Zahlen enthalten";
+    } else {
+      return "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+    }
+  }
+  public async addNewBranch()
   {
     if(!this.newBranchName) {
       this.newBranchColor = "danger";
       return;
     }
-    console.log("Adding: " + this.newBranchName)
-    this.branchService.addBranch(new Branch(this.newBranchName, undefined, this.newBranchName.toLocaleLowerCase()));
-    this.getAllBranches();
-    this.newBranchName = undefined;
+    let error = await this.branchService.addBranch(new Branch(this.newBranchName));
+    if(error) {
+      this.errorValue = this.checkError(error);
+    }
+    else 
+    {
+      this.getAllBranches();
+      this.newBranchName = undefined;
+    }
   }
 
-  public updateBranch(event: any, branch: Branch)
+  public updateBranch(event: any, branch: any)
   {
+    branch.errorValue = undefined;
     branch.name = event.detail.value;
   }
 
-  public acceptUpdate(branch: Branch)
+  public async acceptUpdate(branch: any)
   {
-    this.branchService.updateBranch(branch);
+    let error = await this.branchService.updateBranch(branch);
+    if(error) {
+      branch.errorValue = this.checkError(error);
+    }
+    else this.getAllBranches();
   }
 
-  public updateBranchName(branch: any)
+  public activateUpdateMenu(branch: any)
   {
     branch.editMode = false;
-    console.log("Updating: " + branch.name);
   }
-  public deleteBranch(branch: Branch)
+
+  public async deleteBranch(branch: Branch)
   {
-    if(branch.id) this.branchService.deleteBranch(branch.id);
+    if(branch.id) await this.branchService.deleteBranch(branch.id);
     this.getAllBranches();
   }
   
