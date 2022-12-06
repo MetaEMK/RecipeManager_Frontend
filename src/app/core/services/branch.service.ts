@@ -8,7 +8,18 @@ import { Branch } from 'src/app/shared/entity/branch';
 })
 export class BranchService {
 
-  private _branches: Branch[] = [];
+  private _branches: Branch[] = [
+    {id: 0, name: "Test1"},
+    {id: 1, name: "Test1"},
+    {id: 2, name: "Test1"},
+    {id: 3, name: "Test1"},
+    {id: 4, name: "Test1"},
+    {id: 5, name: "Test1"},
+    {id: 6, name: "Test1"},
+    {id: 7, name: "Test1"},
+    {id: 8, name: "Test1"},
+    {id: 9, name: "Test1"},
+  ];
 
   constructor(private router: Router) {
   }
@@ -20,17 +31,7 @@ export class BranchService {
 
   private getLastId(): number
   {
-    let max = -1;
-    this._branches.forEach(br => 
-      {
-      if (br.id) br.id > max ? max = br.id : max = max;
-    });
-    return max;
-  }
-
-  public checkInput()
-  {
-
+    return this.branches.length-1;
   }
 
   public addBranch(branch: Branch)
@@ -44,11 +45,13 @@ export class BranchService {
     this._branches.push(branch);
   }
 
+  public updateBranch(branch: Branch)
+  {
+    if(branch.id) this.branches[branch.id] = branch;
+  }
+
   public deleteBranch(id: number)
   {
-    this._branches = this._branches.filter(br => 
-      {
-        if(br.id) br.id !== id;
-      });
+    this._branches = this._branches.filter(b => b.id !== id);
   }
 }

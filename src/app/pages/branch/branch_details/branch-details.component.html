@@ -1,15 +1,39 @@
-<h1>Abteilungsansicht</h1>
 
-<ion-input type="text" (ionChange)="checkInput($event)" placeholder="Abteilungsname"></ion-input>
-<ion-button (click)="addNewBranch()">Speichern</ion-button>
+<ion-card mode="ios">
+    <ion-card-header>
+        <ion-card-title>Neue Abteilung anlegen</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-item>
+            <div>
+                <ion-label position="floating">Abteilungname</ion-label>
+                <ion-input mode="ios" type="text" [color]="newBranchColor" (ionChange)="checkInput($event)" [value]="newBranchName" placeholder="Abteilungsname"></ion-input>
+            </div>
+                <ion-fab-button mode="ios" size="small" slot="end" (click)="addNewBranch()">
+                    <ion-icon name="add-circle-outline"></ion-icon>
+                </ion-fab-button>
+        </ion-item>
+    </ion-card-content>
+</ion-card>
 
-<div style="width: 80%;" *ngIf="branches.length > 0">
+
+<div *ngIf="branches.length > 0">
+    <ion-title>Abteilungen</ion-title>
     <ion-list>
-        <ion-list-header>
-            <ion-label>Abteilungsname</ion-label>
-        </ion-list-header>
         <ion-item *ngFor="let branch of branches">
-            {{branch.name}}
+            <ion-input [readonly]="branch.editMode" class="branchName" [value]="branch.name" (ionBlur)="branch.editMode = true;" (ionChange)="updateBranch($event, branch)" ></ion-input>
+            <ion-buttons slot="end">
+                <ion-button mode="ios" (click)="acceptUpdate(branch.name)" *ngIf="!branch.editMode">
+                    <ion-icon color="success" name="checkmark-circle-outline"></ion-icon>
+                </ion-button>
+                <ion-button (click)="updateBranchName(branch)" mode="ios">
+                    <ion-icon name="pencil"></ion-icon>
+                </ion-button>
+                <ion-button (click)="deleteBranch(branch)" mode="ios">
+                    <ion-icon color="warning" name="trash-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
         </ion-item>
     </ion-list>
 </div>
+    
