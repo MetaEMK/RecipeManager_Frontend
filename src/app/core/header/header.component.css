@@ -1,19 +1,7 @@
-.header {
-  background-color: #000000;
-  padding: 0 24px;
-  height: 56px;
+.branches{
+  padding-left: 25px;
 }
-
-.header-nav {
-  color: #fff;
-  display: inline-block;
-  line-height: 56px;
-}
-
-.left {
-  float: left;
-}
-
-.right {
-  float: right;
+.item{
+  padding: 5px;
+  margin: 15px;
 }

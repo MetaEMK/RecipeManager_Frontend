@@ -1,8 +1,12 @@
-<div class="header">
-  <div class="header-nav left">
-    Links
+<mat-toolbar>
+  <button mat-fab extended color="primary" routerLink="/">
+    <mat-icon>home</mat-icon>
+    Rezeptverwaltung
+  </button>
+  <div class="branches">
+    <a class="item" mat-button color="link" routerLink="{{branch.slug}}" *ngFor="let branch of branches">{{branch.name}}</a>
   </div>
-  <div class="header-nav right">
-    Rechts
-  </div>
-</div>
+  <button mat-mini-fab class="item" color="primary" routerLink="/branches/new">
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-toolbar>

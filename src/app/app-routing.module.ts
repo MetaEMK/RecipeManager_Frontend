@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PageNotFoundComponent} from "./pages/page-not-found/page-not-found.component";
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: '404',
     component: PageNotFoundComponent
+  },
+  {
+    path: 'branches',
+    loadChildren: () => import('./pages/branch/branch.module').then(m => m.BranchModule)
   },
   {
     path: '**',

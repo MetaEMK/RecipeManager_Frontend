@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import { Branch } from 'src/app/models/branch';
+import { BranchService } from '../service/branch.service';
+
 
 @Component({
   selector: 'app-header',
@@ -7,10 +10,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() {
+  public branches: Branch[] = [];
+
+  constructor(private branchService: BranchService) {
   }
 
   ngOnInit(): void {
+    this.branchService.updateFromServer().then(branches => this.branches = branches);
   }
 
 }
