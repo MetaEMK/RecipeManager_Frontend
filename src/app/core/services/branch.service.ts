@@ -27,6 +27,11 @@ export class BranchService {
 
     if(response.success) {
       this._branches = response.data;
+
+      this._branches.forEach(branch => {
+        if(!this.doesPathExist(branch)) 
+          this.router.config.unshift({path: branch.slug, data: {id: branch.id}, loadChildren: () => import('../../pages/branch/branch.module').then(m => m.BranchModule)});
+        });
     }
 
     return this._branches;
@@ -48,16 +53,18 @@ export class BranchService {
       }
       else {
       await this.updateFromServer();
-      return;
-
       }
-      this.router.config.unshift({
-        path: branch.slug,
-        data: {id: branch.id},
-        loadChildren: () => import('../../pages/branch/branch.module').then(module => module.BranchModule)
-      });
     }
   }
+
+  private doesPathExist(branch: Branch): boolean {
+    let status = false;
+    this.router.config.forEach(route => {
+      if(route.path == branch.slug && route.data && route.data["id"] === branch.id) status = true;
+    });
+    return status;
+  }
+
 
   public async updateBranch(branch: Branch)
   {
