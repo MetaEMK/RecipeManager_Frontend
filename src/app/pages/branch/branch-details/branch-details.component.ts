@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BranchService } from 'src/app/core/service/branch.service';
+import { BranchService } from 'src/app/core/services/branch.service';
 import { Branch } from 'src/app/models/branch';
 import {Dialog, DialogRef, DIALOG_DATA} from '@angular/cdk/dialog';
 import { AddBranchDialogComponent } from '../branchDetails/add-branch-dialog/add-branch-dialog.component';

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { Branch } from 'src/app/models/branch';
-import { BranchService } from '../service/branch.service';
+import { BranchService } from '../services/branch.service';
 
 
 @Component({
