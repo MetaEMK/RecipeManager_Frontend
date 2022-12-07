@@ -5,7 +5,7 @@ import { Branch } from 'src/app/models/branch.model';
 
 
 
-const backend_url = "http://localhost:3000/api";
+const backend_url = "http://localhost:3000/api/v1";
 
 
 @Injectable({
@@ -29,7 +29,7 @@ export class BranchService {
 
       switch(response.status) {
         case 200:
-          let branch = await response.json();
+          let branch = (await response.json()).data;;
           return branch;
         case 404:
           return new ApiError(404, "BranchNotFound", "Die Abteilung konnte nicht gefunden werden.");
@@ -51,7 +51,7 @@ export class BranchService {
 
     switch (response.status) {
       case 200:
-        this._branches = await response.json();
+        this._branches = (await response.json()).data;
         this._branches.forEach(branch => {
           if(!this.doesPathExist(branch)) 
             this.router.config.unshift({path: branch.slug, data: {id: branch.id}, loadChildren: () => import('../../pages/branch/branch.module').then(m => m.BranchModule)});

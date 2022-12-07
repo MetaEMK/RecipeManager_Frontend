@@ -3,7 +3,7 @@ import { ApiError } from 'src/app/models/apierror.model';
 import { Recipe } from 'src/app/models/recipe.model';
 
 
-const backend_url = "http://localhost:3000/api";
+const backend_url = "http://localhost:3000/api/v1";
 
 
 @Injectable({

@@ -5,10 +5,16 @@
 
 <div class="branchContainer">
     <div class="branch"(click)="openAddDialog()">
-        <mat-icon>add</mat-icon>
+        <button mat-fab color="primary">
+            <mat-icon>add</mat-icon>
+        </button>
     </div>
 
     <div class="branch" (click)="navigateTo(branch)" *ngFor="let branch of branches">
-        <div class="branchTitle">{{branch.name}}</div>
+        <div class="branchTitle">
+            <button mat-button color="primary">
+                {{branch.name}}
+            </button>
+        </div>
     </div>
 </div>
