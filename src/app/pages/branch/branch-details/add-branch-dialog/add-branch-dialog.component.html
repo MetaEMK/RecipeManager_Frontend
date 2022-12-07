@@ -1,0 +1,13 @@
+<div class="dialog">
+    <h1>Bitte wähle den Namen der Abteilung</h1>
+    <mat-form-field>
+        <mat-label>Abteilungsname</mat-label>
+        <input style="width: 100%;" matInput placeholder="Abteilungsname" #name>
+    </mat-form-field>
+    
+    <br/>
+    <p class="errorMessage" *ngIf="errorMessage">{{errorMessage}}</p>
+
+    <button mat-flat-button (click)="abortDialog()">Abbrechen</button>
+    <button mat-flat-button color="primary" (click)="addBranch(name.value)">hinzufügen</button>
+</div>

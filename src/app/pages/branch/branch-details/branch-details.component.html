@@ -1,7 +1,14 @@
-<h1>Abteilungsansicht</h1>
+<h1>
+    Abteilungsansicht
+</h1>
 
-<button mat-raised-button color="primary" (click)="openAddDialog()">neue Abteilung hinzufügen</button>
 
+<div class="branchContainer">
+    <div class="branch"(click)="openAddDialog()">
+        <mat-icon>add</mat-icon>
+    </div>
 
-
-  
+    <div class="branch" (click)="navigateTo(branch)" *ngFor="let branch of branches">
+        <div class="branchTitle">{{branch.name}}</div>
+    </div>
+</div>

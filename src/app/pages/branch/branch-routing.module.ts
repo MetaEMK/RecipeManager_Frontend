@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BranchDetailsComponent } from './branch-details/branch-details.component';
+import { BranchOverviewComponent } from './branch-overview/branch-overview.component';
 
 const routes: Routes = [
   { path: 'new', component: BranchDetailsComponent },
+  { path: '', component: BranchOverviewComponent },
 ];
 
 @NgModule({

@@ -3,10 +3,7 @@
     <mat-icon>home</mat-icon>
     Rezeptverwaltung
   </button>
-  <div class="branches">
-    <a class="item" mat-button color="link" routerLink="{{branch.slug}}" *ngFor="let branch of branches">{{branch.name}}</a>
-  </div>
-  <button mat-mini-fab class="item" color="primary" routerLink="/branches/new">
-    <mat-icon>add</mat-icon>
+  <button mat-button class="item" routerLink="/branches/new">
+    Abteilungsansicht
   </button>
 </mat-toolbar>

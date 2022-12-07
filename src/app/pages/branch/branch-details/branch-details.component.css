@@ -1,0 +1,21 @@
+.branchContainer
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px
+}
+
+.branch {
+    background-color: #f1f1f1d3;
+
+    font-size: larger;
+
+    height: 150px;
+    width: 150px;
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}

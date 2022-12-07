@@ -1,0 +1,12 @@
+.dialog{
+    padding: 25px;
+    padding-bottom: 25px;
+}
+button{
+    float: right;
+    margin-bottom: 25px;
+}
+.errorMessage{
+    color: red;
+    margin-top: 5px;
+}

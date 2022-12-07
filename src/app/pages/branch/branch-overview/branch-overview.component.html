@@ -1,0 +1,40 @@
+
+
+
+<div>
+    <h1>{{activatedBranch.name}}</h1>
+</div>
+
+
+<div>
+    Platzhalter: Wochenansicht
+</div>
+
+<div>
+    <div>Platzhalter: Kategorien</div>
+    
+    <div class="recipeContainer">
+        <div class="recipe" *ngFor="let recipe of recipes">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>{{recipe.name}}</mat-card-title>
+                    <mat-card-subtitle>{{recipe.description}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    
+                    <div class="recipeImage">
+                        <img src={{recipe.image_url}} alt="recipe image">
+                    </div>
+                <mat-action-list *ngIf="">
+                    <button mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-action-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

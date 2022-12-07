@@ -16,8 +16,7 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/branch/branch.module').then(m => m.BranchModule)
   },
   {
-    path: '**',
-    redirectTo: '404'
+    path: '**', component: PageNotFoundComponent
   }
 ];
 
