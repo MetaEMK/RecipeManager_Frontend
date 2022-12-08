@@ -1,9 +1,29 @@
-<mat-toolbar>
+<div class="toolbar">
   <button mat-fab extended color="primary" routerLink="/">
     <mat-icon>home</mat-icon>
-    Rezeptverwaltung
+    ReMa
   </button>
-  <button mat-button class="item" routerLink="/branches/new">
-    Abteilungsansicht
-  </button>
-</mat-toolbar>
+  <div class="navigationContainer">
+    <div class="navigationitem">
+      <button mat-button class="item" routerLink="/branches/overview">
+        {{timerBool?"Abteilungen": "Abt."}}
+      </button>
+    </div>
+    <div class="navigationitem">
+      <button mat-button class="item" routerLink="/recipes/overview">
+        {{timerBool?"Kategorien": "Kat."}}
+
+      </button>
+    </div>
+    <div class="navigationitem">
+      <button mat-button class="item" routerLink="/categories/overview">
+        {{timerBool?"Rezepte": "Rez."}}
+      </button>
+    </div>
+  </div>
+
+  <span class="timer" *ngIf="displayTimer">
+    <mat-icon *ngIf="timerBool">timer</mat-icon>
+    <span class="timer-value" >{{ timerValue }}</span>
+  </span>
+</div>

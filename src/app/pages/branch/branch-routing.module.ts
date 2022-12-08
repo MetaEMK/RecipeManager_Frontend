@@ -4,7 +4,7 @@ import { BranchDetailsComponent } from './branch-details/branch-details.componen
 import { BranchOverviewComponent } from './branch-overview/branch-overview.component';
 
 const routes: Routes = [
-  { path: 'new', component: BranchDetailsComponent },
+  { path: 'overview', component: BranchDetailsComponent },
   { path: '', component: BranchOverviewComponent },
 ];
 

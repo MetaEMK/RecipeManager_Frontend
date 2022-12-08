@@ -1,3 +1,29 @@
-.item{
-  margin-left: 25px;
+.toolbar{
+  padding: 10px;
+  display: flex;
+  background-color: rgb(184, 192, 201);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigationContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.navigationItem {
+  display: flex;
+  align-items: center;
+}
+
+.timer{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hidden{
+  display: none !important;
 }
