@@ -9,9 +9,12 @@
 
 <ion-menu contentId="main-content">
     <ion-header>
-      <ion-toolbar color="dark">
-        <ion-title>Menu Content</ion-title>
-      </ion-toolbar>
+      <ion-toolbar color="dark" style="padding-right: 15px;">
+          <ion-button slot="end" fill="clear" routerLink="/home/settings">
+            <ion-icon color="light" name="settings"></ion-icon>
+          </ion-button>
+          <ion-title slot="start">Menu Content</ion-title>
+        </ion-toolbar>
     </ion-header>
     <ion-content color="dark" class="ion-padding">
         <div class="sidebar">
@@ -34,10 +37,12 @@
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>RezeptVerwaltung</ion-title>
-        <ion-title slot="end">{{time}}</ion-title>
+        <div slot="end" class="contentMenu">
+          <div>{{time}}</div>
+        </div>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">
+    <ion-content [color]="themeService.isDarkMode ? 'medium': 'light'" class="ion-padding">
         <router-outlet></router-outlet>
     </ion-content>
   </div>

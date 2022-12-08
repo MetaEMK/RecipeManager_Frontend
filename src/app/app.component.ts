@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemeService } from './core/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,15 @@ export class AppComponent implements OnInit {
   
   public time: string ="";
 
+
+  constructor(
+    public themeService: ThemeService
+  ) {}
+
   async ngOnInit(): Promise<void> {
     while(true){
-      console.log("tick");
       this.time = new Date().toLocaleTimeString();
-      await this.delay(250);
+      await this.delay(500);
     }
   }
 

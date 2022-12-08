@@ -1,0 +1,13 @@
+<h1>Abteilungsübersicht</h1>
+
+<div class="branchContainer">
+    <ion-card [color]="themeService.theme" class="branchCard" mode="ios">
+        <ion-fab-button color="primary">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-card>
+    <ion-card [color]="themeService.theme" class="branchCard" mode="ios" (click)="navigateToBranch(branch)" *ngFor="let branch of branches">
+        <div class="branchName">{{branch.name}}</div>
+    </ion-card>
+</div>
+

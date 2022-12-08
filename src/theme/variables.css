@@ -4,3 +4,7 @@
 
 /* To quickly generate your own theme, check out the color generator */
 /* https://ionicframework.com/docs/theming/color-generator */
+    :root
+    {
+        --ion-color-medium: rgba(0, 0, 0, 0.875);
+    }
