@@ -9,6 +9,9 @@ export class ThemeService {
   public get theme(): string {
     return this.isDarkMode ? 'dark' : 'light';
   }
+  public get opposittheme(): string {
+    return this.isDarkMode ? 'light' : 'dark';
+  }
 
   constructor() { }
 }

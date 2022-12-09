@@ -1,0 +1,9 @@
+.recipeContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.recipe{
+    height: 50vh;
+    width: 50vh;
+}

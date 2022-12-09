@@ -5,6 +5,6 @@ export interface Branch {
     name: string;
     slug: string;
 
-    categories: Category[];
+    recipeCategories: Category[];
     recipe_ids: number[];
 }

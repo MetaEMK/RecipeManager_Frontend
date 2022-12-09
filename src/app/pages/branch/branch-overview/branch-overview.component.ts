@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { ThemeService } from 'src/app/core/services/theme.service';
 import { Branch } from 'src/app/model/branch.model';
+import { Category } from 'src/app/model/category.model';
 
 @Component({
   selector: 'app-branch-overview',
@@ -12,6 +13,7 @@ import { Branch } from 'src/app/model/branch.model';
 export class BranchOverviewComponent implements OnInit {
   
   public branches: Branch[] = [];
+  public selectedCategories: Category[] = [];
 
     constructor(
       private branchService: BranchService,
@@ -20,6 +22,7 @@ export class BranchOverviewComponent implements OnInit {
     ) { }
   
     ngOnInit(): void {
+      console.log("test123");
       this.branchService.getAllBranches()
         .then((branches) => {
           this.branches = branches;
@@ -31,7 +34,7 @@ export class BranchOverviewComponent implements OnInit {
 
     public navigateToBranch(branch: Branch)
     {
-      this.router.navigate([branch.slug]);
+      this.router.navigate(["/branches", branch.slug]);
     }
   
 }

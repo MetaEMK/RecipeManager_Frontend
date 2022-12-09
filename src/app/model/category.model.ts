@@ -1,7 +1,11 @@
+import { Branch } from "./branch.model";
+import { Recipe } from "./recipe.model";
+
 export interface Category {
     id: number;
     name: string;
 
-    branch_ids: number[];
-    recipe_ids: number[];
+
+    recipes: Recipe[];
+    branches: Branch[];
 }
