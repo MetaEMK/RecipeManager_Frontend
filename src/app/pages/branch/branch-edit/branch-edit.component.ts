@@ -76,7 +76,7 @@ export class BranchEditComponent implements OnInit {
       const cat = await this.categoryService.getCategoryById(category.id);
       console.log(cat);
       cat.recipes.forEach((recipe) => {
-        if(!this.recipes.includes(recipe))
+        if(!this.recipes.find(r => r.id === recipe.id))
           this.recipes.push(recipe);
       });
     });
