@@ -2,19 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
 import { BranchRoutingModule } from './branch-routing.module';
-import { BranchAddComponent } from 'src/app/components/branch/branch-add/branch-add.component';
-import { BranchOverviewComponent } from './branch-overview/branch-overview.component';
 import { BranchEditComponent } from './branch-edit/branch-edit.component';
-import { IonicModule } from '@ionic/angular';
+import { BranchOverviewComponent } from './branch-overview/branch-overview.component';
+
+import { BranchAddComponent } from 'src/app/components/branch/branch-add/branch-add.component';
+import { BranchNameEditComponent } from 'src/app/components/branch/branch-name-edit/branch-name-edit.component';
 
 
 @NgModule({
   declarations: [
     BranchOverviewComponent,
     BranchEditComponent,
-    BranchAddComponent
+    BranchAddComponent,
+    BranchNameEditComponent
   ],
   imports: [
     CommonModule,

@@ -1,11 +1,16 @@
 <div class="container" *ngIf="branch">
     <div class="headerContainer">
-        <h1>
-            Abteilung: {{branch.name}}
-            <ion-fab-button [color]="themeService.theme">
+        <div class="branchName" *ngIf="!editName">
+            <h1>
+                Abteilung: {{branch.name}}
+            </h1>
+            <ion-fab-button slot="end" [color]="themeService.theme" (click)="editName = !editName">
                 <ion-icon [color]="themeService.opposittheme" name="pencil-outline"></ion-icon>
             </ion-fab-button>
-        </h1>
+        </div>
+        <div *ngIf="editName">
+            <app-branch-name-edit [branch]="branch" (editMode)="editName = $event"></app-branch-name-edit>
+        </div> 
         <div class="categoryContainer">
             <ion-chip [color]="selectAll ? 'primary': themeService.opposittheme" (click)="changeStateOfAll()">Alle auswählen</ion-chip>
             <ion-chip  (click)="changeStateOf(category)" [color]="getState(category)" *ngFor="let category of branch.recipeCategories">

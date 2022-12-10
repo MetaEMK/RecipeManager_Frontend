@@ -18,7 +18,6 @@ export class BranchService {
 
   constructor() { }
 
-
   public async getAllBranches(): Promise<Branch[]> {
     try {
       let response = await fetch(this.url_v1);
@@ -105,6 +104,46 @@ export class BranchService {
           error = (await response.json()).error;
           throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
+    } catch (error) {
+      if(error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
+    }
+  }
+
+  public async updateBranch(id: number, addRecipes: number[], rmvRecipes: number[], name?: string): Promise<Branch> {
+    let error;
+    let bodyObj: any = {};
+
+    if(name) bodyObj.name = name;
+    if(addRecipes.length > 0) bodyObj.recipe_ids.add = addRecipes;
+    if(rmvRecipes.length > 0) bodyObj.recipe_ids.rmv = rmvRecipes;
+
+    try {
+      let response = await fetch(this.url_v1 + '/' + id, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bodyObj)
+      });
+      console.log(response);
+      switch (response.status) {
+        case 200:
+          await this.getAllBranches();
+          return (await response.json()).data;
+        
+        case 409:
+          error = (await response.json()).error;
+          console.log(error);
+          throw new ApiError(response.status, error.code, error.type, 'Es existiert bereits eine Abteilung mit diesem Namen.' , error);
+
+        default:
+          error = (await response.json()).error;
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+      }
+
     } catch (error) {
       if(error instanceof ApiError) {
         throw error;

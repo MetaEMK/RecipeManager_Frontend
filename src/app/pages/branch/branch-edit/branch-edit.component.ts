@@ -20,6 +20,12 @@ export class BranchEditComponent implements OnInit {
   public recipes: Recipe[] = [];
   public selectAll: boolean = false;
 
+
+
+  //edit
+  public editName: boolean = false;
+  public nameNewValue?: string;
+
   constructor(
     private route: ActivatedRoute,
     private branchService: BranchService,
