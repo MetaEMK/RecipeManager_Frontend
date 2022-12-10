@@ -32,7 +32,9 @@ export class BranchService {
           throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       } 
     } catch (error) {
-      console.log(error);
+      if(error instanceof ApiError) {
+        throw error;
+      }
       throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
     }
   }
@@ -49,7 +51,9 @@ export class BranchService {
           throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       } 
     } catch (error) {
-      console.log(error);
+      if(error instanceof ApiError) {
+        throw error;
+      }
       throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
     }
   }
@@ -68,7 +72,43 @@ export class BranchService {
       return await this.getBranchById(branch.id);
     } catch (error)
     {
-      console.log(error);
+      if(error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
+    }
+  }
+
+
+  public async createBranch(name: string): Promise<Branch> {
+    let error: any;
+    try {
+      let response = await fetch(this.url_v1, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name
+        })
+      });
+      console.log("response");
+      console.log(response);
+      await this.getAllBranches();
+      switch (response.status) {
+        case 201:
+          return (await response.json()).data;
+        case 409:
+          error = (await response.json()).error;
+          throw new ApiError(response.status, error.code, error.type, 'Es existiert bereits eine Abteilung mit diesem Namen.' , error);
+        default:
+          error = (await response.json()).error;
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+      }
+    } catch (error) {
+      if(error instanceof ApiError) {
+        throw error;
+      }
       throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
     }
   }

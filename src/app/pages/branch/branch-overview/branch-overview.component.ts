@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { ThemeService } from 'src/app/core/services/theme.service';
 import { Branch } from 'src/app/model/branch.model';
-import { Category } from 'src/app/model/category.model';
 
 @Component({
   selector: 'app-branch-overview',
@@ -11,25 +10,18 @@ import { Category } from 'src/app/model/category.model';
   styleUrls: ['./branch-overview.component.css']
 })
 export class BranchOverviewComponent implements OnInit {
-  
-  public branches: Branch[] = [];
-  public selectedCategories: Category[] = [];
+
+  public isInAddingMode: boolean = false;
 
     constructor(
-      private branchService: BranchService,
+      public branchService: BranchService,
       private router: Router,
       public themeService: ThemeService
     ) { }
   
     ngOnInit(): void {
       console.log("test123");
-      this.branchService.getAllBranches()
-        .then((branches) => {
-          this.branches = branches;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.branchService.getAllBranches();
       }
 
     public navigateToBranch(branch: Branch)

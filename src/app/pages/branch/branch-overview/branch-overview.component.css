@@ -23,3 +23,13 @@
     word-wrap: break-word;
 }
 
+.branchAddCard{
+    display: flex;
+    padding: 10px;
+}
+.addBranchName {
+    padding: 5px;
+
+    border: 3px solid rgb(255, 0, 0);
+    border-radius: 5px;
+}

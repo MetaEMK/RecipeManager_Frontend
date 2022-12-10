@@ -1,12 +1,19 @@
 <h1>Abteilungsübersicht</h1>
 
+<div *ngIf="isInAddingMode">
+    <app-branch-add>
+
+    </app-branch-add>
+</div>
+
 <div class="branchContainer">
-    <ion-card [color]="themeService.theme" class="branchCard" mode="ios">
+    <ion-card [color]="themeService.theme" (click)="isInAddingMode=!isInAddingMode" class="branchCard"  *ngIf="!isInAddingMode">
         <ion-fab-button color="primary">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-card>
-    <ion-card [color]="themeService.theme" class="branchCard" mode="ios" (click)="navigateToBranch(branch)" *ngFor="let branch of branches">
+
+    <ion-card [color]="themeService.theme" class="branchCard" (click)="navigateToBranch(branch)" *ngFor="let branch of branchService.branches">
         <div class="branchName">{{branch.name}}</div>
     </ion-card>
 </div>

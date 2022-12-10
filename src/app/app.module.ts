@@ -7,12 +7,16 @@ import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(
+      {
+        mode: 'ios'
+      }
+    ),
   ],
   providers: [],
   bootstrap: [AppComponent]

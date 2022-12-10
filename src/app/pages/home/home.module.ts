@@ -19,7 +19,11 @@ import { IonicModule } from '@ionic/angular';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    IonicModule,
+    IonicModule.forRoot(
+      {
+        mode: 'ios'
+      }
+    ),
     FormsModule
   ]
 })
