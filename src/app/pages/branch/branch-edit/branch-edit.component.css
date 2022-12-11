@@ -1,10 +1,19 @@
-
-.recipeContainer{
+.headerContainer{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
+
 }
-.recipe{
-    height: 50vh;
-    width: 50vh;
+.editBox{
+    display: flex;
+    position: absolute;
+
+    align-self: flex-end;
+    gap: 10px;
 }
+.deleteButton {
+    position: absolute;
+    align-self: flex-end;
+}
+
+

@@ -117,8 +117,15 @@ export class BranchService {
     let bodyObj: any = {};
 
     if(name) bodyObj.name = name;
-    if(addRecipes.length > 0) bodyObj.recipe_ids.add = addRecipes;
-    if(rmvRecipes.length > 0) bodyObj.recipe_ids.rmv = rmvRecipes;
+    if(addRecipes.length > 0) 
+      bodyObj.recipe_ids = {
+        add: addRecipes
+      };
+
+    if(rmvRecipes.length > 0) 
+      bodyObj.recipe_ids = {
+        rmv: rmvRecipes
+      };
 
     try {
       let response = await fetch(this.url_v1 + '/' + id, {
@@ -131,6 +138,7 @@ export class BranchService {
       console.log(response);
       switch (response.status) {
         case 200:
+          console.log(response);
           await this.getAllBranches();
           return (await response.json()).data;
         

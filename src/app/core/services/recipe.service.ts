@@ -19,14 +19,17 @@ export class RecipeService {
 
   public async getAllRecipes(): Promise<Recipe[]>
   {
+    console.log("Getting all recipes");
     try {
       const response = await fetch(this.url_v1);
       switch (response.status) {
         case 200:
-          this._recipes = (await response.json()).data;
+          const test = await response.json();
+          this._recipes = test;
           return this._recipes;
         default:
-          const error = (await response.json()).error;
+          const error = test.error;
+          console.log(error);
           throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     } catch (error) {

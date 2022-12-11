@@ -1,35 +1,28 @@
 <div class="container" *ngIf="branch">
     <div class="headerContainer">
-        <div class="branchName" *ngIf="!editName">
-            <h1>
-                Abteilung: {{branch.name}}
-            </h1>
-            <ion-fab-button slot="end" [color]="themeService.theme" (click)="editName = !editName">
-                <ion-icon [color]="themeService.opposittheme" name="pencil-outline"></ion-icon>
+        <div class="editBox">
+            <ion-fab-button [color]="themeService.theme" (click)="updateBranch()" *ngIf="editMode">
+                <ion-icon color="success" name="save-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="danger" *ngIf="deletePossible">
+                <ion-icon color="dark" name="trash-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button [color]="themeService.theme" (click)="editMode = !editMode">
+                <ion-icon [color]="themeService.opposittheme" name="pencil-outline" *ngIf="!editMode"></ion-icon>
+                <ion-icon color="danger" name="close-outline" *ngIf="editMode"></ion-icon>
             </ion-fab-button>
         </div>
-        <div *ngIf="editName">
-            <app-branch-name-edit [branch]="branch" (editMode)="editName = $event"></app-branch-name-edit>
-        </div> 
-        <div class="categoryContainer">
-            <ion-chip [color]="selectAll ? 'primary': themeService.opposittheme" (click)="changeStateOfAll()">Alle auswählen</ion-chip>
-            <ion-chip  (click)="changeStateOf(category)" [color]="getState(category)" *ngFor="let category of branch.recipeCategories">
-                {{category.name}}
-            </ion-chip>
-        </div>
+    <app-branch-name-edit [branch]="branch" [editMode]="editMode" (changes)="newName = $event"></app-branch-name-edit>
     </div>
+    
 
+    <div class="categoryContainer">
+        <ion-chip [color]="selectAll ? 'primary': themeService.opposittheme" (click)="changeStateOfAll()">Alle auswählen</ion-chip>
+        <ion-chip  (click)="changeStateOf(category)" [color]="getState(category)" *ngFor="let category of branch.recipeCategories">
+            {{category.name}}
+        </ion-chip>
+    </div>
 
     
-    <div class="recipeContainer">
-        <ion-card [color]="themeService.theme" class="recipe"  *ngFor="let recipe of recipes">
-            <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbilder.4ever.eu%2Fdata%2Fdownload%2Fessen-und-getranke%2Fkuchen-160246.jpg&f=1&nofb=1&ipt=bc1e7f6b6d447b0c6527d28facc926237f5e6f499676144ce9dade6a011b8e9c&ipo=images" />
-            <ion-card-header>
-                <ion-card-title>{{recipe.name}}</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-                <div *ngFor="let cat of recipe.categories">{{cat.name}}</div>
-            </ion-card-content>
-        </ion-card>
-    </div>
+<app-recipe-card-view [recipes]="recipes" [editMode]="editMode" (add)="addRecipe = $event" (rmv)="rmvRecipe = $event"></app-recipe-card-view>
 </div>

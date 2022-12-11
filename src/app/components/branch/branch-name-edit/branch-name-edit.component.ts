@@ -12,10 +12,15 @@ import { Branch } from 'src/app/model/branch.model';
 })
 export class BranchNameEditComponent implements OnInit {
 
-  @Input() public branch?: Branch;
+  @Input() 
+  public branch!: Branch;
 
-  @Output() 
-  public editMode = new EventEmitter<boolean>();
+  @Input() 
+  public editMode!: boolean;
+
+
+  @Output()
+  public changes = new EventEmitter<string|undefined>();
 
   public branchName?: string;
   public nameError?: string;
@@ -28,9 +33,7 @@ export class BranchNameEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.branch) {
       this.branchName = this.branch.name;
-    }
   }
 
   public get nameTheme(): string
@@ -41,24 +44,13 @@ export class BranchNameEditComponent implements OnInit {
       return this.themeService.opposittheme;
   };
 
-  public async editBranchName()
-  {
-    if(!this.branch) return;
-    this.loading = true;
-    this.nameError = undefined;
-    if (this.branchName){
-      try
-      {
-        const newBranch = await this.branchService.updateBranch(this.branch.id, [], [], this.branchName);
-        this.router.navigate(["/branches/" + newBranch.slug]);
-        this.editMode.emit(false);
-      } catch (err)
-      {
-        const error = err as ApiError;
-        this.nameError = error.messageForUser;
-        console.log(error.messageForUser);
-      }
-    }
-    this.loading = false;    
+  public changeName(event: any){
+    const val = event.detail.value
+    this.branchName = val;
+
+    if(val === this.branch.name)
+      this.changes.emit(undefined);
+    else
+      this.changes.emit(this.branchName)
   }
 }

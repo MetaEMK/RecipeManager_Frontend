@@ -1,0 +1,10 @@
+.recipe
+{
+    height: 50vh;
+    width: 50vh;
+}
+.selectionList
+{
+    padding: 10px;
+    overflow: scroll;
+}

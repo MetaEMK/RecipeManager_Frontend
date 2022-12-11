@@ -1,0 +1,14 @@
+
+<ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
+<ion-card [color]="themeService.theme" class="recipe">
+    <div class="selectionList">
+        <ion-list>
+            <ion-input placeholder="Nach Rezept suchen" (ionChange)="filterForRecipes($event)"></ion-input>
+            <ion-item *ngFor="let recipe of filteredRecipes">
+                <div>
+                    {{recipe.name}}
+                </div>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-card>

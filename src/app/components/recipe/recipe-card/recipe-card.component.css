@@ -1,0 +1,18 @@
+.recipe
+{
+    height: 50vh;
+    width: 50vh;
+}
+
+.removeButton
+{
+    position: absolute; 
+    align-self: flex-end;
+}
+
+.cardHeader
+{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
