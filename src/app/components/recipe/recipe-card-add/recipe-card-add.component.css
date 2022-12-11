@@ -1,10 +1,12 @@
 .recipe
 {
     height: 50vh;
-    width: 50vh;
+    width: 80vw;
 }
 .selectionList
 {
     padding: 10px;
     overflow: scroll;
+    max-height: 30vh;
+    background-color: aqua;
 }

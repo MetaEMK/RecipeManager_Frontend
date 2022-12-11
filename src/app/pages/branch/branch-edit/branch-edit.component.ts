@@ -18,13 +18,15 @@ export class BranchEditComponent implements OnInit {
 
   public branch?: Branch;
   public selectedCategories: Category[] = [];
+
+
   public recipes: Recipe[] = [];
   public selectAll: boolean = false;
 
 
 
   //edit
-  public editMode: boolean = true;
+  public editMode: boolean = false;
   public get deletePossible(): boolean {return this.branch?.recipeCategories.length === 0 && this.editMode };
   public newName: string|undefined;
   public addRecipe: number[] = [];
@@ -78,8 +80,8 @@ export class BranchEditComponent implements OnInit {
 
   public async changeStateOf(category: Category)
   {
-    
     if(this.selectedCategories.find((c) => c.id === category.id))
+    
     this.selectedCategories = this.selectedCategories.filter((c) => c.id !== category.id);
     else
     this.selectedCategories.push(category);
@@ -95,7 +97,7 @@ export class BranchEditComponent implements OnInit {
     this.selectedCategories.forEach(async (category) => {
       const cat = await this.categoryService.getCategoryById(category.id);
       cat.recipes.forEach((recipe) => {
-        if(!this.recipes.find(r => r.id === recipe.id))
+        if(!this.recipes.find(r => r.id === recipe.id) && this.branch?.recipes.find(rec => rec.id === recipe.id))
           this.recipes.push(recipe);
       });
     });
@@ -125,24 +127,29 @@ export class BranchEditComponent implements OnInit {
   {
     if(this.branch)
     {
+      console.log(this.addRecipe);
       let toast;
       try {
         await this.branchService.updateBranch(this.branch.id, this.addRecipe, this.rmvRecipe, this.newName);
         await this.getBranch(this.branch.id);
         toast = await this.toastController.create({
-          message: "Rezept wurde vom Branch entfernt.",
-          duration: 2000,
+          message: "Abteilung wurde erfolgreich geändert",
+          duration: 3000,
           position: "top"
         });
+        this.editMode = false;
       } catch (error) {
         console.log(error);
         const err = error as ApiError;
         toast = await this.toastController.create({
-          message: "was ein test" + err.messageForUser,
-          duration: 2000,
-          position: "top"
+          message: err.messageForUser + "\n" + "Es wurden keine Änderungen vorgenommen",
+          duration: 3000,
+          position: "top",
+          color: "danger"
         });
+        this.editMode = true;
       }
+      this.router.navigate(["/branches/" + this.branch.slug]);
       await toast.present();
     }
   }

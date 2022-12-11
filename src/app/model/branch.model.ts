@@ -1,4 +1,5 @@
 import { Category } from "./category.model";
+import { Recipe } from "./recipe.model";
 
 export interface Branch {
     id: number;
@@ -6,5 +7,6 @@ export interface Branch {
     slug: string;
 
     recipeCategories: Category[];
+    recipes: Recipe[];
     recipe_ids: number[];
 }

@@ -42,6 +42,7 @@ export class BranchService {
   {
     try {
       let response = await fetch(this.url_v1 + '/' + id);
+      console.log(this.url_v1 + '/' + id);
       switch (response.status) {
         case 200:
           return (await response.json()).data;

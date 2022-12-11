@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ThemeService {
 
-  public isDarkMode: boolean = false;  
+  public isDarkMode: boolean = true;  
   public get theme(): string {
     return this.isDarkMode ? 'dark' : 'light';
   }

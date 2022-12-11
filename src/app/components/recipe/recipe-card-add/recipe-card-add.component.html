@@ -1,14 +1,19 @@
 
-<ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
 <ion-card [color]="themeService.theme" class="recipe">
-    <div class="selectionList">
-        <ion-list>
-            <ion-input placeholder="Nach Rezept suchen" (ionChange)="filterForRecipes($event)"></ion-input>
-            <ion-item *ngFor="let recipe of filteredRecipes">
-                <div>
+    <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
+    <ion-card-content>
+        <ion-item mode="md" class="addBranchName" [color]="themeService.theme">
+            <ion-label [color]="themeService.opposittheme" position="floating">Abteilungsname</ion-label>
+            <ion-input [color]="themeService.opposittheme" (ionChange)="filterForRecipes($event)"></ion-input>
+        </ion-item>
+
+        <div class="selectionList">
+            <ion-list>
+                <ion-item [color]="themeService.theme" *ngFor="let recipe of filteredRecipes">
                     {{recipe.name}}
-                </div>
-            </ion-item>
-        </ion-list>
-    </div>
+                    <ion-checkbox color="primary" slot="end" [checked]="recipe.checked" (ionChange)="checkRecipe(recipe)"></ion-checkbox>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-card-content>
 </ion-card>

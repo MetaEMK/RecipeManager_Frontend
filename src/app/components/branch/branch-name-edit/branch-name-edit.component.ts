@@ -22,6 +22,7 @@ export class BranchNameEditComponent implements OnInit {
   @Output()
   public changes = new EventEmitter<string|undefined>();
 
+  public nameEdit: boolean = false;
   public branchName?: string;
   public nameError?: string;
   public loading: boolean = false;
@@ -34,6 +35,7 @@ export class BranchNameEditComponent implements OnInit {
 
   ngOnInit(): void {
       this.branchName = this.branch.name;
+      this.editMode = false;
   }
 
   public get nameTheme(): string
