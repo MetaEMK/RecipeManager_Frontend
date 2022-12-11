@@ -163,4 +163,32 @@ export class BranchEditComponent implements OnInit {
       await toast.present();
     }
   }
+
+  public async deleteBranch()
+  {
+    if(this.branch)
+    {
+      let toast;
+      this.editMode = false;
+      try {
+        await this.branchService.deleteBranch(this.branch.id);
+        this.router.navigate(["/branches"]);
+        toast = await this.toastController.create({
+          message: "Abteilung wurde erfolgreich gelöscht",
+          duration: 3000,
+          position: "top"
+        });
+      } catch (error) {
+        console.log(error);
+        const err = error as ApiError;
+        toast = await this.toastController.create({
+          message: err.messageForUser,
+          duration: 3000,
+          position: "top",
+          color: "danger"
+        });
+      }
+      await toast.present();
+    }
+  }
 }

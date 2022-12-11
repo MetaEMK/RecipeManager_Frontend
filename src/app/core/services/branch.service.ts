@@ -160,5 +160,28 @@ export class BranchService {
       throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
     }
   }
+
+  public async deleteBranch(id: number): Promise<void> {
+    let error;
+    try {
+      let response = await fetch(this.url_v1 + '/' + id, {
+        method: 'DELETE'
+      });
+      console.log(response);
+      switch (response.status) {
+        case 204:
+          await this.getAllBranches();
+          return;
+        default:
+          error = (await response.json()).error;
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+      }
+    } catch (error) {
+      if(error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
+    }
+  }
 }
 

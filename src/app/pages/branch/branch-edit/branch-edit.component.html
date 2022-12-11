@@ -4,7 +4,7 @@
             <ion-fab-button [color]="themeService.theme" (click)="updateBranch()" *ngIf="editMode">
                 <ion-icon color="success" name="save-outline"></ion-icon>
             </ion-fab-button>
-            <ion-fab-button size="great" color="danger" *ngIf="editMode">
+            <ion-fab-button size="great" color="danger" (click)="deleteBranch()" *ngIf="editMode">
                 <ion-icon color="dark" name="trash-outline"></ion-icon>
             </ion-fab-button>
             <ion-fab-button [color]="themeService.theme" (click)="editMode = !editMode">
