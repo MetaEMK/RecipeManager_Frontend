@@ -1,11 +1,12 @@
-<ion-card [color]="themeService.theme" class="recipe" *ngIf="recipe">
+<ion-card [color]="themeService.theme" class="recipe" [id]="'recipeCardId' + recipe.id" *ngIf="recipe">
     <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbilder.4ever.eu%2Fdata%2Fdownload%2Fessen-und-getranke%2Fkuchen-160246.jpg&f=1&nofb=1&ipt=bc1e7f6b6d447b0c6527d28facc926237f5e6f499676144ce9dade6a011b8e9c&ipo=images" />
     <ion-card-header>
         <div class="cardHeader">
-            <ion-fab-button class="removeButton" color="danger" *ngIf="editMode">
-                <ion-icon name="trash-outline"></ion-icon>
-            </ion-fab-button>
             <ion-card-title>{{recipe.name}}</ion-card-title>
+            <ion-fab-button class="removeButton" [color]="themeService.theme" (click)="addRecipeToRemoveList()" *ngIf="editMode">
+                <ion-icon color="danger" name="trash-outline" *ngIf="!isRemoved"></ion-icon>
+                <ion-icon name="checkmark-outline" *ngIf="isRemoved"></ion-icon>
+            </ion-fab-button>
         </div>
     </ion-card-header>
     <ion-card-content>

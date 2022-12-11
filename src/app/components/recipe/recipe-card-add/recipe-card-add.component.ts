@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { RecipeService } from 'src/app/core/services/recipe.service';
@@ -32,6 +32,7 @@ export class RecipeCardAddComponent implements OnInit {
   public filteredRecipes: FilteredRecipe[] = [];
   public loading = false;
   public isTriggered = true;
+  public recipeFilterValue?: string;
 
   constructor(
     public themeService: ThemeService,
@@ -40,9 +41,8 @@ export class RecipeCardAddComponent implements OnInit {
     public categoryService: CategoryService,
   ) { }
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit() {;
     await this.getRecipesWithBranch();
-
   }
 
   public async getRecipesWithBranch(): Promise<void> {
@@ -64,14 +64,14 @@ export class RecipeCardAddComponent implements OnInit {
   }
 
   public filterForRecipes(event: any): void {
-    const filterValue = event.target.value.toLowerCase();
+    this.recipeFilterValue = event.target.value?.toLowerCase();
+    const filterValue = this.recipeFilterValue
     const pattern = ".*" + filterValue + ".*";
     this.filteredRecipes = this.recipes.filter(recipe => recipe.name.toLowerCase().match(pattern));
     this.filteredRecipes.sort((a, b) => a.checked === b.checked ? 0 : a.checked ? -1 : 1);
   }
 
   public checkRecipe(recipe: FilteredRecipe){
-    console.log(recipe);
     let rec = this.filteredRecipes.find(r => r.id === recipe.id);
     if(!rec) return;
     rec.checked = !rec.checked;
@@ -83,7 +83,25 @@ export class RecipeCardAddComponent implements OnInit {
       this.filteredRecipes.sort((a, b) => a.checked === b.checked ? 0 : a.checked ? -1 : 1);
       
       this.recipesIdsToAdd.emit(this.idsToAdd);
-  
+  }
+
+  public setFocus(status: boolean){
+    if(status){
+      this.recipeFilterValue = "";
+      this.setFilterToAll();
+    }
+    else{
+      this.recipeFilterValue = undefined;
+      this.setFilterToChecked();
+    }
+  }
+
+  private setFilterToAll(){
+    this.filteredRecipes = this.recipes;
+  }
+
+  private setFilterToChecked(){
+    this.filteredRecipes = this.recipes.filter(recipe => recipe.checked);
   }
 
 }

@@ -1,5 +1,5 @@
 
 <div class="recipeContainer">
-    <app-recipe-card-add *ngIf="editMode" (recipesIdsToAdd)="addRecipeToList($event)" [branch]="branch" [category]="category"></app-recipe-card-add>
-    <app-recipe-card *ngFor="let recipe of recipes" [recipe]="recipe" [editMode]="editMode"></app-recipe-card>
+    <app-recipe-card-add *ngIf="editMode" (recipesIdsToAdd)="addRecipeToAddList($event)" [branch]="branch" [category]="category"></app-recipe-card-add>
+    <app-recipe-card  (change)="addRecipeToRemoveList($event)" [recipe]="recipe" [editMode]="editMode" *ngFor="let recipe of recipes"></app-recipe-card>
 </div>

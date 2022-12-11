@@ -127,29 +127,39 @@ export class BranchEditComponent implements OnInit {
   {
     if(this.branch)
     {
-      console.log(this.addRecipe);
       let toast;
-      try {
-        await this.branchService.updateBranch(this.branch.id, this.addRecipe, this.rmvRecipe, this.newName);
-        await this.getBranch(this.branch.id);
+      if(!this.newName && this.addRecipe.length === 0 && this.rmvRecipe.length === 0) {
         toast = await this.toastController.create({
-          message: "Abteilung wurde erfolgreich geändert",
-          duration: 3000,
-          position: "top"
-        });
-        this.editMode = false;
-      } catch (error) {
-        console.log(error);
-        const err = error as ApiError;
-        toast = await this.toastController.create({
-          message: err.messageForUser + "\n" + "Es wurden keine Änderungen vorgenommen",
+          message: "Es wurden keine Änderungen vorgenommen",
           duration: 3000,
           position: "top",
-          color: "danger"
         });
-        this.editMode = true;
+        this.editMode = false;
       }
-      this.router.navigate(["/branches/" + this.branch.slug]);
+      else
+      {
+        try {
+          await this.branchService.updateBranch(this.branch.id, this.addRecipe, this.rmvRecipe, this.newName);
+          await this.getBranch(this.branch.id);
+          toast = await this.toastController.create({
+            message: "Abteilung wurde erfolgreich geändert",
+            duration: 3000,
+            position: "top"
+          });
+          this.editMode = false;
+          this.router.navigate(["/branches/" + this.branch.slug]);
+        } catch (error) {
+          console.log(error);
+          const err = error as ApiError;
+          toast = await this.toastController.create({
+            message: err.messageForUser + "\n" + "Es wurden keine Änderungen vorgenommen",
+            duration: 3000,
+            position: "top",
+            color: "danger"
+          });
+          this.editMode = true;
+        }
+      }
       await toast.present();
     }
   }

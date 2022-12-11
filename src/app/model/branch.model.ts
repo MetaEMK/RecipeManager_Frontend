@@ -8,5 +8,4 @@ export interface Branch {
 
     recipeCategories: Category[];
     recipes: Recipe[];
-    recipe_ids: number[];
 }
