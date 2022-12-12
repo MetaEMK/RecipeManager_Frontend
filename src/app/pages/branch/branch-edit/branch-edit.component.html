@@ -1,3 +1,4 @@
+<ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
 <div class="container" *ngIf="branch">
     <div class="headerContainer">
         <div class="editBox">
@@ -12,17 +13,16 @@
                 <ion-icon color="danger" name="close-outline" *ngIf="editMode"></ion-icon>
             </ion-fab-button>
         </div>
-    <app-branch-name-edit [branch]="branch" [editMode]="editMode" (changes)="newName = $event"></app-branch-name-edit>
+        <app-branch-name-edit [branch]="branch" [editMode]="editMode" (changes)="newName = $event"></app-branch-name-edit>
     </div>
     
-
+    
     <div class="categoryContainer">
         <ion-chip [color]="selectAll ? 'primary': themeService.opposittheme" (click)="changeStateOfAll()">Alle auswählen</ion-chip>
         <ion-chip  (click)="changeStateOf(category)" [color]="getState(category)" *ngFor="let category of branch.recipeCategories">
             {{category.name}}
         </ion-chip>
     </div>
-
     
-<app-recipe-card-view [recipes]="recipes" [branch]="branch" [editMode]="editMode" (add)="addRecipe = $event" (rmv)="rmvRecipe = $event"></app-recipe-card-view>
+    <app-recipe-card-view [recipes]="recipes" [branch]="branch" [editMode]="editMode" (add)="addRecipe = $event" (rmv)="rmvRecipe = $event"></app-recipe-card-view>
 </div>

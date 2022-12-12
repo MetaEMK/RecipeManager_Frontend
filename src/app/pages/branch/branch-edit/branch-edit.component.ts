@@ -16,6 +16,8 @@ import { Recipe } from 'src/app/model/recipe.model';
 })
 export class BranchEditComponent implements OnInit {
 
+  public loading: boolean = false;
+
   public branch?: Branch;
   public selectedCategories: Category[] = [];
 
@@ -43,6 +45,7 @@ export class BranchEditComponent implements OnInit {
 
   ngOnInit(): void
   {
+    this.loading = true;
     const slug = this.route.snapshot.paramMap.get('slug');
     if(slug ) {
       try {
@@ -59,6 +62,7 @@ export class BranchEditComponent implements OnInit {
     }
     else
       this.router.navigate(["/branches"]);
+    this.loading = false;
   }
 
   public async getBranch(id: number)
@@ -91,16 +95,18 @@ export class BranchEditComponent implements OnInit {
     else this.selectAll=true;
   }
 
-  public changeStateOfRecipe()
+  public async changeStateOfRecipe()
   {
+    this.loading = true;
     this.recipes = [];
-    this.selectedCategories.forEach(async (category) => {
+    await this.selectedCategories.forEach(async (category) => {
       const cat = await this.categoryService.getCategoryById(category.id);
       cat.recipes.forEach((recipe) => {
         if(!this.recipes.find(r => r.id === recipe.id) && this.branch?.recipes.find(rec => rec.id === recipe.id))
           this.recipes.push(recipe);
       });
     });
+    this.loading = false;
   }
 
   public async changeStateOfAll()
@@ -125,6 +131,7 @@ export class BranchEditComponent implements OnInit {
 
   public async updateBranch()
   {
+    this.loading = true;
     if(this.branch)
     {
       let toast;
@@ -161,11 +168,13 @@ export class BranchEditComponent implements OnInit {
         }
       }
       await toast.present();
+      this.loading = false;
     }
   }
 
   public async deleteBranch()
   {
+    this.loading = true;
     if(this.branch)
     {
       let toast;
@@ -190,5 +199,6 @@ export class BranchEditComponent implements OnInit {
       }
       await toast.present();
     }
+    this.loading = false;
   }
 }
