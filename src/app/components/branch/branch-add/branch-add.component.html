@@ -6,9 +6,8 @@
     
     <ion-card-content>
         <ion-item mode="md" class="addBranchName" [color]="themeService.theme">
-            <ion-label [color]="nameTheme" position="floating">Abteilungsname</ion-label>
-            <ion-input [color]="nameTheme" [(ngModel)]="branchName"></ion-input>
-            <ion-note color="danger" slot="end" *ngIf="nameError">{{nameError}}</ion-note>
+            <ion-label [color]="themeService.opposittheme" position="floating">Abteilungsname</ion-label>
+            <ion-input [color]="themeService.opposittheme" [(ngModel)]="branchName"></ion-input>
             
             <ion-fab-button slot="end" (click)="addBranch()">
                 <ion-icon name="checkmark-outline"></ion-icon>

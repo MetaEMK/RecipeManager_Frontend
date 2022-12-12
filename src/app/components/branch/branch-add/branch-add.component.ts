@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { ThemeService } from 'src/app/core/services/theme.service';
 import { ApiError } from 'src/app/model/apierror.model';
@@ -12,21 +13,13 @@ export class BranchAddComponent implements OnInit
 {
 
   public branchName?: string;
-  public nameError?: string;
   public loading: boolean = false;
 
   constructor(
     public themeService: ThemeService,
-    public branchService: BranchService
+    public branchService: BranchService,
+    public toastController: ToastController
   ) { }
-
-  public get nameTheme(): string
-  {
-    if (this.nameError)
-      return "danger";
-    else
-      return this.themeService.opposittheme;
-  };
 
   ngOnInit(): void
   {
@@ -34,20 +27,31 @@ export class BranchAddComponent implements OnInit
 
   public async addBranch()
   {
+    let toast;
     this.loading = true;
-    this.nameError = undefined;
     if (this.branchName){
       try
       {
         await this.branchService.createBranch(this.branchName);
-        console.log("test");
+        toast = await this.toastController.create({
+          position: 'top',
+          message: 'Abteilung erfolgreich hinzugefügt',
+          duration: 3000,
+          color: 'success'
+        });
       } catch (err)
       {
         const error = err as ApiError;
-        this.nameError = error.messageForUser;
-        console.log(error.messageForUser);
+        toast = await this.toastController.create({
+          position: 'top',
+          message: error.messageForUser,
+          duration: 3000,
+          color: 'danger'
+        });
       }
+      toast.present();
     }
+
     this.loading = false;
   }
 }

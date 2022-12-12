@@ -162,7 +162,8 @@ export class BranchEditComponent implements OnInit {
           toast = await this.toastController.create({
             message: "Abteilung wurde erfolgreich geändert",
             duration: 3000,
-            position: "top"
+            position: "top",
+            color: "success"  
           });
           await this.changeStateOfRecipe();
         } catch (error) {
@@ -195,7 +196,8 @@ export class BranchEditComponent implements OnInit {
         toast = await this.toastController.create({
           message: "Abteilung wurde erfolgreich gelöscht",
           duration: 3000,
-          position: "top"
+          position: "top",
+          color: "success"
         });
       } catch (error) {
         console.log(error);
