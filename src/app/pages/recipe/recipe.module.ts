@@ -7,7 +7,7 @@ import { RecipeCardComponent } from 'src/app/components/recipe/recipe-card/recip
 import { RecipeCardViewComponent } from 'src/app/components/recipe/recipe-card-view/recipe-card-view.component';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { ThemeService } from 'src/app/core/services/theme.service';
     })
   ],
   providers: [
-    ThemeService
+    SettingsService
   ],
   exports: [
     RecipeCardComponent,

@@ -82,7 +82,7 @@ export class BranchService implements GeneralService<Branch> {
 
 
   public async create(name: string): Promise<Branch> {
-    let error: any;
+    let error: ApiError;
     try {
       let response = await fetch(this.url_v1, {
         method: 'POST',
@@ -101,10 +101,10 @@ export class BranchService implements GeneralService<Branch> {
           return (await response.json()).data;
         case 409:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.code, error.type, 'Es existiert bereits eine Abteilung mit diesem Namen.' , error);
+          throw new ApiError(response.status, error.errorCode, error.type, 'Es existiert bereits eine Abteilung mit diesem Namen.' , error);
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     } catch (error) {
       if(error instanceof ApiError) {
@@ -129,6 +129,7 @@ export class BranchService implements GeneralService<Branch> {
         rmv: rmvRecipes
       };
 
+      console.log(bodyObj);
     try {
       let response = await fetch(this.url_v1 + '/' + id, {
         method: 'PATCH',

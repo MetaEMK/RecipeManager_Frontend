@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { Recipe } from 'src/app/model/recipe.model';
 import { RecipeCardViewEvent } from '../recipe-card-view/recipe-card-view.component';
 
@@ -20,7 +20,7 @@ export class RecipeCardComponent implements OnChanges {
   public isRemoved: boolean = false;
 
   constructor(
-    public themeService: ThemeService
+    public themeService: SettingsService
   ) { }
 
   ngOnChanges(event?: any): void {

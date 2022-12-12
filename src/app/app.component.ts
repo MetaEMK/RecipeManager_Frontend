@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from './core/services/theme.service';
+import { SettingsService } from './core/services/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    public themeService: ThemeService
+    public themeService: SettingsService
   ) {}
 
   async ngOnInit(): Promise<void> {

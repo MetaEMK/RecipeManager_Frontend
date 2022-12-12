@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CategoryAddModalComponent } from 'src/app/components/category/category-add-modal/category-add-modal.component';
 import { CategoryService } from 'src/app/core/services/category.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
 
@@ -22,7 +22,7 @@ export class CategoryOverviewComponent implements OnInit {
   public newCategoryName: string|undefined;
 
   constructor(
-    public themeService: ThemeService,
+    public themeService: SettingsService,
     public toastController: ToastController,
     public categoryService: CategoryService,
     public router: Router,

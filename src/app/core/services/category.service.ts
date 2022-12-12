@@ -130,7 +130,7 @@ export class CategoryService implements GeneralService<Category> {
     {
       rmv: rmvRecipes
     }
-
+    console.log(bodyObj);
     try {
       const response = await fetch(this.url_v1 + '/' + id, {
         method: 'PATCH',

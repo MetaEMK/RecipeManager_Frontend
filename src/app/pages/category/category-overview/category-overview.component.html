@@ -1,9 +1,9 @@
 <h1>Kategorieübersicht</h1>
 <div class="container">
     <div class="controlContainer">
-        <ion-item mode="md" fill="outline">
-            <ion-label [color]="themeService.opposittheme" position="floating">Kategorie suchen</ion-label>
-            <ion-input [color]="themeService.opposittheme" clearInput="true" (ionChange)="filterCategories($event)"></ion-input>
+        <ion-item mode="md" fill="outline" [color]="themeService.theme">
+            <ion-label [color]="themeService.theme" position="floating">Kategorie suchen</ion-label>
+            <ion-input [color]="themeService.theme" clearInput="true" (ionChange)="filterCategories($event)"></ion-input>
         </ion-item>
     </div>
     

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { CategoryService } from 'src/app/core/services/category.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
 import { Recipe } from 'src/app/model/recipe.model';
@@ -28,7 +28,7 @@ export class CategoryDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private categoryService: CategoryService,
     private router: Router,
-    public themeService: ThemeService,
+    public settingsService: SettingsService,
     private toastController: ToastController
   ) { }
 
@@ -94,6 +94,8 @@ export class CategoryDetailsComponent implements OnInit {
         else
         {
           try {
+            console.log(this.addRecipes);
+            console.log(this.rmvRecipes);
             await this.categoryService.update(this.category.id, this.addRecipes, this.rmvRecipes, this.newName);
             await this.getCategory(this.category.id);
             this.editMode = false;

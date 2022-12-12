@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BranchService } from 'src/app/core/services/branch.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { Branch } from 'src/app/model/branch.model';
 
 @Component({
@@ -16,7 +16,7 @@ export class BranchOverviewComponent implements OnInit {
     constructor(
       public branchService: BranchService,
       private router: Router,
-      public themeService: ThemeService
+      public themeService: SettingsService
     ) { }
   
     ngOnInit(): void {

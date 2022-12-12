@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { RecipeService } from 'src/app/core/services/recipe.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
 import { Recipe } from 'src/app/model/recipe.model';
@@ -35,7 +35,7 @@ export class RecipeCardAddComponent implements OnInit {
   public recipeFilterValue?: string;
 
   constructor(
-    public themeService: ThemeService,
+    public themeService: SettingsService,
     public recipeService: RecipeService,
     public branchService: BranchService,
     public categoryService: CategoryService,

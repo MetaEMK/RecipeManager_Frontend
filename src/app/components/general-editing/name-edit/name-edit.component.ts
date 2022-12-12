@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { GeneralService } from 'src/app/core/services/generalService';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { GeneralModel } from 'src/app/model/generalModel';
 
 @Component({
@@ -30,7 +30,7 @@ export class NameEditComponent {
   public loading: boolean = false;
 
   constructor(
-    public themeService: ThemeService,
+    public themeService: SettingsService,
     public router: Router,
   ) { }
 

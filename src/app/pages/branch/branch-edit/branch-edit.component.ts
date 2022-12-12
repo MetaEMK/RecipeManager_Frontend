@@ -3,7 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { Query, QueryItem } from 'src/app/core/services/query';
+import { RecipeService } from 'src/app/core/services/recipe.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
@@ -22,7 +24,7 @@ export class BranchEditComponent implements OnInit {
   public selectedCategories: Category[] = [];
 
 
-  public recipes: Recipe[] = [];
+  public filteredRecipes: Recipe[] = [];
   public selectAll: boolean = false;
 
 
@@ -37,20 +39,21 @@ export class BranchEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private branchService: BranchService,
-    private categoryService: CategoryService,
     private router: Router,
-    public themeService: ThemeService,
-    private toastController: ToastController
+    public themeService: SettingsService,
+    private toastController: ToastController,
+    public recipeService: RecipeService
   ) { }
 
-  ngOnInit(): void
+  ngOnInit()
   {
     this.loading = true;
     const slug = this.route.snapshot.paramMap.get('slug');
     if(slug ) {
       try {
-        this.branchService.getBySlug(slug).then((branch) => {
+        this.branchService.getBySlug(slug).then(async (branch) => {
           this.branch = branch;
+          await this.getBranch(branch.id);
         })
         .catch((error) => {
           console.log(error);
@@ -100,16 +103,23 @@ export class BranchEditComponent implements OnInit {
 
   public async changeStateOfRecipe()
   {
-    this.recipes = [];
-    this.selectedCategories.forEach(async (category) => {
-      this.loading = true;
-      const cat = await this.categoryService.getById(category.id);
-      cat.recipes.forEach(async (recipe) => {
-        if(!this.recipes.find(r => r.id === recipe.id) && this.branch?.recipes.find(rec => rec.id === recipe.id))
-        this.recipes.push(recipe);
+    this.loading = true;
+    let filRec: Recipe[] = [];
+    for(let category of this.selectedCategories)
+    {
+      
+      let query = new Query();
+      query.addQueryItem(new QueryItem("category", category.id.toString()));
+      if(this.branch?.id) query.addQueryItem(new QueryItem("branch", this.branch.id.toString()));
+      
+      let recipes = await this.recipeService.getByQuery(query);
+      recipes.forEach((recipe) => {
+        if(!filRec.find((r) => r.id === recipe.id))
+          filRec.push(recipe);
       });
-        this.loading = false;
-    });
+    }
+    this.filteredRecipes = filRec;
+    this.loading = false;
   }
 
   public async changeStateOfAll()
@@ -120,7 +130,7 @@ export class BranchEditComponent implements OnInit {
     if(this.selectAll == true)
     {
       this.selectedCategories = [];
-      this.recipes = [];
+      this.filteredRecipes = [];
     }
     else
     {

@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FilterByNameComponent } from './filter-by-name/filter-by-name.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    FilterByNameComponent
+  ],
   imports: [
     CommonModule
   ]

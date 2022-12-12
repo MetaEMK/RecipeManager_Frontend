@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CategoryService } from 'src/app/core/services/category.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 
 @Component({
@@ -15,7 +15,7 @@ export class CategoryAddModalComponent {
   public loading: boolean = false;
 
   constructor(
-    public themeService: ThemeService,
+    public themeService: SettingsService,
     public categoryService: CategoryService,
     public modalCtrl: ModalController,
     public toastCtrl: ToastController

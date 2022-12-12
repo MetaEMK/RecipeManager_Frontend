@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { BranchService } from 'src/app/core/services/branch.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 
 @Component({
@@ -16,7 +16,7 @@ export class BranchAddComponent implements OnInit
   public loading: boolean = false;
 
   constructor(
-    public themeService: ThemeService,
+    public themeService: SettingsService,
     public branchService: BranchService,
     public toastController: ToastController
   ) { }
