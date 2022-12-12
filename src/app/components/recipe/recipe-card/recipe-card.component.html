@@ -1,15 +1,19 @@
 <ion-card [color]="themeService.theme" class="recipe" [id]="'recipeCardId' + recipe.id" *ngIf="recipe">
-    <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbilder.4ever.eu%2Fdata%2Fdownload%2Fessen-und-getranke%2Fkuchen-160246.jpg&f=1&nofb=1&ipt=bc1e7f6b6d447b0c6527d28facc926237f5e6f499676144ce9dade6a011b8e9c&ipo=images" />
-    <ion-card-header>
-        <div class="cardHeader">
-            <ion-card-title>{{recipe.name}}</ion-card-title>
-            <ion-fab-button class="removeButton" [color]="themeService.theme" (click)="addRecipeToRemoveList()" *ngIf="editMode">
-                <ion-icon color="danger" name="trash-outline" *ngIf="!isRemoved"></ion-icon>
-                <ion-icon name="checkmark-outline" *ngIf="isRemoved"></ion-icon>
-            </ion-fab-button>
+    <div class="test">
+        <div class="imagetest">
+            <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1080,h_1487/https://naschenmitdererdbeerqueen.de/wp-content/uploads/2021/01/Rezept-veganer-Kuchen-mit-Apfelmus-und-Zimt-und-Zuckerguss-1080x1487.jpg" />
+
         </div>
-    </ion-card-header>
-    <ion-card-content>
-        <div *ngFor="let cat of recipe.categories">{{cat.name}}</div>
-    </ion-card-content>
+        <div class="infocontainer">
+            <ion-content [color]="themeService.theme">
+                <div class="cardHeader">
+                    <ion-card-title>{{recipe.name}}</ion-card-title>
+                    <ion-fab-button class="removeButton" [color]="themeService.theme" (click)="addRecipeToRemoveList()" *ngIf="editMode">
+                        <ion-icon color="danger" name="trash-outline" *ngIf="!isRemoved"></ion-icon>
+                        <ion-icon name="checkmark-outline" *ngIf="isRemoved"></ion-icon>
+                    </ion-fab-button>
+                </div>
+            </ion-content>
+        </div>
+    </div>
 </ion-card>
