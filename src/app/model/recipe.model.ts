@@ -1,10 +1,9 @@
 import { Branch } from "./branch.model";
 import { Category } from "./category.model";
+import { GeneralModel } from "./generalModel";
 
 
-export interface Recipe {
-    id: number;
-    name: string;
+export interface Recipe extends GeneralModel {
     description: string;
     image_path: string;
 

@@ -1,0 +1,20 @@
+<ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
+<div class="container" *ngIf="category">
+    <div class="headerContainer">
+        <div class="editBox">
+            <ion-fab-button [color]="themeService.theme" (click)="updateCategory()" *ngIf="editMode">
+                <ion-icon color="success" name="save-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button size="great" color="danger" (click)="deleteCategory()" *ngIf="editMode">
+                <ion-icon color="dark" name="trash-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button [color]="themeService.theme" (click)="editMode = !editMode">
+                <ion-icon [color]="themeService.opposittheme" name="pencil-outline" *ngIf="!editMode"></ion-icon>
+                <ion-icon color="danger" name="close-outline" *ngIf="editMode"></ion-icon>
+            </ion-fab-button>
+        </div>
+        <app-name-edit [item]="category" [editMode]="editMode" [title]="'Kategorie'" (changes)="newName"></app-name-edit>
+    </div>
+
+    <app-recipe-card-view [recipes]="recipes" [category]="category" [editMode]="editMode" (add)="addRecipes = $event" (rmv)="rmvRecipes = $event"></app-recipe-card-view>
+</div>

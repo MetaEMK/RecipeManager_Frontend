@@ -42,15 +42,33 @@ export class RecipeCardAddComponent implements OnInit {
   ) { }
 
   async ngOnInit() {;
-    await this.getRecipesWithBranch();
+    if(this.branch) await this.getRecipesWithBranch();
+    else if(this.category) await this.getRecipesWithCategory();
+  }
+
+  public async getRecipesWithCategory(): Promise<void> {
+    this.loading = true;
+    if(this.category?.id === undefined) return;
+    try {
+      let recipeCategory= (await this.categoryService.getById(this.category.id)).recipes;
+      let allRecipes = (await this.recipeService.getAll());
+
+      allRecipes.forEach(recipe => {
+        if(!recipeCategory.find(rc => rc.id === recipe.id))
+          this.recipes.push({id: recipe.id, name: recipe.name, checked: false});
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    this.loading = false;
   }
 
   public async getRecipesWithBranch(): Promise<void> {
     this.loading = true;
     if(this.branch?.id === undefined) return;
     try {
-      let recipeCategoryInBranch = (await this.branchService.getBranchById(this.branch.id)).recipes;
-      let allRecipes = (await this.recipeService.getAllRecipes());
+      let recipeCategoryInBranch = (await this.branchService.getById(this.branch.id)).recipes;
+      let allRecipes = (await this.recipeService.getAll());
 
       allRecipes.forEach(recipe => {
         if(!recipeCategoryInBranch.find(rc => rc.id === recipe.id))

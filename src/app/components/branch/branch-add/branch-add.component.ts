@@ -32,7 +32,7 @@ export class BranchAddComponent implements OnInit
     if (this.branchName){
       try
       {
-        await this.branchService.createBranch(this.branchName);
+        await this.branchService.create(this.branchName);
         toast = await this.toastController.create({
           position: 'top',
           message: 'Abteilung erfolgreich hinzugefügt',

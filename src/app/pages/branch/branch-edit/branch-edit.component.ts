@@ -49,7 +49,7 @@ export class BranchEditComponent implements OnInit {
     const slug = this.route.snapshot.paramMap.get('slug');
     if(slug ) {
       try {
-        this.branchService.getBranchBySlug(slug).then((branch) => {
+        this.branchService.getBySlug(slug).then((branch) => {
           this.branch = branch;
         })
         .catch((error) => {
@@ -68,7 +68,7 @@ export class BranchEditComponent implements OnInit {
   public async getBranch(id: number)
   {
     try {
-      this.branch = await this.branchService.getBranchById(id);
+      this.branch = await this.branchService.getById(id);
     } catch (error) {
       console.log(error);
     }
@@ -103,7 +103,7 @@ export class BranchEditComponent implements OnInit {
     this.recipes = [];
     this.selectedCategories.forEach(async (category) => {
       this.loading = true;
-      const cat = await this.categoryService.getCategoryById(category.id);
+      const cat = await this.categoryService.getById(category.id);
       cat.recipes.forEach(async (recipe) => {
         if(!this.recipes.find(r => r.id === recipe.id) && this.branch?.recipes.find(rec => rec.id === recipe.id))
         this.recipes.push(recipe);
@@ -154,7 +154,7 @@ export class BranchEditComponent implements OnInit {
       else
       {
         try {
-          await this.branchService.updateBranch(this.branch.id, this.addRecipe, this.rmvRecipe, this.newName);
+          await this.branchService.update(this.branch.id, this.addRecipe, this.rmvRecipe, this.newName);
           await this.getBranch(this.branch.id);
           this.editMode = false;
           this.router.navigate(["/branches/" + this.branch.slug]);
@@ -191,7 +191,7 @@ export class BranchEditComponent implements OnInit {
       let toast;
       this.editMode = false;
       try {
-        await this.branchService.deleteBranch(this.branch.id);
+        await this.branchService.delete(this.branch.id);
         this.router.navigate(["/branches"]);
         toast = await this.toastController.create({
           message: "Abteilung wurde erfolgreich gelöscht",

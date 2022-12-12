@@ -13,7 +13,7 @@
                 <ion-icon color="danger" name="close-outline" *ngIf="editMode"></ion-icon>
             </ion-fab-button>
         </div>
-        <app-branch-name-edit [branch]="branch" [editMode]="editMode" (changes)="newName = $event"></app-branch-name-edit>
+        <app-name-edit title="Abteilung" [item]="branch" [editMode]="editMode" (changes)="newName = $event"></app-name-edit>
     </div>
     
     

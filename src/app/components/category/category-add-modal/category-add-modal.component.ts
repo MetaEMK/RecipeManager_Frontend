@@ -31,7 +31,7 @@ export class CategoryAddModalComponent {
     if (this.newCategoryName){
       try
       {
-        await this.categoryService.createCategory(this.newCategoryName);
+        await this.categoryService.create(this.newCategoryName);
         toast = await this.toastCtrl.create({
           position: 'top',
           message: 'Category erfolgreich hinzugefügt',

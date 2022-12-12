@@ -30,9 +30,8 @@ export class CategoryOverviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.categoryService.getAllCategories().then((categories) => {
+    this.categoryService.getAll().then((categories) => {
       this.filteredCategories = categories;
-      console.log(this.filteredCategories);
     })
     .catch((error) => {
       console.log(error);

@@ -21,7 +21,7 @@ export class BranchOverviewComponent implements OnInit {
   
     ngOnInit(): void {
       console.log("test123");
-      this.branchService.getAllBranches();
+      this.branchService.getAll();
       }
 
     public navigateToBranch(branch: Branch)
