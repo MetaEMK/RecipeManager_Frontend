@@ -24,11 +24,11 @@ export class RecipeService {
       const response = await fetch(this.url_v1);
       switch (response.status) {
         case 200:
-          const test = await response.json();
+          const test = (await response.json()).data;
           this._recipes = test;
           return this._recipes;
         default:
-          const error = test.error;
+          const error = (await response.json()).error;
           console.log(error);
           throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
