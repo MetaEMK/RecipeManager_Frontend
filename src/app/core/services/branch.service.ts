@@ -136,10 +136,9 @@ export class BranchService {
         },
         body: JSON.stringify(bodyObj)
       });
-      console.log(response);
+
       switch (response.status) {
         case 200:
-          console.log(response);
           await this.getAllBranches();
           return (await response.json()).data;
         

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { ThemeService } from 'src/app/core/services/theme.service';
@@ -10,7 +10,7 @@ import { Branch } from 'src/app/model/branch.model';
   templateUrl: './branch-name-edit.component.html',
   styleUrls: ['./branch-name-edit.component.css']
 })
-export class BranchNameEditComponent implements OnInit {
+export class BranchNameEditComponent implements OnInit, OnChanges {
 
   @Input() 
   public branch!: Branch;
@@ -36,6 +36,15 @@ export class BranchNameEditComponent implements OnInit {
   ngOnInit(): void {
       this.branchName = this.branch.name;
       this.editMode = false;
+  }
+
+  ngOnChanges(changes: any): void
+  {
+    if(!changes.editMode.currentValue){
+      this.nameEdit = false;
+      this.nameError = undefined;
+      this.branchName = this.branch.name;
+    }
   }
 
   public get nameTheme(): string

@@ -84,6 +84,7 @@ export class BranchEditComponent implements OnInit {
 
   public async changeStateOf(category: Category)
   {
+    this.loading = true;
     if(this.selectedCategories.find((c) => c.id === category.id))
     
     this.selectedCategories = this.selectedCategories.filter((c) => c.id !== category.id);
@@ -93,24 +94,27 @@ export class BranchEditComponent implements OnInit {
     this.changeStateOfRecipe();
     if(this.selectedCategories.length !== this.branch?.recipeCategories.length) this.selectAll=false;
     else this.selectAll=true;
+
+    this.loading = false;
   }
 
   public async changeStateOfRecipe()
   {
-    this.loading = true;
     this.recipes = [];
-    await this.selectedCategories.forEach(async (category) => {
+    this.selectedCategories.forEach(async (category) => {
+      this.loading = true;
       const cat = await this.categoryService.getCategoryById(category.id);
-      cat.recipes.forEach((recipe) => {
+      cat.recipes.forEach(async (recipe) => {
         if(!this.recipes.find(r => r.id === recipe.id) && this.branch?.recipes.find(rec => rec.id === recipe.id))
-          this.recipes.push(recipe);
+        this.recipes.push(recipe);
       });
+        this.loading = false;
     });
-    this.loading = false;
   }
 
   public async changeStateOfAll()
   {
+    this.loading = true;
     console.log(this.newName);
 
     if(this.selectAll == true)
@@ -124,9 +128,13 @@ export class BranchEditComponent implements OnInit {
     }
 
     this.selectAll = !this.selectAll;
+    this.loading = false;
     this.changeStateOfRecipe();
   }
 
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
 
 
   public async updateBranch()
@@ -148,13 +156,15 @@ export class BranchEditComponent implements OnInit {
         try {
           await this.branchService.updateBranch(this.branch.id, this.addRecipe, this.rmvRecipe, this.newName);
           await this.getBranch(this.branch.id);
+          this.editMode = false;
+          this.router.navigate(["/branches/" + this.branch.slug]);
+          this.editMode = false;
           toast = await this.toastController.create({
             message: "Abteilung wurde erfolgreich geändert",
             duration: 3000,
             position: "top"
           });
-          this.editMode = false;
-          this.router.navigate(["/branches/" + this.branch.slug]);
+          await this.changeStateOfRecipe();
         } catch (error) {
           console.log(error);
           const err = error as ApiError;

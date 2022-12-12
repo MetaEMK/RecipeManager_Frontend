@@ -4,9 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IonicModule } from '@ionic/angular';
-import { RecipeCardComponent } from './components/recipe/recipe-card/recipe-card.component';
-import { RecipeCardViewComponent } from './components/recipe/recipe-card-view/recipe-card-view.component';
-import { RecipeCardAddComponent } from './components/recipe/recipe-card-add/recipe-card-add.component';
+import { CategoryAddModalComponent } from './components/category/category-add-modal/category-add-modal.component';
 
 @NgModule({
   declarations: [

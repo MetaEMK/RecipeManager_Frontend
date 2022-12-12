@@ -54,4 +54,38 @@ export class CategoryService {
       throw new ApiError(500, 'API_ERROR', 'API_CATEGORY_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
     }
   }
+
+  public async createCategory(name: string): Promise<Category>
+  {
+    let error: any;
+    try {
+      const response = await fetch(this.url_v1, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name
+        })
+      });
+      switch (response.status) {
+        case 201:
+          const category = (await response.json()).data;
+          this._categories.push(category);
+          return category;
+
+        case 409:
+          error = (await response.json()).error;
+          throw new ApiError(response.status, error.code, error.type, 'Es existiert bereits eine Kategorie mit diesem Namen.', error);
+        default:
+          error = (await response.json()).error;
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+      }
+    } catch (error) {
+      if(error instanceof ApiError)
+        throw error as ApiError;
+      else
+        throw new ApiError(500, 'API_ERROR', 'API_CATEGORY_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
+    }
+  }
 }

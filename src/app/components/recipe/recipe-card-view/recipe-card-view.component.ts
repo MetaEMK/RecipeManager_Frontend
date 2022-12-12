@@ -40,27 +40,18 @@ export class RecipeCardViewComponent implements OnChanges {
     {
       this.addRecipes = [];
       this.rmvRecipes = [];
+      this.add.emit(this.addRecipes);
+      this.rmv.emit(this.rmvRecipes);
     }
   }
 
-  public addRecipe(event: number) {
-    if(this.addRecipes.includes(event)) {
-      this.addRecipes.push(event);
-    }
-    this.add.emit(this.addRecipes);
-  }
-
-  public rmvRecipe(event: number) {
-    if(this.rmvRecipes.includes(event)) {
-      this.rmvRecipes.push(event);
-    }
-    this.add.emit(this.rmvRecipes);
-  }
 
   public addRecipeToAddList(event: any){
     this.addRecipes = event;
     this.add.emit(this.addRecipes);
+
   }
+
   public addRecipeToRemoveList(event: RecipeCardViewEvent){
     if(event.action === "addToList")
       this.rmvRecipes.push(event.id);
