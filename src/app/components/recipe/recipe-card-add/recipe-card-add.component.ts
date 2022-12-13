@@ -52,7 +52,6 @@ export class RecipeCardAddComponent implements OnInit {
     try {
       let recipeCategory= (await this.categoryService.getById(this.category.id)).recipes;
       let allRecipes = (await this.recipeService.getAll());
-
       allRecipes.forEach(recipe => {
         if(!recipeCategory.find(rc => rc.id === recipe.id))
           this.recipes.push({id: recipe.id, name: recipe.name, checked: false});

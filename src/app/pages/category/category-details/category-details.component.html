@@ -13,7 +13,7 @@
                 <ion-icon color="danger" name="close-outline" *ngIf="editMode"></ion-icon>
             </ion-fab-button>
         </div>
-        <app-name-edit [item]="category" [editMode]="editMode" [title]="'Kategorie'" (changes)="newName"></app-name-edit>
+        <app-name-edit [item]="category" [editMode]="editMode" [title]="'Kategorie'" (changes)="newName = $event"></app-name-edit>
     </div>
 
     <app-recipe-card-view [recipes]="recipes" [category]="category" [editMode]="editMode" (add)="addRecipes = $event" (rmv)="rmvRecipes = $event"></app-recipe-card-view>

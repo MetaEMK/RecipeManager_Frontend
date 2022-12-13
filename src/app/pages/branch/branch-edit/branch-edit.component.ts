@@ -22,6 +22,8 @@ export class BranchEditComponent implements OnInit {
 
   public branch?: Branch;
   public selectedCategories: Category[] = [];
+  public uncategorizedRecipes: Recipe[] = [];
+  public uncategorizedChecked: boolean = false;
 
 
   public filteredRecipes: Recipe[] = [];
@@ -70,11 +72,17 @@ export class BranchEditComponent implements OnInit {
 
   public async getBranch(id: number)
   {
+    this.loading = true;
     try {
+      this.uncategorizedRecipes = [];
       this.branch = await this.branchService.getById(id);
+      this.branch.recipes.forEach((recipe) => {
+        if(recipe.categories.length === 0) this.uncategorizedRecipes.push(recipe);
+      });
     } catch (error) {
       console.log(error);
     }
+    this.loading = false;
   }
 
   public getState(category: Category): string
@@ -118,7 +126,19 @@ export class BranchEditComponent implements OnInit {
           filRec.push(recipe);
       });
     }
+    if(this.uncategorizedChecked)
+    {
+      filRec = filRec.concat(this.uncategorizedRecipes);
+    }
     this.filteredRecipes = filRec;
+    this.loading = false;
+  }
+
+  public async changeStateOfUncategorized()
+  {
+    this.loading = true;
+    this.uncategorizedChecked = !this.uncategorizedChecked;
+    this.changeStateOfRecipe();
     this.loading = false;
   }
 

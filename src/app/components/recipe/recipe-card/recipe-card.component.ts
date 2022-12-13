@@ -23,7 +23,7 @@ export class RecipeCardComponent implements OnChanges {
     public themeService: SettingsService
   ) { }
 
-  ngOnChanges(event?: any): void {
+  ngOnChanges(event: any): void {
     if(event.editMode){
       this.isRemoved = false;
       this.setOpacity();

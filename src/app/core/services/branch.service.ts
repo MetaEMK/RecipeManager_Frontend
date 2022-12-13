@@ -119,17 +119,14 @@ export class BranchService implements GeneralService<Branch> {
     let bodyObj: any = {};
 
     if(name) bodyObj.name = name;
-    if(addRecipes.length > 0) 
-      bodyObj.recipe_ids = {
-        add: addRecipes
-      };
 
-    if(rmvRecipes.length > 0) 
-      bodyObj.recipe_ids = {
-        rmv: rmvRecipes
-      };
+    let obj = {
+      add: addRecipes,
+      rmv: rmvRecipes
+    };
 
-      console.log(bodyObj);
+    if (addRecipes.length > 0 || rmvRecipes.length > 0) bodyObj.recipe_ids = obj;
+
     try {
       let response = await fetch(this.url_v1 + '/' + id, {
         method: 'PATCH',

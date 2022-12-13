@@ -41,7 +41,7 @@ export class NameEditComponent {
 
   ngOnChanges(changes: any): void
   {
-    if(!changes.editMode.currentValue){
+    if(!changes.editMode?.currentValue){
       this.nameEdit = false;
       this.nameError = undefined;
       this.newItemName = this.item.name;
@@ -49,10 +49,9 @@ export class NameEditComponent {
   }
 
   public changeName(event: any){
-    const val = event.detail.value
-    this.newItemName = val;
+    this.newItemName = event.detail.value;
 
-    if(val === this.item.name)
+    if(this.newItemName === this.item.name)
       this.changes.emit(undefined);
     else
       this.changes.emit(this.newItemName)

@@ -19,6 +19,7 @@
     
     <div class="categoryContainer">
         <ion-chip [color]="selectAll ? 'primary': themeService.opposittheme" (click)="changeStateOfAll()">Alle auswählen</ion-chip>
+        <ion-chip [color]="uncategorizedChecked ? 'primary': themeService.opposittheme" (click)="changeStateOfUncategorized()" *ngIf="uncategorizedRecipes.length > 0">unkategorisiert</ion-chip>
         <ion-chip  (click)="changeStateOf(category)" [color]="getState(category)" *ngFor="let category of branch.recipeCategories">
             {{category.name}}
         </ion-chip>

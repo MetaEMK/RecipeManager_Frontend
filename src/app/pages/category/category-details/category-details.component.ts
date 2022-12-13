@@ -43,7 +43,6 @@ export class CategoryDetailsComponent implements OnInit {
           this.category = category;
           this.recipes = category.recipes;
           this.loading = false;
-          console.log(category);
         })
         .catch((error) => {
           console.log(error);
@@ -58,7 +57,6 @@ export class CategoryDetailsComponent implements OnInit {
             this.category = category;
             this.recipes = category.recipes;
             this.loading = false;
-            console.log(category);
           })
         } catch (error) {
           console.error(error);
@@ -94,10 +92,8 @@ export class CategoryDetailsComponent implements OnInit {
         else
         {
           try {
-            console.log(this.addRecipes);
-            console.log(this.rmvRecipes);
-            await this.categoryService.update(this.category.id, this.addRecipes, this.rmvRecipes, this.newName);
-            await this.getCategory(this.category.id);
+            this.category = await this.categoryService.update(this.category.id, this.addRecipes, this.rmvRecipes, this.newName);
+            this.recipes = this.category.recipes;
             this.editMode = false;
             this.router.navigate(["/categories/" + this.category.slug]);
             this.editMode = false;

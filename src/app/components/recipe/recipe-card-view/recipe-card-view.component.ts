@@ -35,7 +35,7 @@ export class RecipeCardViewComponent implements OnChanges {
 
   constructor() { }
 
-  ngOnChanges(event?: any): void {
+  ngOnChanges(event: any): void {
     if(event.editMode)
     {
       this.addRecipes = [];
@@ -44,7 +44,6 @@ export class RecipeCardViewComponent implements OnChanges {
       this.rmv.emit(this.rmvRecipes);
     }
   }
-
 
   public addRecipeToAddList(event: any){
     this.addRecipes = event;
