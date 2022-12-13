@@ -2,6 +2,9 @@
 <div class="controlContainer">
     <ion-item mode="md" fill="outline" [color]="settingsService.theme">
         <ion-label [color]="settingsService.theme" position="floating">{{title}} suchen</ion-label>
-        <ion-input [color]="settingsService.theme" clearInput="true" [value]="filter" (ionChange)="onChangeFilter($event)"></ion-input>
+        <ion-input [color]="settingsService.theme" [value]="filter" (ionFocus)="setFocus(true)" (ionChange)="onChangeFilter($event)"></ion-input>
+        <ion-fab-button size="small" [color]="settingsService.theme" slot="end" (click)="setFocus(false)" *ngIf="filter !== undefined && showClearButton">
+            <ion-icon [color]="settingsService.opposittheme" name="close-outline"></ion-icon>
+        </ion-fab-button>
     </ion-item>
 </div>

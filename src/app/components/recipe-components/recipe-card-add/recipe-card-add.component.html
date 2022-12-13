@@ -1,21 +1,2 @@
 
-<ion-card [color]="themeService.theme" class="recipe">
-    <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
-    <ion-card-content>
-        <ion-item mode="md" [color]="themeService.theme">
-            <ion-label [color]="themeService.opposittheme" position="floating">zum Suchen Rezeptnamen eingeben</ion-label>
-            <ion-fab-button size="small" [color]="themeService.theme" slot="end" (click)="setFocus(false)" *ngIf="recipeFilterValue !== undefined">
-                <ion-icon [color]="themeService.opposittheme" name="close-outline"></ion-icon>
-            </ion-fab-button>
-            <ion-input [color]="themeService.opposittheme" [value]="recipeFilterValue" (ionFocus)="setFocus(true)" (ionChange)="filterForRecipes($event)"></ion-input>        </ion-item>
-
-        <div class="selectionList"> 
-            <ion-list>
-                <ion-item [color]="themeService.theme" *ngFor="let recipe of filteredRecipes">
-                    {{recipe.name}}
-                    <ion-checkbox color="primary" slot="end" [checked]="recipe.checked" (ionChange)="checkRecipe(recipe)"></ion-checkbox>
-                </ion-item>
-            </ion-list>
-        </div>
-    </ion-card-content>
-</ion-card>
+<app-general-item-selection></app-general-item-selection>

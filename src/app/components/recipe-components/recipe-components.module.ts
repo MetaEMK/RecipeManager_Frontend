@@ -6,6 +6,7 @@ import { RecipeCardViewComponent } from './recipe-card-view/recipe-card-view.com
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { GeneralEditingModule } from '../general-editing/general-editing.module';
+import { RecipeAddModalComponent } from './recipe-add-modal/recipe-add-modal.component';
 
 
 
@@ -13,19 +14,22 @@ import { GeneralEditingModule } from '../general-editing/general-editing.module'
   declarations: [
     RecipeCardComponent,
     RecipeCardAddComponent,
-    RecipeCardViewComponent
+    RecipeCardViewComponent,
+    RecipeAddModalComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule.forRoot({
       mode: 'ios'
-    })
+    }),
+    GeneralEditingModule
   ],
   exports: [
     RecipeCardComponent,
     RecipeCardAddComponent,
-    RecipeCardViewComponent
+    RecipeCardViewComponent,
+    RecipeAddModalComponent
   ]
 })
 export class RecipeComponentsModule { }

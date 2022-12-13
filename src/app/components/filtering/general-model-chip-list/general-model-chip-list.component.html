@@ -1,0 +1,6 @@
+
+<div>
+    <ion-chip [color]="selectAllState" (click)="selectAll()" *ngIf="items.length > 1">{{selectAllName}}</ion-chip>
+    <ion-chip [color]="stateOfUnassigned" (click)="changeUnassignedState()" *ngIf="showUnassignedButton">nicht zugewiesen</ion-chip>
+    <ion-chip [color]="getState(item)" (click)="changeState(item)" *ngFor="let item of items">{{item.name}}</ion-chip>
+</div>

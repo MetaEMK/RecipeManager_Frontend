@@ -2,12 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FilterByNameComponent } from './filter-by-name/filter-by-name.component';
 import { IonicModule } from '@ionic/angular';
+import { FilterByGeneralModelComponent } from './filter-by-general-model/filter-by-general-model.component';
+import { GeneralModelChipListComponent } from './general-model-chip-list/general-model-chip-list.component';
 
 
 
 @NgModule({
   declarations: [
-    FilterByNameComponent
+    FilterByNameComponent,
+    FilterByGeneralModelComponent,
+    GeneralModelChipListComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +20,8 @@ import { IonicModule } from '@ionic/angular';
     })
   ],
   exports: [
-    FilterByNameComponent
+    FilterByNameComponent,
+    FilterByGeneralModelComponent
   ]
 })
 export class FilteringModule { }

@@ -1,0 +1,15 @@
+<ion-content [color]="settingsService.theme">
+    <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input [(ngModel)]="itemName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Beschreibung</ion-label>
+        <ion-textarea [(ngModel)]="itemDescription"></ion-textarea>
+    </ion-item>
+
+    <ion-footer>
+        <ion-button (click)="onAddItem()" expand="block">erstellen</ion-button>
+    </ion-footer>
+</ion-content>

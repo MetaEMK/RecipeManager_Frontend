@@ -17,13 +17,9 @@
     </div>
     
     
-    <div class="categoryContainer">
-        <ion-chip [color]="selectAll ? 'primary': themeService.opposittheme" (click)="changeStateOfAll()">Alle auswählen</ion-chip>
-        <ion-chip [color]="uncategorizedChecked ? 'primary': themeService.opposittheme" (click)="changeStateOfUncategorized()" *ngIf="uncategorizedRecipes.length > 0">unkategorisiert</ion-chip>
-        <ion-chip  (click)="changeStateOf(category)" [color]="getState(category)" *ngFor="let category of branch.recipeCategories">
-            {{category.name}}
-        </ion-chip>
-    </div>
+    <app-filter-by-general-model [branches]="[branch]" [categories]="branch.recipeCategories" (filteredItems)="onFilteredItemsFromBranchCategory($event)"></app-filter-by-general-model>
     
+    <app-filter-by-name [items]="filteredRecipes"></app-filter-by-name>
+
     <app-recipe-card-view [recipes]="filteredRecipes" [branch]="branch" [editMode]="editMode" (add)="addRecipe = $event" (rmv)="rmvRecipe = $event"></app-recipe-card-view>
 </div>

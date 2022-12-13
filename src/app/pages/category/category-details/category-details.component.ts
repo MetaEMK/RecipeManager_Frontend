@@ -39,7 +39,7 @@ export class CategoryDetailsComponent implements OnInit {
 
       if(Number.isNaN(+slug) === true)
       {
-        this.categoryService.getBySlug(slug).then((category) => {
+          this.categoryService.getBySlug(slug).then((category) => {
           this.category = category;
           this.recipes = category.recipes;
           this.loading = false;
@@ -60,7 +60,6 @@ export class CategoryDetailsComponent implements OnInit {
           console.error(error);
           this.loading = false;
         }
-
       }
     }
   }

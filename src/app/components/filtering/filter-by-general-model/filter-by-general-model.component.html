@@ -1,0 +1,10 @@
+<div class="categoryContainer">
+    <div  *ngIf="branches.length > 1">
+        <h3>Abteilungen</h3>
+        <app-general-model-chip-list [items]="branches" (seletedItemIds)="onChangeSelectedBranches($event)"></app-general-model-chip-list>
+    </div>
+    <div *ngIf="categories.length > 1">
+        <h3>Kategorien</h3>
+        <app-general-model-chip-list [items]="categories" (seletedItemIds)="onChangeSelectedCategories($event)"></app-general-model-chip-list>
+    </div>
+</div>

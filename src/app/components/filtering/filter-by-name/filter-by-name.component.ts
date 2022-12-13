@@ -15,8 +15,14 @@ export class FilterByNameComponent implements OnInit {
   @Input()
   public items!: GeneralModel[];
 
+  @Input()
+  public showClearButton: boolean = false;
+
   @Output()
   outputItems: EventEmitter<GeneralModel[]> = new EventEmitter();
+
+  @Output()
+  focus: EventEmitter<boolean> = new EventEmitter();
 
   public filteredItems!: GeneralModel[];
 
@@ -35,11 +41,31 @@ export class FilterByNameComponent implements OnInit {
   public onChangeFilter(event: any)
   {
     this.filter = event.target.value;
-    if(this.filter == undefined || this.filter == "") this.ngOnInit();
+    if(this.filter == undefined) 
+    {
+      this.filteredItems = [];
+      this.outputItems.emit(this.filteredItems);
+    }
     else
     {
       this.filteredItems = this.items.filter(item => item.name.toLowerCase().includes(this.filter!.toLowerCase()));
       this.outputItems.emit(this.filteredItems);
     }
+  }
+
+  setFocus(focus: boolean)
+  {
+    if(!focus) 
+    {
+      this.filter = undefined;
+      this.filteredItems = [];
+      this.outputItems.emit(this.filteredItems);
+    }
+    else
+    {
+      this.filter = "";
+      this.filteredItems = this.items;
+    }
+    this.focus.emit(focus);
   }
 }

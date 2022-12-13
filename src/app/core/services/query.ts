@@ -1,15 +1,20 @@
 
 export class QueryItem {
     key: string;
-    value: string;
+    values: string[] = [];
 
-    constructor(key: string, value: string) {
+    constructor(key: string, values: string[]) {
         this.key = key;
-        this.value = value;
+        this.values = values;
     }
 
     toString(): string {
-        return `${this.key}=${this.value}`;
+        let query = "";
+        this.values.forEach((value) => {
+            query += this.key + '=' + value + '&';
+        });
+        query = query.slice(0, -1);
+        return query;
     }
 }
 
@@ -29,7 +34,12 @@ export class Query {
 
     public add(key: string, value: string): void {
         if(this._items.find((item) => item.key === key) === undefined)
-            this._items.push(new QueryItem(key, value));
+            this._items.push(new QueryItem(key, [value]));
+    }
+
+    public addFilter(key: string, value: string[]): void {
+        const queryItem = new QueryItem(key, value);
+        this.addQueryItem(queryItem);
     }
 
     public addQueryItem(queryItem: QueryItem): void {
@@ -49,7 +59,6 @@ export class Query {
             query += item.toString() + '&';
         });
         query = query.slice(0, -1);
-        console.log(query);
         return query;
     }
 }

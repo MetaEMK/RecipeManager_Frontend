@@ -1,0 +1,15 @@
+<ion-card [color]="settingsService.theme" class="recipe">
+    <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
+    <ion-card-content>
+        <app-filter-by-name [showClearButton]="true" [items]="allowedItems" (outputItems)="filteredItems = $event"></app-filter-by-name>
+
+        <div class="selectionList"> 
+            <ion-list>
+                <ion-item [color]="settingsService.theme" *ngFor="let item of filteredItems">
+                    {{item.name}}
+                    <ion-checkbox color="primary" slot="end" [checked]="isItemSelected(item)" (ionChange)="changeItemCheckedValue(item)"></ion-checkbox>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-card-content>
+</ion-card> 

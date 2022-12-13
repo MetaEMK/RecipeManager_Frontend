@@ -85,87 +85,12 @@ export class BranchEditComponent implements OnInit {
     this.loading = false;
   }
 
-  public getState(category: Category): string
-  {
-    if(this.selectedCategories.includes(category))
-      return "primary";
-    else
-      return this.themeService.opposittheme;
-  }
-
-  public async changeStateOf(category: Category)
+  public async onFilteredItemsFromBranchCategory($event: Recipe[])
   {
     this.loading = true;
-    if(this.selectedCategories.find((c) => c.id === category.id))
-    
-    this.selectedCategories = this.selectedCategories.filter((c) => c.id !== category.id);
-    else
-    this.selectedCategories.push(category);
-    
-    this.changeStateOfRecipe();
-    if(this.selectedCategories.length !== this.branch?.recipeCategories.length) this.selectAll=false;
-    else this.selectAll=true;
-
+    this.filteredRecipes = $event;
     this.loading = false;
   }
-
-  public async changeStateOfRecipe()
-  {
-    this.loading = true;
-    let filRec: Recipe[] = [];
-    for(let category of this.selectedCategories)
-    {
-      
-      let query = new Query();
-      query.addQueryItem(new QueryItem("category", category.id.toString()));
-      if(this.branch?.id) query.addQueryItem(new QueryItem("branch", this.branch.id.toString()));
-      
-      let recipes = await this.recipeService.getByQuery(query);
-      recipes.forEach((recipe) => {
-        if(!filRec.find((r) => r.id === recipe.id))
-          filRec.push(recipe);
-      });
-    }
-    if(this.uncategorizedChecked)
-    {
-      filRec = filRec.concat(this.uncategorizedRecipes);
-    }
-    this.filteredRecipes = filRec;
-    this.loading = false;
-  }
-
-  public async changeStateOfUncategorized()
-  {
-    this.loading = true;
-    this.uncategorizedChecked = !this.uncategorizedChecked;
-    this.changeStateOfRecipe();
-    this.loading = false;
-  }
-
-  public async changeStateOfAll()
-  {
-    this.loading = true;
-    console.log(this.newName);
-
-    if(this.selectAll == true)
-    {
-      this.selectedCategories = [];
-      this.filteredRecipes = [];
-    }
-    else
-    {
-      this.selectedCategories = this.branch?.recipeCategories || [];
-    }
-
-    this.selectAll = !this.selectAll;
-    this.loading = false;
-    this.changeStateOfRecipe();
-  }
-
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  }
-
 
   public async updateBranch()
   {
@@ -195,7 +120,7 @@ export class BranchEditComponent implements OnInit {
             position: "top",
             color: "success"  
           });
-          await this.changeStateOfRecipe();
+
         } catch (error) {
           console.log(error);
           const err = error as ApiError;

@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { BranchService } from 'src/app/core/services/branch.service';
+import { CategoryService } from 'src/app/core/services/category.service';
+import { RecipeService } from 'src/app/core/services/recipe.service';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
+import { GeneralModel } from 'src/app/model/generalModel';
 import { Recipe } from 'src/app/model/recipe.model';
 
 
@@ -30,10 +34,62 @@ export class RecipeCardViewComponent implements OnChanges {
   @Output() add = new EventEmitter<number[]>();
   @Output() rmv = new EventEmitter<number[]>();
 
+
+  public loading: boolean = false;
+
   public addRecipes: number[] = [];
   public rmvRecipes: number[] = [];
 
-  constructor() { }
+  public allowedItems: GeneralModel[] = [];
+
+  constructor(
+    private branchService: BranchService,
+    private categoryService: CategoryService,
+    private recipeService: RecipeService,
+  ) { }
+
+  async ngOnInit() {;
+    if(this.branch) await this.getRecipesWithBranch();
+    else if(this.category) await this.getRecipesWithCategory();
+
+  }
+
+  public async getRecipesWithCategory(): Promise<void> {
+    this.loading = true;
+    if(this.category?.id === undefined) return;
+
+    try {
+      let recipeCategory= (await this.categoryService.getById(this.category.id)).recipes;
+      let allRecipes = (await this.recipeService.getAll());
+      allRecipes.forEach(recipe => {
+        if(!recipeCategory.find(rc => rc.id === recipe.id))
+          this.allowedItems.push(recipe as GeneralModel);
+      });
+      console.log(this.allowedItems);
+
+    } catch (error) {
+      console.error(error);
+    }
+    this.loading = false;
+  }
+
+  public async getRecipesWithBranch(): Promise<void> {
+    this.loading = true;
+    if(this.branch?.id === undefined) return;
+    try {
+      let recipeCategoryInBranch = (await this.branchService.getById(this.branch.id)).recipes;
+      let allRecipes = (await this.recipeService.getAll());
+
+      allRecipes.forEach(recipe => {
+        if(!recipeCategoryInBranch.find(rc => rc.id === recipe.id))
+          this.allowedItems.push(recipe as GeneralModel);
+      });
+
+    } catch (error) {
+      console.error(error);
+    }
+    this.loading = false;
+  }
 
   ngOnChanges(event: any): void {
     if(event.editMode)
