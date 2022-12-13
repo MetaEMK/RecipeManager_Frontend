@@ -11,6 +11,8 @@ import { BranchOverviewComponent } from './branch-overview/branch-overview.compo
 import { BranchAddComponent } from 'src/app/components/branch/branch-add/branch-add.component';
 import { RecipeModule } from '../recipe/recipe.module';
 import { GeneralEditingModule } from 'src/app/components/general-editing/general-editing.module';
+import { RecipeComponentsModule } from 'src/app/components/recipe-components/recipe-components.module';
+import { FilteringModule } from 'src/app/components/filtering/filtering.module';
 
 
 @NgModule({
@@ -21,7 +23,6 @@ import { GeneralEditingModule } from 'src/app/components/general-editing/general
   ],
   imports: [
     CommonModule,
-    RecipeModule,
     BranchRoutingModule,
     IonicModule.forRoot(
       {
@@ -29,7 +30,9 @@ import { GeneralEditingModule } from 'src/app/components/general-editing/general
       }
     ),
     FormsModule,
-    GeneralEditingModule
+    GeneralEditingModule,
+    RecipeComponentsModule,
+    FilteringModule
   ]
 })
 export class BranchModule { }

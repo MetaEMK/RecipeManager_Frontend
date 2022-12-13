@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { GeneralAddComponent } from 'src/app/components/general-editing/general-add/general-add.component';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { Branch } from 'src/app/model/branch.model';
+import { GeneralModel } from 'src/app/model/generalModel';
 
 @Component({
   selector: 'app-branch-overview',
@@ -11,20 +14,37 @@ import { Branch } from 'src/app/model/branch.model';
 })
 export class BranchOverviewComponent implements OnInit {
 
-  public isInAddingMode: boolean = false;
+  public filteredBranches: GeneralModel[] = [];
 
     constructor(
       public branchService: BranchService,
       private router: Router,
-      public themeService: SettingsService
+      public themeService: SettingsService,
+      public modalContoller: ModalController
     ) { }
   
     ngOnInit(): void {
-      console.log("test123");
-      this.branchService.getAll();
+        this.branchService.getAll().then((branches) => {
+          this.filteredBranches = branches;
+        });
       }
 
-    public navigateToBranch(branch: Branch)
+
+    public async onAddBranch(): Promise<void> {
+      const modal = await this.modalContoller.create({
+        component: GeneralAddComponent,
+        componentProps: {
+          title: "Abteilung",
+          description: "Geben Sie einen Namen für die neue Abteilung ein.",
+          service: this.branchService
+        }
+      });
+
+      await modal.present();
+
+    }
+
+    public navigateToBranch(branch: GeneralModel)
     {
       this.router.navigate(["/branches", branch.slug]);
     }

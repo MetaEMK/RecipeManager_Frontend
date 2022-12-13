@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import { Injectable, Type} from '@angular/core';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Recipe } from 'src/app/model/recipe.model';
 import { environment } from 'src/environment/environment';
@@ -9,15 +9,16 @@ import { Query } from './query';
   providedIn: 'root'
 })
 export class RecipeService implements GeneralService<Recipe> {
-  private url_v1 = environment.api.baseUrl + '/v1/recipes';
-
+  
+  public url_v1 = environment.api.baseUrl + '/v1/recipes';
 
   private _recipes: Recipe[] = [];
   public get recipes(): Recipe[] {
     return this._recipes;
   }
 
-  constructor() { }
+  constructor() { 
+  }
 
   public async getAll(): Promise<Recipe[]>
   {
@@ -94,8 +95,11 @@ export class RecipeService implements GeneralService<Recipe> {
   }
 
 
-  public async create(name: string, description?: string, img_path?: string): Promise<Recipe>
+  public async create(name: string, description?: string, img?: any): Promise<Recipe>
   {
+    if(!description) description = "test";
+    console.log(this.url_v1);
+
     let error: ApiError;
     try {
       const response = await fetch(this.url_v1, {
@@ -106,11 +110,12 @@ export class RecipeService implements GeneralService<Recipe> {
         body: JSON.stringify({
           name: name,
           description: description,
-          img_path: img_path
         })
       });
+      console.log(response.status);
       switch (response.status) {
         case 201:
+          console.log("response");
           return (await response.json()).data;
 
         case 409:

@@ -51,8 +51,6 @@ export class CategoryDetailsComponent implements OnInit {
       }
       else {
         try {
-          console.log(slug);
-          console.log(Number(slug));
           this.categoryService.getById(Number(slug)).then((category) => {
             this.category = category;
             this.recipes = category.recipes;

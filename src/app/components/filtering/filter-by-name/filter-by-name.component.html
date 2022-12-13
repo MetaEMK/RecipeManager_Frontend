@@ -1,1 +1,7 @@
-<p>filter-by-name works!</p>
+
+<div class="controlContainer">
+    <ion-item mode="md" fill="outline" [color]="settingsService.theme">
+        <ion-label [color]="settingsService.theme" position="floating">{{title}} suchen</ion-label>
+        <ion-input [color]="settingsService.theme" clearInput="true" [value]="filter" (ionChange)="onChangeFilter($event)"></ion-input>
+    </ion-item>
+</div>

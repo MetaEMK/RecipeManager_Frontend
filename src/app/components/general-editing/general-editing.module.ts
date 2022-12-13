@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { NameEditComponent } from './name-edit/name-edit.component';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { GeneralAddComponent } from './general-add/general-add.component';
 
 
 
 @NgModule({
   declarations: [
-    NameEditComponent
+    NameEditComponent,
+    GeneralAddComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { IonicModule } from '@ionic/angular';
     })
   ],
   exports: [
-    NameEditComponent
+    NameEditComponent,
+    GeneralAddComponent
   ]
 })
 export class GeneralEditingModule { }

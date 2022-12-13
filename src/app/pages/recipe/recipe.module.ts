@@ -2,19 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RecipeRoutingModule } from './recipe-routing.module';
-import { RecipeCardAddComponent } from 'src/app/components/recipe/recipe-card-add/recipe-card-add.component';
-import { RecipeCardComponent } from 'src/app/components/recipe/recipe-card/recipe-card.component';
-import { RecipeCardViewComponent } from 'src/app/components/recipe/recipe-card-view/recipe-card-view.component';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SettingsService } from 'src/app/core/services/settings.service';
+import { RecipeOverviewComponent } from './recipe-overview/recipe-overview.component';
+import { GeneralEditingModule } from 'src/app/components/general-editing/general-editing.module';
+import { RecipeComponentsModule } from 'src/app/components/recipe-components/recipe-components.module';
 
 
 @NgModule({
   declarations: [
-    RecipeCardComponent,
-    RecipeCardAddComponent,
-    RecipeCardViewComponent
+    RecipeOverviewComponent
   ],
   imports: [
     CommonModule,
@@ -22,15 +20,12 @@ import { SettingsService } from 'src/app/core/services/settings.service';
     FormsModule,
     IonicModule.forRoot({
       mode: 'ios'
-    })
+    }),
+    GeneralEditingModule,
+    RecipeComponentsModule
   ],
   providers: [
     SettingsService
-  ],
-  exports: [
-    RecipeCardComponent,
-    RecipeCardAddComponent,
-    RecipeCardViewComponent
   ]
 })
 export class RecipeModule { }

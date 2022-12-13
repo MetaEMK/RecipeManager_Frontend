@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FilterByNameComponent } from './filter-by-name/filter-by-name.component';
+import { IonicModule } from '@ionic/angular';
 
 
 
@@ -9,7 +10,13 @@ import { FilterByNameComponent } from './filter-by-name/filter-by-name.component
     FilterByNameComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    IonicModule.forRoot({
+      mode: 'ios'
+    })
+  ],
+  exports: [
+    FilterByNameComponent
   ]
 })
 export class FilteringModule { }

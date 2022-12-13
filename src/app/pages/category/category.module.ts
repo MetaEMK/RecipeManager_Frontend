@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { CategoryRoutingModule } from './category-routing.module';
 
 import { GeneralEditingModule } from 'src/app/components/general-editing/general-editing.module';
-import { RecipeModule } from '../recipe/recipe.module';
 
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -11,6 +10,8 @@ import { IonicModule } from '@ionic/angular';
 import { CategoryAddModalComponent } from 'src/app/components/category/category-add-modal/category-add-modal.component';
 import { CategoryOverviewComponent } from './category-overview/category-overview.component';
 import { CategoryDetailsComponent } from './category-details/category-details.component';
+import { RecipeComponentsModule } from 'src/app/components/recipe-components/recipe-components.module';
+import { FilteringModule } from 'src/app/components/filtering/filtering.module';
 
 
 @NgModule({
@@ -21,13 +22,14 @@ import { CategoryDetailsComponent } from './category-details/category-details.co
   ],
   imports: [
     CommonModule,
-    RecipeModule,
     CategoryRoutingModule,
     IonicModule.forRoot({
       mode: 'ios'
     }),
     FormsModule,
-    GeneralEditingModule
+    GeneralEditingModule,
+    RecipeComponentsModule,
+    FilteringModule
   ],
   providers: []
 })

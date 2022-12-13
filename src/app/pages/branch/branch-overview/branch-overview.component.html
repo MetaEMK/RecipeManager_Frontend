@@ -1,17 +1,15 @@
 <h1>Abteilungsübersicht</h1>
 
-<div *ngIf="isInAddingMode">
-    <app-branch-add></app-branch-add>
-</div>
+<app-filter-by-name [title]="'Abteilungsnamen'" [items]="this.branchService.branches" (outputItems)="filteredBranches = $event"></app-filter-by-name>
 
 <div class="branchContainer">
-    <ion-card [color]="themeService.theme" (click)="isInAddingMode=!isInAddingMode" class="branchCard"  *ngIf="!isInAddingMode">
+    <ion-card [color]="themeService.theme" (click)="onAddBranch()" class="branchCard">
         <ion-fab-button color="primary">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-card>
 
-    <ion-card [color]="themeService.theme" class="branchCard" (click)="navigateToBranch(branch)" *ngFor="let branch of branchService.branches">
+    <ion-card [color]="themeService.theme" class="branchCard" (click)="navigateToBranch(branch)" *ngFor="let branch of filteredBranches">
         <div class="branchName">{{branch.name}}</div>
     </ion-card>
 </div>

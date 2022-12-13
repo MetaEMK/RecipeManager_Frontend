@@ -1,0 +1,19 @@
+<ion-content [color]="settingsService.theme">
+    <h1>{{title}}</h1>
+    <p>{{description}}</p>
+
+    <ion-item fill="outline" mode="md" [color]="settingsService.theme">
+        <ion-label [color]="settingsService.theme" position="floating">Name</ion-label>
+        <ion-input [color]="settingsService.theme" [(ngModel)]="itemName"></ion-input>
+    </ion-item>
+    <ion-footer>
+        <ion-toolbar>
+            <ion-buttons slot="end">
+                <ion-button (click)="onAddItem()">erstellen</ion-button>
+            </ion-buttons>
+            <ion-buttons slot="start">
+                <ion-button (click)="onCancel()">abbrechen</ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-footer>
+</ion-content>
