@@ -6,10 +6,15 @@ import { SettingsService } from 'src/app/core/services/settings.service';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent implements OnInit {
-    constructor(public themeService: SettingsService) { }
+export class SettingsComponent {
 
-    ngOnInit(): void {
-      console.log(this.themeService.theme);
-    }
+  public isDarkMode: boolean = this.settingsService.isDarkMode; 
+
+  constructor(public settingsService: SettingsService) { }
+
+  public changeTheme(): void {
+    this.settingsService.isDarkMode = !this.settingsService.isDarkMode;
+    localStorage.setItem('theme', this.settingsService.theme);
+  }
+
 }

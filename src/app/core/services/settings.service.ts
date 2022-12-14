@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SettingsService {
+export class SettingsService  {
 
-  public isDarkMode: boolean = true;  
+  public isDarkMode: boolean = false;  
   public get theme(): string {
     return this.isDarkMode ? 'dark' : 'light';
   }
@@ -13,5 +13,7 @@ export class SettingsService {
     return this.isDarkMode ? 'light' : 'dark';
   }
 
-  constructor() { }
+  constructor() {
+    this.isDarkMode = localStorage.getItem('theme') === 'dark';
+  }
 }
