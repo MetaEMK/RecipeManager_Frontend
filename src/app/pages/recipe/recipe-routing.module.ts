@@ -5,7 +5,6 @@ import { RecipeOverviewComponent } from './recipe-overview/recipe-overview.compo
 
 const routes: Routes = [
   { path: '', component: RecipeOverviewComponent },
-  { path: ':slug/:variantId', pathMatch: 'full', redirectTo: "/torte_a/baum123"},
   { path: ':slug', pathMatch: 'full', component: RecipeDetailsComponent},
 ];
 

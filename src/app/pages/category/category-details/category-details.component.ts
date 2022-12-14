@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { CategoryService } from 'src/app/core/services/category.service';
-import { Query } from 'src/app/core/services/query';
+import { Query, QueryItem } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
@@ -23,17 +23,19 @@ export class CategoryDetailsComponent implements OnInit {
   public recipes: Recipe[] = []; 
   public filteredRecipes: Recipe[] = [];
 
+  public defaultQuery: Query = new Query();
+
   public newName: string|undefined;
   public addRecipes: number[] = [];
   public rmvRecipes: number[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private categoryService: CategoryService,
+    public categoryService: CategoryService,
     private router: Router,
     public settingsService: SettingsService,
     private toastController: ToastController,
-    private recipeService: RecipeService
+    public recipeService: RecipeService
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +47,8 @@ export class CategoryDetailsComponent implements OnInit {
       {
           this.categoryService.getBySlug(slug).then((category) => {
           this.category = category;
-          this.recipes = category.recipes;
+          this.defaultQuery.add("categoryExclude", category.id.toString());
+          this.defaultQuery.add("branchNone", "true");
           this.loading = false;
         })
         .catch((error) => {
@@ -57,7 +60,8 @@ export class CategoryDetailsComponent implements OnInit {
         try {
           this.categoryService.getById(Number(slug)).then((category) => {
             this.category = category;
-            this.recipes = category.recipes;
+            this.defaultQuery.add("branchNone", "true");
+            this.defaultQuery.add("categoryExclude", category.id.toString());
             this.loading = false;
           })
         } catch (error) {

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
 import { GeneralAddComponent } from 'src/app/components/general-editing/general-add/general-add.component';
 import { BranchService } from 'src/app/core/services/branch.service';
-import { Query } from 'src/app/core/services/query';
+import { Query, QueryItem } from 'src/app/core/query';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Branch } from 'src/app/model/branch.model';
@@ -68,8 +68,9 @@ export class BranchOverviewComponent implements OnInit {
       this.ngOnInit();
   }
 
-  public searchByQuery(query: Query){
+  public searchByQuery(queryValue: string){
     this.loading = true;
+    const query = new Query(new QueryItem("name", [queryValue]));
     this.branchService.getByQuery(query).then((branches) => {
       this.filteredBranches = branches;
       this.loading = false;

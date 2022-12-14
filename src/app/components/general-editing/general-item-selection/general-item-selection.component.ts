@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Query } from 'src/app/core/services/query';
+import { ToastController } from '@ionic/angular';
+import { GeneralService } from 'src/app/core/generalService';
+import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
+import { ApiError } from 'src/app/model/apierror.model';
 import { GeneralModel } from 'src/app/model/generalModel';
 
 @Component({
@@ -11,66 +14,69 @@ import { GeneralModel } from 'src/app/model/generalModel';
 })
 export class GeneralItemSelectionComponent  implements OnInit {
   
-  @Input()
-  public items: GeneralModel[] = [];
+  @Input("service")
+  public service?: GeneralService<GeneralModel>;
 
-  @Input()
+  @Input("defaultQuery")
+  public defaultQuery?: Query;
+
+  @Input("minimumCharacters")
+  public minimumCharacters: number = 3;
+
+  @Input("alreadySelectedItems")
   public alreadySelectedItems: GeneralModel[] = [];
 
-  @Input()
-  public keepSelectedItems: boolean = false;
+  @Output("itemSelected")
+  private output_itemSelected: EventEmitter<GeneralModel> = new EventEmitter();
 
-  @Output("filteredItems")
-  public filteredItemsOutput: EventEmitter<number[]> = new EventEmitter();
-
-  public selectedItems: number[] = [];
+  public filteredItems: GeneralModel[] = [];
 
   public loading: boolean = false;
 
-  public filter?: string;
-  public allowedItems: GeneralModel[] = [];
-  public filteredItems: GeneralModel[] = [];
-
   constructor(
     public settingsService: SettingsService,
-    public recipeService: RecipeService,
-  ) { }
+    private toastController: ToastController
+   ) { }
 
-  ngOnInit() {
-    this.allowedItems = this.items.filter(item => !this.alreadySelectedItems.find(alreadySelected => alreadySelected.id === item.id));
+  ngOnInit(): void {
   }
-  public changeItemCheckedValue(item: GeneralModel)
+
+
+  public async getItemsByQuery(nameQueryValue: string): Promise<void>
   {
-    if(this.selectedItems.find(selectedItem => selectedItem === item.id))
-    {
-      this.selectedItems = this.selectedItems.filter(selectedItem => selectedItem !== item.id);
-    }
-    else
-    {
-      this.selectedItems.push(item.id);
-    }
-    this.filteredItemsOutput.emit(this.selectedItems);
-  }
+    if (this.service == null  || this.defaultQuery == null || !nameQueryValue)
+      return;
 
-  public isItemSelected(item: GeneralModel):boolean
-  {
-    return this.selectedItems.find(selectedItem => selectedItem === item.id) != undefined;
-  }
 
-  public onChangeFilter(event: any)
-  {
-    if(!this.keepSelectedItems)
-      this.selectedItems = event;
-    else {
-
-    }
-  }
-
-  public getByQuery(query: Query) {
     this.loading = true;
-    this.recipeService.getByQuery(query).then((recipes) => {
-      this.filteredItems = recipes;
+    let searchQuery: Query = new Query();
+    searchQuery.add("name", nameQueryValue);
+    searchQuery.addQueryItems(this.defaultQuery.items);
+
+    try {
+      let items = await this.service.getByQuery(searchQuery);
+      this.filteredItems = items.filter(i => !this.alreadySelectedItems.some(a => a.id == i.id));
       this.loading = false;
-    });
+    } catch (error) {
+      if(error instanceof ApiError)
+      {
+        const toast = await this.toastController.create({
+          position: 'top',
+          color: 'danger',
+          message: error.messageForUser,
+          duration: 2000
+        });
+
+        await toast.present();
+      }
+      console.warn("Error in GeneralItemSelectionComponent.getItemsByQuery");
+      console.warn(error);
+    }
+  }
+
+  public selectItem(item: GeneralModel): void
+  {
+    this.filteredItems = this.filteredItems.filter(i => i.id != item.id);
+    this.output_itemSelected.emit(item);
   }
 }

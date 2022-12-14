@@ -18,6 +18,7 @@
     
     
     <app-filter-by-general-model [filterBranches]="false" [minimumFilterCount]="1" [branches]="[branch]" [categories]="branch.recipeCategories" (filteredItems)="searchByQuery($event)"></app-filter-by-general-model>
+    <app-general-details-edit-relations [service]="recipeService" [defaultQuery]="defaultQuery" *ngIf="editMode"></app-general-details-edit-relations>
 
     <app-recipe-card-view [recipes]="filteredRecipes" [branch]="branch" [editMode]="editMode" (add)="addRecipe = $event" (rmv)="rmvRecipe = $event"></app-recipe-card-view>
 </div>

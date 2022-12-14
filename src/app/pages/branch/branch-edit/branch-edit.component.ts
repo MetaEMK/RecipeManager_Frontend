@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
-import { Query, QueryItem } from 'src/app/core/services/query';
+import { Query, QueryItem } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
@@ -32,6 +32,7 @@ export class BranchEditComponent implements OnInit {
   //edit
   public editMode: boolean = false;
   public get deletePossible(): boolean {return this.branch?.recipeCategories.length === 0 && this.editMode };
+  public defaultQuery: Query = new Query();
   public newName: string|undefined;
   public addRecipe: number[] = [];
   public rmvRecipe: number[] = [];
@@ -53,6 +54,8 @@ export class BranchEditComponent implements OnInit {
       try {
         this.branchService.getBySlug(slug).then(async (branch) => {
           this.branch = branch;
+          this.defaultQuery.add("branchExclude", branch.id.toString());
+          this.defaultQuery.add("categoryNone", "true");
           await this.getBranch(branch.id);
           this.loading = false;
 

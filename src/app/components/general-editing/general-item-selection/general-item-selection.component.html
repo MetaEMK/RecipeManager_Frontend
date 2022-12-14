@@ -1,15 +1,15 @@
 <ion-card [color]="settingsService.theme" class="recipe">
     <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
     <ion-card-content>
-        <app-filter-by-name [minimumCharacters]="3" [items]="allowedItems" (query)="getByQuery($event)"></app-filter-by-name>
-
+        <app-filter-by-name [minimumCharacters]="minimumCharacters" (value)="getItemsByQuery($event)"></app-filter-by-name>
         <div class="selectionList"> 
-            <ion-list>
-                <ion-item [color]="settingsService.theme" *ngFor="let item of filteredItems">
+            <ion-list lines="full">
+                <ion-item  (click)="selectItem(item)" [color]="settingsService.theme" *ngFor="let item of filteredItems">
                     {{item.name}}
-                    <ion-checkbox color="primary" slot="end" [checked]="isItemSelected(item)" (ionChange)="changeItemCheckedValue(item)"></ion-checkbox>
+                    <!-- <ion-button color="primary" slot="end" (click)="selectItem(item)">auswählen</ion-button> -->
                 </ion-item>
             </ion-list>
         </div>
+
     </ion-card-content>
 </ion-card> 

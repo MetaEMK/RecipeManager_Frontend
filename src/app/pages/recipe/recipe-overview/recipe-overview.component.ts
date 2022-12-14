@@ -5,7 +5,7 @@ import { GeneralAddComponent } from 'src/app/components/general-editing/general-
 import { RecipeAddModalComponent } from 'src/app/components/recipe-components/recipe-add-modal/recipe-add-modal.component';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
-import { Query } from 'src/app/core/services/query';
+import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { Recipe } from 'src/app/model/recipe.model';
@@ -86,8 +86,7 @@ export class RecipeOverviewComponent implements OnInit {
 
   const { data } = await modal.onDidDismiss();
     if (data) {
-      this.recipeService.getAll();
-      this.router.navigate(['/recipe', data.slug, '@editMode'],);
+      this.router.navigate(['/recipes', data.slug], {queryParams: {editMode: true} });
     }
   }
 

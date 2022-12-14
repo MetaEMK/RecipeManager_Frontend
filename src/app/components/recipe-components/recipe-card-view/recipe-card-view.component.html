@@ -1,6 +1,6 @@
 
 <div class="recipeContainer">
-    <app-general-item-selection [items]="allowedItems" (filteredItems)="addRecipeToAddList($event)" *ngIf="editMode"></app-general-item-selection>
+    <!-- <app-general-item-selection (filteredItems)="addRecipeToAddList($event)" *ngIf="editMode"></app-general-item-selection> -->
     <app-recipe-card  (change)="addRecipeToRemoveList($event)" [recipe]="recipe" [editMode]="editMode" *ngFor="let recipe of recipes"></app-recipe-card>
 </div>
  

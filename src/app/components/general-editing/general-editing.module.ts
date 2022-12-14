@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { GeneralAddComponent } from './general-add/general-add.component';
 import { GeneralItemSelectionComponent } from './general-item-selection/general-item-selection.component';
 import { FilteringModule } from '../filtering/filtering.module';
+import { GeneralEditRelationsComponent } from './recipe-details-edit-relations/general-edit-relations.component';
 
 
 
@@ -13,7 +14,8 @@ import { FilteringModule } from '../filtering/filtering.module';
   declarations: [
     NameEditComponent,
     GeneralAddComponent,
-    GeneralItemSelectionComponent
+    GeneralItemSelectionComponent,
+    GeneralEditRelationsComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { FilteringModule } from '../filtering/filtering.module';
   exports: [
     NameEditComponent,
     GeneralAddComponent,
-    GeneralItemSelectionComponent
+    GeneralItemSelectionComponent,
+    GeneralEditRelationsComponent
   ]
 })
 export class GeneralEditingModule { }

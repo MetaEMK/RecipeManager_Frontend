@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { GeneralAddComponent } from 'src/app/components/general-editing/general-add/general-add.component';
 import { CategoryService } from 'src/app/core/services/category.service';
-import { Query } from 'src/app/core/services/query';
+import { Query, QueryItem } from 'src/app/core/query';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
@@ -53,7 +53,8 @@ export class CategoryOverviewComponent implements OnInit {
     });
   }
 
-  public searchByQuery(query: Query){
+  public searchByQuery(queryValue: string){
+    const query = new Query(new QueryItem("name", [queryValue]));
     this.categoryService.getByQuery(query).then((categories) => {
       this.filteredCategories = categories;
     }).catch(async (error) => {

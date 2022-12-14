@@ -11,12 +11,16 @@ export class GeneralModelChipListComponent implements OnInit {
 
   @Input()
   public items: GeneralModel[] = [];
+  
+  @Input()
+  public title?: string;
 
-  @Input("unAssignedItems")
+  @Input("showUnassignedButton")
   public showUnassignedButton: boolean = false;
 
-  @Output("showUnassignedItems")
-  public showUnassignedItemsOutput: EventEmitter<boolean> = new EventEmitter();
+  @Output("unassignedState")
+  public unassignedStateOutput: EventEmitter<boolean> = new EventEmitter();
+
   public stateOfUnassigned: boolean = false;
 
   @Output("seletedItemIds")
@@ -35,12 +39,15 @@ export class GeneralModelChipListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.items);
+    if(this.items.length === 1)
+      this.selectAll();
   }
 
   public changeUnassignedState()
   {
     this.stateOfUnassigned = !this.stateOfUnassigned;
-    this.showUnassignedItemsOutput.emit(this.stateOfUnassigned);
+    this.unassignedStateOutput.emit(this.stateOfUnassigned);
   }
 
   public get unassignedState(): string

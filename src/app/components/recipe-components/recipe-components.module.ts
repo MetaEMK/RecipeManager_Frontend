@@ -15,7 +15,7 @@ import { RecipeAddModalComponent } from './recipe-add-modal/recipe-add-modal.com
     RecipeCardComponent,
     RecipeCardAddComponent,
     RecipeCardViewComponent,
-    RecipeAddModalComponent
+    RecipeAddModalComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +31,6 @@ import { RecipeAddModalComponent } from './recipe-add-modal/recipe-add-modal.com
     RecipeCardAddComponent,
     RecipeCardViewComponent,
     RecipeAddModalComponent,
-    
   ]
 })
 export class RecipeComponentsModule { }

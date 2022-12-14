@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
@@ -40,38 +41,27 @@ export class RecipeCardViewComponent implements OnChanges {
   public addRecipes: number[] = [];
   public rmvRecipes: number[] = [];
 
+  public defaultQuery: Query = new Query();
+
   public allowedItems: GeneralModel[] = [];
 
   constructor(
   ) { }
 
   async ngOnInit() {;
-    if(this.branch) await this.getRecipesWithBranch();
-    else if(this.category) await this.getRecipesWithCategory();
+    if(this.branch) this.getRecipesWithBranch();
+    else if(this.category) this.getRecipesWithCategory();
   }
 
-  public async getRecipesWithCategory(): Promise<void> {
-    this.loading = true;
+  public getRecipesWithCategory(): void {
     if(this.category?.id === undefined) return;
-
-    try {
-      //TODO: Get All Recipes which are not in the category yet
-    } catch (error) {
-      console.error(error);
-    }
-    this.loading = false;
+    this.defaultQuery.add("categoryExclude", this.category.id.toString());
   }
 
   public async getRecipesWithBranch(): Promise<void> {
     this.loading = true;
     if(this.branch?.id === undefined) return;
-    try {
-        //TODO: Get All Recipes which are not in the branch yet
-    }
-
-    catch (error) {
-      console.error(error);
-    }
+    this.defaultQuery.add("branchExclude", this.branch.id.toString());
     this.loading = false;
   }
 

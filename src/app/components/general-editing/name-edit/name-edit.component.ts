@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { BranchService } from 'src/app/core/services/branch.service';
-import { GeneralService } from 'src/app/core/services/generalService';
+import { GeneralService } from 'src/app/core/generalService';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { GeneralModel } from 'src/app/model/generalModel';
 

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
 import { environment } from 'src/environment/environment';
-import { GeneralService } from './generalService';
-import { Query } from './query';
+import { GeneralService } from '../generalService';
+import { Query } from '../query';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Query } from 'src/app/core/services/query';
+import { Query, QueryItem } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { Branch } from 'src/app/model/branch.model';
@@ -33,7 +33,6 @@ export class FilterByGeneralModelComponent implements OnInit {
 
   @Output("filteredItems")
   public filteredItemsOutput: EventEmitter<Query> = new EventEmitter();
-  private query: Query = new Query();
 
   public get showBranches(): boolean
   {
@@ -49,16 +48,45 @@ export class FilterByGeneralModelComponent implements OnInit {
   public selectedCategoryIds: number[] = [];
   public selectedBranchIds: number[] = [];
 
-  public nameQuery: Query = new Query();
+  public unasignedBranches: boolean = false;
+  public unasignedCategories: boolean = false;
+  public unassignedCategoryState: boolean = false;
+  public unassignedBranchState: boolean = false;
+
+  public queryForUnassignedBranches: QueryItem = new QueryItem("branchNone", ["true"]);
+  public queryForUnassignedCategory: QueryItem = new QueryItem("categoryNone", ["true"]);
+
+  public nameQuery?: string;
 
   constructor(
     public settingsService: SettingsService,
+    public recipeService: RecipeService,
   ) { }
 
   ngOnInit() {
     this.filteredItems = [];
-    if(this.branches.length === 1) this.selectedBranchIds.push(this.branches[0].id);
-    if(this.categories.length === 1) this.selectedCategoryIds.push(this.categories[0].id);
+    
+    if(this.filterCategories)
+    {
+      if(this.branches.length === 1)
+      {
+        const query = new Query();
+        query.add("branch", this.branches[0].id.toString());
+        query.addQueryItem(this.queryForUnassignedCategory);
+        this.recipeService.getByQuery(query).then(recipes => (recipes.length > 0)  ? this.unasignedCategories = true: this.unasignedCategories = false);
+      }
+    }
+
+    if(this.filterBranches)
+    {
+      if(this.categories.length === 1)
+      {
+        const query = new Query();
+        query.add("category", this.categories[0].id.toString());
+        query.addQueryItem(this.queryForUnassignedBranches);
+        this.recipeService.getByQuery(query).then(recipes => (recipes.length > 0)  ? this.unasignedBranches = true: this.unasignedBranches = false);
+      }
+    }
   }
 
   public onChangeSelectedBranches(event: number[])
@@ -73,29 +101,40 @@ export class FilterByGeneralModelComponent implements OnInit {
     this.filterItems();
   }
 
+  public onChangeUnassignedBranches(event: boolean)
+  {
+    this.unassignedBranchState = event;
+    this.filterItems();
+  }
+
+  public onChangeUnassignedCategories(event: boolean)
+  {
+    this.unassignedCategoryState = event;
+    this.filterItems();
+  }
+
+  public onChangeNameQuery(event: string)
+  {
+    this.nameQuery = event;
+    this.filterItems();
+  }
+
   public filterItems()
   {
     let query = new Query();
     if(this.selectedBranchIds.length > 0 && this.filterBranches)
-    {
       query.addFilter("branch", this.convertIdsToString(this.selectedBranchIds));
-    }
-    if(this.selectedCategoryIds.length > 0 && this.filterCategories)
-    {
-      query.addFilter("category", this.convertIdsToString(this.selectedCategoryIds));
-    }
-    if (query.items.length > this.minimumFilterCount)
-    {
-      this.query = query;
-    }
-    if(this.nameQuery.items.length > 0 && this.filterByName) query.items.push(...this.nameQuery.items);
-    this.filteredItemsOutput.emit(query);
-  }
 
-  public addNameQuery(query: Query)
-  {
-    this.nameQuery = query;
-    this.filterItems();
+    if(this.selectedCategoryIds.length > 0 && this.filterCategories)
+      query.addFilter("category", this.convertIdsToString(this.selectedCategoryIds));
+
+    if(this.nameQuery && this.filterByName) query.add("name", this.nameQuery);
+
+    if(this.unassignedBranchState && this.filterBranches) query.addQueryItem(this.queryForUnassignedBranches);
+    if(this.unassignedCategoryState && this.filterCategories) query.addQueryItem(this.queryForUnassignedCategory);
+
+    console.log(query.toString());
+    this.filteredItemsOutput.emit(query);
   }
 
   convertIdsToString(ids: number[]): string[]
