@@ -21,7 +21,7 @@ export class RecipeCardComponent implements OnChanges, OnInit {
   public isRemoved: boolean = false;
 
   public get imagePath(): string {
-    if(!this.recipe.imagePath) return "/imagas/placeholder.png"
+    if(!this.recipe.imagePath) return "http://localhost:4200/assets/placeholder.png"
     else return this.recipe.imagePath;
   }
 
