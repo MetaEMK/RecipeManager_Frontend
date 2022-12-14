@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SettingsService } from 'src/app/core/services/settings.service';
-import { GeneralModel } from 'src/app/model/generalModel';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
   selector: 'app-general-model-chip-list',
@@ -10,7 +10,7 @@ import { GeneralModel } from 'src/app/model/generalModel';
 export class GeneralModelChipListComponent implements OnInit {
 
   @Input()
-  public items: GeneralModel[] = [];
+  public items: GeneralModelWithRouting[] = [];
   
   @Input()
   public title?: string;
@@ -76,7 +76,7 @@ export class GeneralModelChipListComponent implements OnInit {
       return this.settingsService.opposittheme;
   }
 
-  public changeState(event: GeneralModel)
+  public changeState(event: GeneralModelWithRouting)
   {
     if (this.selectedItems.includes(event.id))
     {
@@ -89,7 +89,7 @@ export class GeneralModelChipListComponent implements OnInit {
     this.selectedItemsOutput.emit(this.selectedItems);
   }
 
-  public getState(item: GeneralModel)
+  public getState(item: GeneralModelWithRouting)
   {
     if(this.selectedItems.includes(item.id))
     {

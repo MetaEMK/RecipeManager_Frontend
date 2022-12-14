@@ -7,7 +7,7 @@ import { Query, QueryItem } from 'src/app/core/query';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Branch } from 'src/app/model/branch.model';
-import { GeneralModel } from 'src/app/model/generalModel';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
   selector: 'app-branch-overview',
@@ -16,7 +16,7 @@ import { GeneralModel } from 'src/app/model/generalModel';
 })
 export class BranchOverviewComponent implements OnInit {
 
-  public filteredBranches: GeneralModel[] = [];
+  public filteredBranches: GeneralModelWithRouting[] = [];
   public loading: Boolean = true;
 
   constructor(
@@ -93,7 +93,7 @@ export class BranchOverviewComponent implements OnInit {
     });
   }
   
-  public navigateToBranch(branch: GeneralModel)
+  public navigateToBranch(branch: GeneralModelWithRouting)
   {
     this.router.navigate(["/branches", branch.slug]);
   }

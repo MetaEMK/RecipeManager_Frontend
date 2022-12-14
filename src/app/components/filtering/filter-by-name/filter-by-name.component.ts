@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Query } from 'src/app/core/query';
 import { SettingsService } from 'src/app/core/services/settings.service';
-import { GeneralModel } from 'src/app/model/generalModel';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
   selector: 'app-filter-by-name',
@@ -14,7 +14,7 @@ export class FilterByNameComponent implements OnInit {
   public title!: string;
 
   @Input()
-  public items!: GeneralModel[];
+  public items!: GeneralModelWithRouting[];
 
   @Input()
   public showClearButton: boolean = true;

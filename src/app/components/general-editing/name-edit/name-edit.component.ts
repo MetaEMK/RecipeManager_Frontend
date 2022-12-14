@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { GeneralService } from 'src/app/core/generalService';
 import { SettingsService } from 'src/app/core/services/settings.service';
-import { GeneralModel } from 'src/app/model/generalModel';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
   selector: 'app-name-edit',
@@ -16,7 +16,7 @@ export class NameEditComponent {
   public title!: string;
   
   @Input() 
-  public item!: GeneralModel;
+  public item!: GeneralModelWithRouting;
 
   @Input() 
   public editMode!: boolean;

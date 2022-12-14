@@ -1,8 +1,8 @@
 import { Category } from "./category.model";
-import { GeneralModel } from "./generalModel";
+import { GeneralModelWithRouting } from "./generalModel";
 import { Recipe } from "./recipe.model";
 
-export interface Branch extends GeneralModel {
+export interface Branch extends GeneralModelWithRouting {
 
     recipeCategories: Category[];
     recipes: Recipe[];

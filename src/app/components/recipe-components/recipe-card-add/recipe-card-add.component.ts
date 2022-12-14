@@ -5,7 +5,7 @@ import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
-import { GeneralModel } from 'src/app/model/generalModel';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 import { Recipe } from 'src/app/model/recipe.model';
 
 

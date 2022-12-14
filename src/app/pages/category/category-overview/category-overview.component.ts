@@ -7,7 +7,7 @@ import { Query, QueryItem } from 'src/app/core/query';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
-import { GeneralModel } from 'src/app/model/generalModel';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
   selector: 'app-category-overview',
@@ -16,7 +16,7 @@ import { GeneralModel } from 'src/app/model/generalModel';
 })
 export class CategoryOverviewComponent implements OnInit {
 
-  public filteredCategories: GeneralModel[] = [];
+  public filteredCategories: GeneralModelWithRouting[] = [];
 
   public filter?: string;
 

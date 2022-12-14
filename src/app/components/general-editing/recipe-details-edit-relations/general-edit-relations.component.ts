@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output  } from '@angular/core';
 import { GeneralService } from 'src/app/core/generalService';
 import { Query } from 'src/app/core/query';
 import { SettingsService } from 'src/app/core/services/settings.service';
-import { GeneralModel } from 'src/app/model/generalModel';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
   selector: 'app-general-details-edit-relations',
@@ -13,27 +13,27 @@ export class GeneralEditRelationsComponent implements OnInit {
 
   @Input("items")
 
-  public itemList: GeneralModel[] = [];
+  public itemList: GeneralModelWithRouting[] = [];
 
   @Input("validItemsToAdd")
-  public validItemsToAdd: GeneralModel[] = [];
+  public validItemsToAdd: GeneralModelWithRouting[] = [];
 
   @Input()
-  public service?: GeneralService<GeneralModel>;
+  public service?: GeneralService<GeneralModelWithRouting>;
 
   @Input()
   public defaultQuery?: Query;
 
   @Output("itemsToAdd")
-  private output_itemsToAdd: EventEmitter<GeneralModel[]> = new EventEmitter();
-  public itemsToAdd: GeneralModel[] = [];
+  private output_itemsToAdd: EventEmitter<GeneralModelWithRouting[]> = new EventEmitter();
+  public itemsToAdd: GeneralModelWithRouting[] = [];
 
   @Output("itemsToRemove")
-  private output_itemsToRemove: EventEmitter<GeneralModel[]> = new EventEmitter();
-  public itemsToRemove: GeneralModel[] = [];
+  private output_itemsToRemove: EventEmitter<GeneralModelWithRouting[]> = new EventEmitter();
+  public itemsToRemove: GeneralModelWithRouting[] = [];
 
 
-  public getItemState(item: GeneralModel): string
+  public getItemState(item: GeneralModelWithRouting): string
   {
     if(this.itemsToAdd.includes(item)) return "success";
     if(this.itemsToRemove.includes(item)) return "danger";
@@ -48,12 +48,12 @@ export class GeneralEditRelationsComponent implements OnInit {
   }
 
 
-  addItem(event: GeneralModel): void
+  addItem(event: GeneralModelWithRouting): void
   {
     this.toggleItem(event);
   }
 
-  public toggleItem(item: GeneralModel): void
+  public toggleItem(item: GeneralModelWithRouting): void
   {
     let isInItemsToAdd = this.itemsToAdd.find((x => x.id == item.id));
     let isInItemsToRemove = this.itemsToRemove.find(x => x.id == item.id);

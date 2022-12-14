@@ -9,7 +9,7 @@ import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
-import { GeneralModel } from 'src/app/model/generalModel';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 import { Recipe } from 'src/app/model/recipe.model';
 
 @Component({
@@ -29,10 +29,10 @@ export class RecipeDetailsComponent implements OnInit {
   public query: Query = new Query();
 
   public newName?: string;
-  public addCategories: GeneralModel[] = [];
-  public rmvCategories: GeneralModel[] = [];
-  public addBranches: GeneralModel[] = [];
-  public rmvBranches: GeneralModel[] = [];
+  public addCategories: GeneralModelWithRouting[] = [];
+  public rmvCategories: GeneralModelWithRouting[] = [];
+  public addBranches: GeneralModelWithRouting[] = [];
+  public rmvBranches: GeneralModelWithRouting[] = [];
 
   constructor(
     private recipeService: RecipeService,

@@ -5,7 +5,7 @@ import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
-import { GeneralModel } from 'src/app/model/generalModel';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
   selector: 'app-general-item-selection',
@@ -15,7 +15,7 @@ import { GeneralModel } from 'src/app/model/generalModel';
 export class GeneralItemSelectionComponent  implements OnInit {
   
   @Input("service")
-  public service?: GeneralService<GeneralModel>;
+  public service?: GeneralService<GeneralModelWithRouting>;
 
   @Input("defaultQuery")
   public defaultQuery?: Query;
@@ -24,12 +24,12 @@ export class GeneralItemSelectionComponent  implements OnInit {
   public minimumCharacters: number = 3;
 
   @Input("alreadySelectedItems")
-  public alreadySelectedItems: GeneralModel[] = [];
+  public alreadySelectedItems: GeneralModelWithRouting[] = [];
 
   @Output("itemSelected")
-  private output_itemSelected: EventEmitter<GeneralModel> = new EventEmitter();
+  private output_itemSelected: EventEmitter<GeneralModelWithRouting> = new EventEmitter();
 
-  public filteredItems: GeneralModel[] = [];
+  public filteredItems: GeneralModelWithRouting[] = [];
 
   public loading: boolean = false;
 
@@ -74,7 +74,7 @@ export class GeneralItemSelectionComponent  implements OnInit {
     }
   }
 
-  public selectItem(item: GeneralModel): void
+  public selectItem(item: GeneralModelWithRouting): void
   {
     this.filteredItems = this.filteredItems.filter(i => i.id != item.id);
     this.output_itemSelected.emit(item);

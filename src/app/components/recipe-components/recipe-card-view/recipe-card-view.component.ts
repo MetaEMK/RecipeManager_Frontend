@@ -5,7 +5,7 @@ import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
-import { GeneralModel } from 'src/app/model/generalModel';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 import { Recipe } from 'src/app/model/recipe.model';
 
 
@@ -43,7 +43,7 @@ export class RecipeCardViewComponent implements OnChanges {
 
   public defaultQuery: Query = new Query();
 
-  public allowedItems: GeneralModel[] = [];
+  public allowedItems: GeneralModelWithRouting[] = [];
 
   constructor(
   ) { }
