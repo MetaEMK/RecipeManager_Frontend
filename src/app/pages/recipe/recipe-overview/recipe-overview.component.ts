@@ -87,7 +87,7 @@ export class RecipeOverviewComponent implements OnInit {
   const { data } = await modal.onDidDismiss();
     if (data) {
       this.recipeService.getAll();
-      this.router.navigate(['/recipe', data.slug]);
+      this.router.navigate(['/recipe', data.slug, '@editMode'],);
     }
   }
 

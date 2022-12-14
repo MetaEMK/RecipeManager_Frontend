@@ -36,7 +36,6 @@ export class NameEditComponent {
 
   ngOnInit(): void {
       this.newItemName = this.item.name;
-      this.editMode = false;
   }
 
   ngOnChanges(changes: any): void

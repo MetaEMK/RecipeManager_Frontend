@@ -8,11 +8,13 @@ import { RecipeOverviewComponent } from './recipe-overview/recipe-overview.compo
 import { GeneralEditingModule } from 'src/app/components/general-editing/general-editing.module';
 import { RecipeComponentsModule } from 'src/app/components/recipe-components/recipe-components.module';
 import { FilteringModule } from 'src/app/components/filtering/filtering.module';
+import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 
 
 @NgModule({
   declarations: [
-    RecipeOverviewComponent
+    RecipeOverviewComponent,
+    RecipeDetailsComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,9 @@
+<div *ngIf="recipe">
+    <app-name-edit title="Rezept" [item]="recipe" [editMode]="editMode" (changes)="newName = $event"></app-name-edit>
+    <p *ngFor="let branch of recipe.branches">
+        Abteilung: {{branch.name}}
+    </p>
+    <p *ngFor="let category of recipe.categories">
+        Kategorie: {{category.name}}
+    </p>
+</div>

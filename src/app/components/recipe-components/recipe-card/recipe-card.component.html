@@ -1,4 +1,4 @@
-<ion-card [color]="themeService.theme" class="recipe" [id]="'recipeCardId' + recipe.id" *ngIf="recipe">
+<ion-card [color]="themeService.theme" class="recipe" [id]="'recipeCardId' + recipe.id" (click)="routeToRecipe()" *ngIf="recipe">
     <div class="test">
         <div class="imagetest">
             <img fill sizes="(max-width: 500px) 30vw, 15vw" loading="lazy" [ngSrc]="imagePath"/>

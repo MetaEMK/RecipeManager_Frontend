@@ -22,6 +22,9 @@ export class FilterByGeneralModelComponent implements OnInit {
   @Input("filterBranches")
   public filterBranches?: boolean = true;
 
+  @Input("filterByName")
+  public filterByName?: boolean = true;
+
   @Input("filterCategories")
   public filterCategories?: boolean = true;
 
@@ -30,7 +33,7 @@ export class FilterByGeneralModelComponent implements OnInit {
 
   @Output("filteredItems")
   public filteredItemsOutput: EventEmitter<Query> = new EventEmitter();
-  public query: Query = new Query();
+  private query: Query = new Query();
 
   public get showBranches(): boolean
   {
@@ -42,10 +45,11 @@ export class FilterByGeneralModelComponent implements OnInit {
     return this.categories.length > 1
   }
 
-
   public filteredItems: Recipe[] = [];
   public selectedCategoryIds: number[] = [];
   public selectedBranchIds: number[] = [];
+
+  public nameQuery: Query = new Query();
 
   constructor(
     public settingsService: SettingsService,
@@ -84,7 +88,14 @@ export class FilterByGeneralModelComponent implements OnInit {
     {
       this.query = query;
     }
+    if(this.nameQuery.items.length > 0 && this.filterByName) query.items.push(...this.nameQuery.items);
     this.filteredItemsOutput.emit(query);
+  }
+
+  public addNameQuery(query: Query)
+  {
+    this.nameQuery = query;
+    this.filterItems();
   }
 
   convertIdsToString(ids: number[]): string[]

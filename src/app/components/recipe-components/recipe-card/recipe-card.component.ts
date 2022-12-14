@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { Recipe } from 'src/app/model/recipe.model';
@@ -26,7 +27,8 @@ export class RecipeCardComponent implements OnChanges, OnInit {
   }
 
   constructor(
-    public themeService: SettingsService
+    public themeService: SettingsService,
+    private router: Router
   ) { }
 
   ngOnChanges(event: any) {
@@ -64,5 +66,10 @@ export class RecipeCardComponent implements OnChanges, OnInit {
       else
         card.style.opacity = "1";
     }
+  }
+
+  public routeToRecipe(){
+    if(this.recipe.slug)
+      this.router.navigate(['/recipes', this.recipe.slug]);
   }
 }
