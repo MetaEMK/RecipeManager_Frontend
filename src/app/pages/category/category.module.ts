@@ -7,7 +7,6 @@ import { GeneralEditingModule } from 'src/app/components/general-editing/general
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { CategoryAddModalComponent } from 'src/app/components/category/category-add-modal/category-add-modal.component';
 import { CategoryOverviewComponent } from './category-overview/category-overview.component';
 import { CategoryDetailsComponent } from './category-details/category-details.component';
 import { RecipeComponentsModule } from 'src/app/components/recipe-components/recipe-components.module';
@@ -16,7 +15,6 @@ import { FilteringModule } from 'src/app/components/filtering/filtering.module';
 
 @NgModule({
   declarations: [
-    CategoryAddModalComponent,
     CategoryOverviewComponent,
     CategoryDetailsComponent
   ],

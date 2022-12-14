@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
-import { CategoryAddModalComponent } from 'src/app/components/category/category-add-modal/category-add-modal.component';
 import { GeneralAddComponent } from 'src/app/components/general-editing/general-add/general-add.component';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Query } from 'src/app/core/services/query';
