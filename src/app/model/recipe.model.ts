@@ -5,7 +5,7 @@ import { GeneralModel } from "./generalModel";
 
 export interface Recipe extends GeneralModel {
     description: string;
-    image_path: string;
+    imagePath: string;
 
     categories: Category[];
     branches: Branch[];

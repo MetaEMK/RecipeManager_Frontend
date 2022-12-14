@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { RecipeCardAddComponent } from './recipe-card-add/recipe-card-add.component';
 import { RecipeCardViewComponent } from './recipe-card-view/recipe-card-view.component';
@@ -23,13 +23,15 @@ import { RecipeAddModalComponent } from './recipe-add-modal/recipe-add-modal.com
     IonicModule.forRoot({
       mode: 'ios'
     }),
-    GeneralEditingModule
+    GeneralEditingModule,
+    NgOptimizedImage
   ],
   exports: [
     RecipeCardComponent,
     RecipeCardAddComponent,
     RecipeCardViewComponent,
-    RecipeAddModalComponent
+    RecipeAddModalComponent,
+    
   ]
 })
 export class RecipeComponentsModule { }

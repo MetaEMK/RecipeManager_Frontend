@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { Recipe } from 'src/app/model/recipe.model';
 import { RecipeCardViewEvent } from '../recipe-card-view/recipe-card-view.component';
@@ -8,9 +9,9 @@ import { RecipeCardViewEvent } from '../recipe-card-view/recipe-card-view.compon
   templateUrl: './recipe-card.component.html',
   styleUrls: ['./recipe-card.component.css']
 })
-export class RecipeCardComponent implements OnChanges {
+export class RecipeCardComponent implements OnChanges, OnInit {
 
-  @Input() recipe?: Recipe;
+  @Input() recipe!: Recipe;
 
   @Input() editMode : boolean = false;
 
@@ -19,15 +20,24 @@ export class RecipeCardComponent implements OnChanges {
 
   public isRemoved: boolean = false;
 
+  public get imagePath(): string {
+    if(!this.recipe.imagePath) return "/imagas/placeholder.png"
+    else return this.recipe.imagePath;
+  }
+
   constructor(
     public themeService: SettingsService
   ) { }
 
-  ngOnChanges(event: any): void {
+  ngOnChanges(event: any) {
     if(event.editMode){
       this.isRemoved = false;
       this.setOpacity();
     }
+  }
+
+  ngOnInit(): void {
+    console.log(this.imagePath)
   }
 
   public addRecipeToRemoveList(){

@@ -3,6 +3,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { GeneralService } from 'src/app/core/services/generalService';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
+import { ApiError } from 'src/app/model/apierror.model';
 import { GeneralModel } from 'src/app/model/generalModel';
 
 @Component({
@@ -11,6 +12,8 @@ import { GeneralModel } from 'src/app/model/generalModel';
   styleUrls: ['./general-add.component.css']
 })
 export class GeneralAddComponent implements OnInit {
+
+  public loading: Boolean = false;
 
   @Input()
   public title?: string;
@@ -31,10 +34,10 @@ export class GeneralAddComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.title)
   }
 
   public async onAddItem() {
+    this.loading = true;
     let toast;
     let item;
 
@@ -50,6 +53,7 @@ export class GeneralAddComponent implements OnInit {
         
         if(item) 
         {
+          this.loading = false;
           this.modalController.dismiss(item);
           await toast.present();
         }
@@ -62,18 +66,21 @@ export class GeneralAddComponent implements OnInit {
           message: 'Bitte einen Namen eingeben',
           duration: 3000
         });
+        this.loading = false;
         await toast.present();
       }
 
     } catch (error) {
+      let message: string = (error instanceof ApiError) ? (error as ApiError).messageForUser: "Es gab ein Fehler beim Hinzufügen";
       console.warn(error)
       toast = await this.toastController.create({
         position: 'top',
         color: 'danger',
-        message: 'Fehler beim Hinzufügen',
+        message: message,
         duration: 3000
       });
 
+      this.loading = false;
       await toast.present();
     }
       

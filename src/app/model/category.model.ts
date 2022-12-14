@@ -4,5 +4,5 @@ import { Recipe } from "./recipe.model";
 
 export interface Category extends GeneralModel {
     recipes: Recipe[];
-    branches: Branch[];
+    recipeBranches: Branch[];
 }

@@ -13,6 +13,7 @@ export class RecipeAddModalComponent {
   
   public itemName: string = '';
   public itemDescription?: string;
+  private testImage: any;
 
 
   constructor(
@@ -23,7 +24,7 @@ export class RecipeAddModalComponent {
   ) { }
 
     public onAddItem() {
-      this.recipeService.create(this.itemName, this.itemDescription).then(async (recipe) => {
+      this.recipeService.create(this.itemName, this.itemDescription, this.testImage).then(async (recipe) => {
         const toast = await this.toastController.create({
           message: `Rezept ${recipe.name} wurde erstellt.`,
           duration: 3000,
@@ -35,12 +36,15 @@ export class RecipeAddModalComponent {
       })
       .catch(async (error) => {
         const toast = await this.toastController.create({
-          message: `Rezept konnte nicht erstellt werden: ${error}`,
+          message: `Rezept konnte nicht erstellt werden: ${error.messageForUser}`,
           duration: 3000,
           position: 'top',
           color: 'danger'
           });
           await toast.present();
       });
+    }
+    uploadImage(event: any) {
+      this.testImage = event.target.files[0];
     }
 }

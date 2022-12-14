@@ -50,7 +50,6 @@ export class NameEditComponent {
 
   public changeName(event: any){
     this.newItemName = event.detail.value;
-
     if(this.newItemName === this.item.name)
       this.changes.emit(undefined);
     else

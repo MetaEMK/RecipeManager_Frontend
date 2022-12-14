@@ -4,7 +4,6 @@ import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
-import { GeneralModel } from 'src/app/model/generalModel';
 import { Recipe } from 'src/app/model/recipe.model';
 
 @Component({
@@ -20,12 +19,18 @@ export class FilterByGeneralModelComponent implements OnInit {
   @Input("branches")
   public branches: Branch[] = [];
 
+  @Input("filterBranches")
+  public filterBranches?: boolean = true;
+
+  @Input("filterCategories")
+  public filterCategories?: boolean = true;
+
   @Input("minimumFilterCount")
   public minimumFilterCount: number = 1;
 
   @Output("filteredItems")
-  public filteredItemsOutput: EventEmitter<Recipe[]> = new EventEmitter();
-
+  public filteredItemsOutput: EventEmitter<Query> = new EventEmitter();
+  public query: Query = new Query();
 
   public get showBranches(): boolean
   {
@@ -44,7 +49,6 @@ export class FilterByGeneralModelComponent implements OnInit {
 
   constructor(
     public settingsService: SettingsService,
-    private recipeService: RecipeService
   ) { }
 
   ngOnInit() {
@@ -68,28 +72,19 @@ export class FilterByGeneralModelComponent implements OnInit {
   public filterItems()
   {
     let query = new Query();
-    if(this.selectedBranchIds.length > 0)
+    if(this.selectedBranchIds.length > 0 && this.filterBranches)
     {
       query.addFilter("branch", this.convertIdsToString(this.selectedBranchIds));
     }
-    if(this.selectedCategoryIds.length > 0)
+    if(this.selectedCategoryIds.length > 0 && this.filterCategories)
     {
       query.addFilter("category", this.convertIdsToString(this.selectedCategoryIds));
     }
     if (query.items.length > this.minimumFilterCount)
     {
-      this.recipeService.getByQuery(query).then(
-        (recipes: Recipe[]) => {
-          this.filteredItems = recipes;
-          this.filteredItemsOutput.emit(this.filteredItems);
-        })
-        .catch(error => console.warn(error));
+      this.query = query;
     }
-    else
-    {
-      this.filteredItems = [];
-      this.filteredItemsOutput.emit(this.filteredItems);
-    }
+    this.filteredItemsOutput.emit(query);
   }
 
   convertIdsToString(ids: number[]): string[]

@@ -98,19 +98,17 @@ export class RecipeService implements GeneralService<Recipe> {
   public async create(name: string, description?: string, img?: any): Promise<Recipe>
   {
     if(!description) description = "test";
-    console.log(this.url_v1);
+
+    let formData = new FormData();
+    formData.append('name', name);
+    if(description) formData.append('description', description);
+    if(img) formData.append('image', img);
 
     let error: ApiError;
     try {
       const response = await fetch(this.url_v1, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name,
-          description: description,
-        })
+        body: formData
       });
       console.log(response.status);
       switch (response.status) {

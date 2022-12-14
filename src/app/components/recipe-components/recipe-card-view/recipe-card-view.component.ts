@@ -43,15 +43,11 @@ export class RecipeCardViewComponent implements OnChanges {
   public allowedItems: GeneralModel[] = [];
 
   constructor(
-    private branchService: BranchService,
-    private categoryService: CategoryService,
-    private recipeService: RecipeService,
   ) { }
 
   async ngOnInit() {;
     if(this.branch) await this.getRecipesWithBranch();
     else if(this.category) await this.getRecipesWithCategory();
-
   }
 
   public async getRecipesWithCategory(): Promise<void> {
@@ -59,14 +55,7 @@ export class RecipeCardViewComponent implements OnChanges {
     if(this.category?.id === undefined) return;
 
     try {
-      let recipeCategory= (await this.categoryService.getById(this.category.id)).recipes;
-      let allRecipes = (await this.recipeService.getAll());
-      allRecipes.forEach(recipe => {
-        if(!recipeCategory.find(rc => rc.id === recipe.id))
-          this.allowedItems.push(recipe as GeneralModel);
-      });
-      console.log(this.allowedItems);
-
+      //TODO: Get All Recipes which are not in the category yet
     } catch (error) {
       console.error(error);
     }
@@ -77,15 +66,10 @@ export class RecipeCardViewComponent implements OnChanges {
     this.loading = true;
     if(this.branch?.id === undefined) return;
     try {
-      let recipeCategoryInBranch = (await this.branchService.getById(this.branch.id)).recipes;
-      let allRecipes = (await this.recipeService.getAll());
+        //TODO: Get All Recipes which are not in the branch yet
+    }
 
-      allRecipes.forEach(recipe => {
-        if(!recipeCategoryInBranch.find(rc => rc.id === recipe.id))
-          this.allowedItems.push(recipe as GeneralModel);
-      });
-
-    } catch (error) {
+    catch (error) {
       console.error(error);
     }
     this.loading = false;

@@ -29,8 +29,6 @@ export class BranchEditComponent implements OnInit {
   public filteredRecipes: Recipe[] = [];
   public selectAll: boolean = false;
 
-
-
   //edit
   public editMode: boolean = false;
   public get deletePossible(): boolean {return this.branch?.recipeCategories.length === 0 && this.editMode };
@@ -56,18 +54,20 @@ export class BranchEditComponent implements OnInit {
         this.branchService.getBySlug(slug).then(async (branch) => {
           this.branch = branch;
           await this.getBranch(branch.id);
+          this.loading = false;
+
         })
         .catch((error) => {
           console.log(error);
         });
       } catch (error) {
-        console.log("An error occured while trying to get the branch by slug.")
+        this.loading = false;
+        console.log("An error occured while trying to get the branch by slug.");
         console.log(error);
       }
     }
     else
       this.router.navigate(["/branches"]);
-    this.loading = false;
   }
 
   public async getBranch(id: number)
@@ -76,20 +76,31 @@ export class BranchEditComponent implements OnInit {
     try {
       this.uncategorizedRecipes = [];
       this.branch = await this.branchService.getById(id);
-      this.branch.recipes.forEach((recipe) => {
-        if(recipe.categories.length === 0) this.uncategorizedRecipes.push(recipe);
-      });
     } catch (error) {
       console.log(error);
     }
     this.loading = false;
   }
 
-  public async onFilteredItemsFromBranchCategory($event: Recipe[])
+  public async searchByQuery($event: Query)
   {
-    this.loading = true;
-    this.filteredRecipes = $event;
-    this.loading = false;
+    if($event.items.length === 0 ) {
+      this.filteredRecipes = [];
+    }
+    else {
+      this.loading = true;
+      if(this.branch?.id) $event.addFilter("branch", [this.branch.id.toString()]);
+      this.filteredRecipes = [];
+      console.log("Query in brach-edit: " + $event);
+      this.recipeService.getByQuery($event).then((recipes) => {
+        this.loading = false;
+        this.filteredRecipes = recipes;
+      }).
+      catch((error) => {
+        this.loading = false;
+        console.error(error);
+      });
+    }
   }
 
   public async updateBranch()

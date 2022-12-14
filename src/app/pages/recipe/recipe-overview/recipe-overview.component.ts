@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { GeneralAddComponent } from 'src/app/components/general-editing/general-add/general-add.component';
 import { RecipeAddModalComponent } from 'src/app/components/recipe-components/recipe-add-modal/recipe-add-modal.component';
+import { BranchService } from 'src/app/core/services/branch.service';
+import { CategoryService } from 'src/app/core/services/category.service';
+import { Query } from 'src/app/core/services/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
+import { Recipe } from 'src/app/model/recipe.model';
 
 @Component({
   selector: 'app-recipe-overview',
@@ -12,15 +17,64 @@ import { SettingsService } from 'src/app/core/services/settings.service';
 })
 export class RecipeOverviewComponent implements OnInit {
 
+  public loading: Boolean = true;
+  public recipeList: Recipe[] = [];
+
   constructor(
     public settingsService: SettingsService,
     public toastController: ToastController,
     public modalController: ModalController,
-    public recipeService: RecipeService
+    public recipeService: RecipeService,
+    public branchService: BranchService,
+    public categoryService: CategoryService,
+    public router: Router
   ) { }
 
-  ngOnInit() {
-    this.recipeService.getAll();
+  public async loadAll(){
+    this.loading = true;
+    let status = [false, true, true];
+
+    this.branchService.getAll().then(() => status[1] = false)
+    .catch(async (error) => {
+      console.warn(error);
+      const toast = await this.toastController.create({
+        position: "top",
+        message: error.messageForUser,
+        color: "danger",
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel'
+          },
+        ]
+      });
+      status[1] = false;
+      await toast.present();
+    });
+
+    this.categoryService.getAll().then(() => status[2] = false)
+    .catch(async (error) => {
+      console.warn(error);
+      const toast = await this.toastController.create({
+        position: "top",
+        message: error.messageForUser,
+        color: "danger",
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel'
+          },
+        ]
+      });
+      status[2] = false;
+      await toast.present();
+    });
+    while(status.some((value) => value === true)) await new Promise(resolve => setTimeout(resolve, 100));
+    if(status.every((value) => value === false)) this.loading = false;
+  }
+
+  async ngOnInit() {
+    this.loadAll();
   }
 
   async onAddItem() {
@@ -33,7 +87,35 @@ export class RecipeOverviewComponent implements OnInit {
   const { data } = await modal.onDidDismiss();
     if (data) {
       this.recipeService.getAll();
+      this.router.navigate(['/recipe', data.slug]);
     }
+  }
+
+
+  public getByQuery(query: Query){
+    this.recipeList = [];
+    if(query.items.length === 0) return;
+    this.loading = true;
+    this.recipeService.getByQuery(query).then((recipes) => {
+      this.recipeList = recipes;
+      this.loading = false;
+    })
+    .catch(async (error) => {
+      console.warn(error);
+      const toast = await this.toastController.create({
+        position: "top",
+        message: error.messageForUser,
+        color: "danger",
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel'
+          },
+        ]
+      });
+      this.loading = false;
+      await toast.present();
+    });
   }
   
 }

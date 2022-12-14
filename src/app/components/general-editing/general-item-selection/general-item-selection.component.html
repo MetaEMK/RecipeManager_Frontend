@@ -1,7 +1,7 @@
 <ion-card [color]="settingsService.theme" class="recipe">
     <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
     <ion-card-content>
-        <app-filter-by-name [showClearButton]="true" [items]="allowedItems" (outputItems)="filteredItems = $event"></app-filter-by-name>
+        <app-filter-by-name [minimumCharacters]="3" [items]="allowedItems" (query)="getByQuery($event)"></app-filter-by-name>
 
         <div class="selectionList"> 
             <ion-list>

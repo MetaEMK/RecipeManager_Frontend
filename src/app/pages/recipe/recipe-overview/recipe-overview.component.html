@@ -1,7 +1,9 @@
-<p>recipe-overview works!</p>
+<ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
 
 <button (click)="onAddItem()">erstellen</button>
 
+<app-filter-by-general-model  [minimumFilterCount]="1" [branches]="this.branchService.branches" [categories]="categoryService.categories" (filteredItems)="getByQuery($event)"></app-filter-by-general-model>
+
 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-    <app-recipe-card [recipe]="recipeItem" *ngFor="let recipeItem of this.recipeService.recipes"></app-recipe-card>
+    <app-recipe-card [recipe]="recipeItem" *ngFor="let recipeItem of recipeList"></app-recipe-card>
 </div>

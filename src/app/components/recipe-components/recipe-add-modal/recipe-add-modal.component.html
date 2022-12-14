@@ -9,6 +9,9 @@
         <ion-textarea [(ngModel)]="itemDescription"></ion-textarea>
     </ion-item>
 
+    <ion-item>
+        <input type="file" accept="image/jpeg,image/png" (change)="uploadImage($event)">
+    </ion-item>
     <ion-footer>
         <ion-button (click)="onAddItem()" expand="block">erstellen</ion-button>
     </ion-footer>

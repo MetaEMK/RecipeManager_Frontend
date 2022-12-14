@@ -4,6 +4,7 @@ import { FilterByNameComponent } from './filter-by-name/filter-by-name.component
 import { IonicModule } from '@ionic/angular';
 import { FilterByGeneralModelComponent } from './filter-by-general-model/filter-by-general-model.component';
 import { GeneralModelChipListComponent } from './general-model-chip-list/general-model-chip-list.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +18,8 @@ import { GeneralModelChipListComponent } from './general-model-chip-list/general
     CommonModule,
     IonicModule.forRoot({
       mode: 'ios'
-    })
+    }),
+    FormsModule
   ],
   exports: [
     FilterByNameComponent,

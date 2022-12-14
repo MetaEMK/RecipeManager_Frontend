@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Query } from 'src/app/core/services/query';
+import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { GeneralModel } from 'src/app/model/generalModel';
 
@@ -31,6 +33,7 @@ export class GeneralItemSelectionComponent  implements OnInit {
 
   constructor(
     public settingsService: SettingsService,
+    public recipeService: RecipeService,
   ) { }
 
   ngOnInit() {
@@ -61,5 +64,13 @@ export class GeneralItemSelectionComponent  implements OnInit {
     else {
 
     }
+  }
+
+  public getByQuery(query: Query) {
+    this.loading = true;
+    this.recipeService.getByQuery(query).then((recipes) => {
+      this.filteredItems = recipes;
+      this.loading = false;
+    });
   }
 }

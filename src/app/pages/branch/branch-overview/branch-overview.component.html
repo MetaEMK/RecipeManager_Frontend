@@ -1,6 +1,7 @@
+<ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
 <h1>Abteilungsübersicht</h1>
 
-<app-filter-by-name [title]="'Abteilungsnamen'" [items]="this.branchService.branches" (outputItems)="filteredBranches = $event"></app-filter-by-name>
+<app-filter-by-name [title]="'Abteilungsnamen'" [minimumCharacters]="0" [items]="this.branchService.branches" (query)="searchByQuery($event)"></app-filter-by-name>
 
 <div class="branchContainer">
     <ion-card [color]="themeService.theme" (click)="onAddBranch()" class="branchCard">

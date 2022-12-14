@@ -4,6 +4,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { CategoryAddModalComponent } from 'src/app/components/category/category-add-modal/category-add-modal.component';
 import { GeneralAddComponent } from 'src/app/components/general-editing/general-add/general-add.component';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { Query } from 'src/app/core/services/query';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
@@ -36,8 +37,40 @@ export class CategoryOverviewComponent implements OnInit {
     this.categoryService.getAll().then((categories) => {
       this.filteredCategories = categories;
     })
-    .catch((error) => {
+    .catch(async (error) => {
       console.log(error);
+      const toast = await this.toastController.create({
+        position: "top",
+        message: error.messageForUser,
+        color: "danger",
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel'
+          },
+        ]
+      });
+      await toast.present();
+    });
+  }
+
+  public searchByQuery(query: Query){
+    this.categoryService.getByQuery(query).then((categories) => {
+      this.filteredCategories = categories;
+    }).catch(async (error) => {
+      console.log(error);
+      const toast = await this.toastController.create({
+        position: "top",
+        message: error.messageForUser,
+        color: "danger",
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel'
+          },
+        ]
+      });
+      await toast.present();
     });
   }
 
@@ -58,5 +91,4 @@ export class CategoryOverviewComponent implements OnInit {
       this.ngOnInit();
     }
   }
-
 }

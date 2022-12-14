@@ -17,9 +17,7 @@
     </div>
     
     
-    <app-filter-by-general-model [branches]="[branch]" [categories]="branch.recipeCategories" (filteredItems)="onFilteredItemsFromBranchCategory($event)"></app-filter-by-general-model>
-    
-    <app-filter-by-name [items]="filteredRecipes"></app-filter-by-name>
+    <app-filter-by-general-model [filterBranches]="false" [minimumFilterCount]="1" [branches]="[branch]" [categories]="branch.recipeCategories" (filteredItems)="searchByQuery($event)"></app-filter-by-general-model>
 
     <app-recipe-card-view [recipes]="filteredRecipes" [branch]="branch" [editMode]="editMode" (add)="addRecipe = $event" (rmv)="rmvRecipe = $event"></app-recipe-card-view>
 </div>

@@ -3,6 +3,7 @@ import { Branch } from 'src/app/model/branch.model';
 import { environment } from 'src/environment/environment';
 import { ApiError } from 'src/app/model/apierror.model';
 import { GeneralService } from './generalService';
+import { Query } from './query';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,26 @@ export class BranchService implements GeneralService<Branch> {
       throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
     }
   }
+
+  public async getByQuery(query: Query): Promise<Branch[]> {
+    let error: ApiError;
+    try {
+      let response = await fetch(this.url_v1 + query.toString());
+      switch (response.status) {
+        case 200:
+          return (await response.json()).data;
+        default:
+          error = (await response.json()).error;
+          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+      }
+    } catch (error) {
+      if(error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
+    }
+  }
+
 
   public async getById(id: number): Promise<Branch>
   {
@@ -119,12 +140,12 @@ export class BranchService implements GeneralService<Branch> {
     let bodyObj: any = {};
 
     if(name) bodyObj.name = name;
-
+    
     let obj = {
       add: addRecipes,
       rmv: rmvRecipes
     };
-
+    
     if (addRecipes.length > 0 || rmvRecipes.length > 0) bodyObj.recipe_ids = obj;
 
     try {

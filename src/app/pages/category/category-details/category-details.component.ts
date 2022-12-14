@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { Query } from 'src/app/core/services/query';
+import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
@@ -19,6 +21,7 @@ export class CategoryDetailsComponent implements OnInit {
 
   public category?: Category;
   public recipes: Recipe[] = []; 
+  public filteredRecipes: Recipe[] = [];
 
   public newName: string|undefined;
   public addRecipes: number[] = [];
@@ -29,7 +32,8 @@ export class CategoryDetailsComponent implements OnInit {
     private categoryService: CategoryService,
     private router: Router,
     public settingsService: SettingsService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private recipeService: RecipeService
   ) { }
 
   ngOnInit(): void {
@@ -69,6 +73,26 @@ export class CategoryDetailsComponent implements OnInit {
       this.category = await this.categoryService.getById(id);
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  public async searchByQuery($event: Query)
+  {
+    if($event.items.length === 0 ) {
+      this.filteredRecipes = [];
+    }
+    else {
+      this.loading = true;
+      if(this.category?.id) $event.addFilter("category", [this.category.id.toString()]);
+      this.filteredRecipes = [];
+      console.log("Query in category-edit: " + $event);
+      this.recipeService.getByQuery($event).then((recipes) => {
+        this.loading = false;
+        this.filteredRecipes = recipes;
+      }).catch((error) => {
+          this.loading = false;
+          console.error(error);
+        });
     }
   }
 
