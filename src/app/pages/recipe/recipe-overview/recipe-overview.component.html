@@ -4,6 +4,5 @@
 
 <app-filter-by-general-model [minimumFilterCount]="1" [branches]="this.branchService.branches" [categories]="categoryService.categories" (filteredItems)="getByQuery($event)"></app-filter-by-general-model>
 
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-    <app-recipe-card [recipe]="recipeItem" *ngFor="let recipeItem of recipeList"></app-recipe-card>
-</div>
+
+<app-recipe-card-view [recipes]="recipeList"></app-recipe-card-view>

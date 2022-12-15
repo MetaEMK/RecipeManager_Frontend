@@ -23,7 +23,9 @@ export class FilterByNameComponent implements OnInit {
   public minimumCharacters: number = 3;
 
   @Input()
-  public delay: number = 500;
+  public delay: number = 1000;
+
+  private lastEmitedValue: string = "";
 
   @Output("value")
   outputItems: EventEmitter<string> = new EventEmitter();
@@ -43,13 +45,19 @@ export class FilterByNameComponent implements OnInit {
 
   public clearInput(): void {
     this.filter = "";
-    this.sendQuery();
+    this.sendQuery(true);
   }
   
-  public sendQuery(): void {
+  public sendQuery(forceSend: boolean): void {
+    if(!forceSend)
+    {
+      if(this.lastEmitedValue === this.filter) return;
+    }
     if(this.filter.length >= this.minimumCharacters) {
       this.outputItems.emit(this.filter);
     } else
       this.outputItems.emit(undefined);
+
+    this.lastEmitedValue = this.filter;
   }
 }

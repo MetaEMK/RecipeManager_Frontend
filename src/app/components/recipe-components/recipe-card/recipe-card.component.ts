@@ -69,7 +69,7 @@ export class RecipeCardComponent implements OnChanges, OnInit {
   }
 
   public routeToRecipe(){
-    if(this.recipe.slug)
+    if(this.recipe.slug && !this.editMode)
       this.router.navigate(['/recipes', this.recipe.slug]);
   }
 }
