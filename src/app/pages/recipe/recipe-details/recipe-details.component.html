@@ -1,5 +1,6 @@
+<ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
 <div *ngIf="recipe">
-
+    <app-recipe-details-image [recipe]="recipe" (wasSuccessfullyChanged)="imageChanges($event)"></app-recipe-details-image>
     <div class="headerContainer">
         <div class="editBox">
             <ion-fab-button [color]="settingsService.theme" (click)="updateRecipe()" *ngIf="editMode">
@@ -15,13 +16,26 @@
         </div>
         <app-name-edit title="Rezept" [item]="recipe" [editMode]="editMode" (changes)="newName = $event"></app-name-edit>
     </div>
-    <p *ngFor="let branch of branches">
-        Abteilung: {{branch.name}}
-    </p>
+
 
     <app-general-details-edit-relations [service]="branchService" [defaultQuery]="query" [items]="branches" (itemsToAdd)="addBranches = $event" (itemsToRemove)="rmvBranches = $event" *ngIf="editMode"></app-general-details-edit-relations>
 
     <app-general-details-edit-relations [service]="categoryService" [defaultQuery]="query" [items]="categories" (itemsToAdd)="addCategories = $event" (itemsToRemove)="rmvCategories = $event" *ngIf="editMode"></app-general-details-edit-relations>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <ion-card [color]="settingsService.theme">
         <ion-card-header>

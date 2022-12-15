@@ -1,0 +1,16 @@
+.imageContainer
+{
+    position: relative;
+    max-width: 500px;
+    max-height: 500px;
+
+    min-width: 150px;
+    min-height: 150px;
+
+    height: fit-content;
+    width: 45vw;
+}
+
+img {
+    object-fit: scale-down;
+}

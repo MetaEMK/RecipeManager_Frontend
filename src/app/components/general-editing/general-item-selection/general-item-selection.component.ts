@@ -63,7 +63,7 @@ export class GeneralItemSelectionComponent  implements OnInit {
         const toast = await this.toastController.create({
           position: 'top',
           color: 'danger',
-          message: error.messageForUser,
+          message: error.message,
           duration: 2000
         });
 

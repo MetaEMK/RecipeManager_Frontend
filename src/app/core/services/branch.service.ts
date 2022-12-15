@@ -10,7 +10,7 @@ import { Query } from '../query';
 })
 export class BranchService implements GeneralService<Branch> {
 
-  private url_v1 = environment.api.baseUrl + '/v1/branches';
+  private url_v1 = environment.api.baseUrl + '/branches';
 
   private _branches: Branch[] = [];
 
@@ -131,7 +131,7 @@ export class BranchService implements GeneralService<Branch> {
       if(error instanceof ApiError) {
         throw error;
       }
-      throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
+      throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }
 

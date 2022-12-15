@@ -71,7 +71,7 @@ export class GeneralAddComponent implements OnInit {
       }
 
     } catch (error) {
-      let message: string = (error instanceof ApiError) ? (error as ApiError).messageForUser: "Es gab ein Fehler beim Hinzufügen";
+      let message: string = (error instanceof ApiError) ? (error as ApiError).message: "Es gab ein Fehler beim Hinzufügen";
       console.warn(error)
       toast = await this.toastController.create({
         position: 'top',

@@ -4,14 +4,14 @@ export class ApiError {
     public errorCode: string;
     public type: string;
     public module?: string;
-    public messageForUser: string;
+    public message: string;
     public info?: any;
 
     constructor(httpStatusCode: number, errorCode: string, type: string, messageForUser: string, info?: any) {
         this.httpStatusCode = httpStatusCode;
         this.errorCode = errorCode;
         this.type = type;
-        this.messageForUser = messageForUser;
+        this.message = messageForUser;
         this.info = info;
     }
 }

@@ -9,7 +9,7 @@ import { Query } from '../query';
   providedIn: 'root'
 })
 export class CategoryService implements GeneralService<Category> {
-  private url_v1 = environment.api.baseUrl + '/v1/categories';
+  private url_v1 = environment.api.baseUrl + '/categories';
 
   private _categories: Category[] = [];
   public get categories(): Category[] {

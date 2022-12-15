@@ -22,12 +22,12 @@ export class RecipeCardComponent implements OnChanges, OnInit {
   public isRemoved: boolean = false;
 
   public get imagePath(): string {
-    if(!this.recipe.imagePath) return "http://localhost:4200/assets/placeholder.png"
+    if(!this.recipe.imagePath) return this.settingsService.recipeImagePlaceholderPath;
     else return this.recipe.imagePath;
   }
 
   constructor(
-    public themeService: SettingsService,
+    public settingsService: SettingsService,
     private router: Router
   ) { }
 

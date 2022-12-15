@@ -72,7 +72,7 @@ export class RecipeDetailsComponent implements OnInit {
       let error = err as ApiError;
       this.toastControler.create({
         position: "top",
-        message: error.messageForUser,
+        message: error.message,
         duration: 3000,
         color: "danger"
       }).then((toast) => {
@@ -83,14 +83,17 @@ export class RecipeDetailsComponent implements OnInit {
     }
     if(editMode == "true")
       this.editMode = true;
-
-      console.log(this.recipe);
-      console.log(this.branches);
   }
 
+  public async imageChanges(event: any): Promise<void>
+  {
+    if(event) 
+      this.recipe = await this.recipeService.getById(this.recipe.id);
+  }
 
   updateRecipe(): void {
     this.loading = true;
+    
   }
 
   async deleteRecipe(): Promise<void> {

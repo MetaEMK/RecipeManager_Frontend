@@ -132,7 +132,7 @@ export class CategoryDetailsComponent implements OnInit {
             console.log(error);
             const err = error as ApiError;
             toast = await this.toastController.create({
-              message: err.messageForUser + "\n" + "Es wurden keine Änderungen vorgenommen",
+              message: err.message + "\n" + "Es wurden keine Änderungen vorgenommen",
               duration: 3000,
               position: "top",
               color: "danger"
@@ -166,7 +166,7 @@ export class CategoryDetailsComponent implements OnInit {
         console.log(error);
         const err = error as ApiError;
         toast = await this.toastController.create({
-          message: err.messageForUser,
+          message: err.message,
           duration: 3000,
           position: "top",
           color: "danger"

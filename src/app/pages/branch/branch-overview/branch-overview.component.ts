@@ -37,7 +37,7 @@ export class BranchOverviewComponent implements OnInit {
       this.loading = false;
       const toast = await this.toastController.create({
         position: "top",
-        message: error.messageForUser,
+        message: error.message,
         color: "danger",
         buttons: [
           {
@@ -79,7 +79,7 @@ export class BranchOverviewComponent implements OnInit {
       this.loading = false;
       const toast = await this.toastController.create({
         position: "top",
-        message: error.messageForUser,
+        message: error.message,
         color: "danger",
         buttons: [
           {

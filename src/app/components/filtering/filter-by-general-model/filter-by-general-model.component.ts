@@ -87,6 +87,17 @@ export class FilterByGeneralModelComponent implements OnInit {
         this.recipeService.getByQuery(query).then(recipes => (recipes.length > 0)  ? this.unasignedBranches = true: this.unasignedBranches = false);
       }
     }
+
+    if(this.filterCategories && this.filterBranches)
+    {
+      let searchQuery = new Query();
+      console.log(searchQuery.toString())
+      searchQuery.addQueryItem(this.queryForUnassignedBranches);
+      searchQuery.addQueryItem(this.queryForUnassignedCategory);
+      this.recipeService.getByQuery(searchQuery)
+      .then(recipes => (recipes.length > 0)  ? this.unasignedBranches = this.unasignedCategories = true: this.unasignedBranches = this.unasignedCategories = false)
+      .catch(error => console.log(error));
+    }
   }
 
   public onChangeSelectedBranches(event: number[])

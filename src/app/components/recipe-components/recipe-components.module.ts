@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { GeneralEditingModule } from '../general-editing/general-editing.module';
 import { RecipeAddModalComponent } from './recipe-add-modal/recipe-add-modal.component';
+import { RecipeDetailsImageComponent } from './recipe-details-image/recipe-details-image.component';
 
 
 
@@ -16,6 +17,7 @@ import { RecipeAddModalComponent } from './recipe-add-modal/recipe-add-modal.com
     RecipeCardAddComponent,
     RecipeCardViewComponent,
     RecipeAddModalComponent,
+    RecipeDetailsImageComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,7 @@ import { RecipeAddModalComponent } from './recipe-add-modal/recipe-add-modal.com
     RecipeCardAddComponent,
     RecipeCardViewComponent,
     RecipeAddModalComponent,
+    RecipeDetailsImageComponent,
   ]
 })
 export class RecipeComponentsModule { }
