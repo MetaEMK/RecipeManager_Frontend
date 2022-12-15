@@ -5,12 +5,12 @@
     </div>
     
     <div class="categoriesContainer">
-        <ion-card class="categoryCard" [color]="themeService.theme">
+        <ion-card class="categoryCard">
             <ion-fab-button color="primary" (click)="openAddModal()">
                 <ion-icon name="add"></ion-icon>
             </ion-fab-button>
         </ion-card>
-        <ion-card [color]="themeService.theme" class="categoryCard" (click)="router.navigate(['categories/', category.id])" *ngFor="let category of filteredCategories">
+        <ion-card  class="categoryCard" (click)="router.navigate(['categories/', category.id])" *ngFor="let category of filteredCategories">
                 {{category.name}}
         </ion-card>
     </div>

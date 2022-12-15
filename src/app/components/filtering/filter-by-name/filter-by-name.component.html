@@ -1,13 +1,13 @@
 
 <div class="controlContainer">
 
-    <ion-item mode="ios" [color]="settingsService.theme">
-        <ion-label [color]="settingsService.opposittheme" position="floating">{{title}} suchen</ion-label>
-        <ion-input [color]="settingsService.opposittheme"  [(ngModel)]="filter" [debounce]="delay" (ionChange)="sendQuery(false)" (keydown.enter)="sendQuery(true)" ></ion-input>
-        <ion-fab-button size="small" [color]="settingsService.theme" slot="end" (click)="sendQuery(true)">
+    <ion-item mode="ios">
+        <ion-label position="floating">{{title}} suchen</ion-label>
+        <ion-input [(ngModel)]="filter" [debounce]="delay" (ionChange)="sendQuery(false)" (keydown.enter)="sendQuery(true)" ></ion-input>
+        <ion-fab-button size="small" slot="end" (click)="sendQuery(true)">
             <ion-icon color="success" name="search-outline"></ion-icon>
         </ion-fab-button>
-        <ion-fab-button size="small" [color]="settingsService.theme" slot="end" (click)="clearInput()" *ngIf="showClearButton">
+        <ion-fab-button size="small" slot="end" (click)="clearInput()" *ngIf="showClearButton">
             <ion-icon color="danger" name="close-outline"></ion-icon>
         </ion-fab-button>
     </ion-item>

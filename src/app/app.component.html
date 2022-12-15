@@ -9,30 +9,30 @@
 
 <ion-menu contentId="main-content">
     <ion-header>
-      <ion-toolbar color="dark" style="padding-right: 15px;">
+      <ion-toolbar style="padding-right: 15px;">
           <ion-button slot="end" fill="clear" routerLink="/home/settings">
-            <ion-icon color="light" name="settings"></ion-icon>
+            <ion-icon name="settings"></ion-icon>
           </ion-button>
           <ion-title slot="start">Menu</ion-title>
         </ion-toolbar>
     </ion-header>
-    <ion-content  color="dark" class="ion-padding">
+    <ion-content class="ion-padding">
         <div class="sidebar">
             <div class="sidebarItem">
-                <ion-menu-button routerLink="/branches" fill="clear" color="light">Abteilungen</ion-menu-button>
+                <ion-menu-button routerLink="/branches" fill="clear">Abteilungen</ion-menu-button>
             </div>
             <div class="sidebarItem">
-                <ion-menu-button routerLink="/categories" fill="clear" color="light">Kategorien</ion-menu-button>
+                <ion-menu-button routerLink="/categories" fill="clear">Kategorien</ion-menu-button>
             </div>
             <div class="sidebarItem">
-                <ion-menu-button routerLink="/recipes" fill="clear" color="light">Rezepte</ion-menu-button>
+                <ion-menu-button routerLink="/recipes" fill="clear">Rezepte</ion-menu-button>
             </div>
         </div>
     </ion-content>
   </ion-menu>
   <div class="ion-page" id="main-content">
     <ion-header>
-      <ion-toolbar color="dark">
+      <ion-toolbar >
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -42,7 +42,7 @@
         </div>
       </ion-toolbar>
     </ion-header>
-    <ion-content [color]="themeService.isDarkMode ? 'medium': 'light'" class="ion-padding">
+    <ion-content class="ion-padding">
         <router-outlet></router-outlet>
     </ion-content>
   </div>

@@ -33,13 +33,6 @@ export class GeneralEditRelationsComponent implements OnInit {
   public itemsToRemove: GeneralModelWithRouting[] = [];
 
 
-  public getItemState(item: GeneralModelWithRouting): string
-  {
-    if(this.itemsToAdd.includes(item)) return "success";
-    if(this.itemsToRemove.includes(item)) return "danger";
-    return this.settingsService.opposittheme;
-  }
-
   constructor(
     public settingsService: SettingsService
   ) { }
@@ -47,6 +40,16 @@ export class GeneralEditRelationsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public getColorOfChip(item: GeneralModelWithRouting): string|undefined
+  {
+    if(this.itemsToAdd.find(x => x.id == item.id))
+      return "success";
+
+    if(this.itemsToRemove.find(x => x.id == item.id))
+      return "danger";
+      
+    return undefined;
+  }
 
   addItem(event: GeneralModelWithRouting): void
   {

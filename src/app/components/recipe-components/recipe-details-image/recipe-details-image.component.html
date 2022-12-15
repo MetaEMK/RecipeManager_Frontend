@@ -6,19 +6,19 @@
     <img fill [ngSrc]="imagePath">
 </div>
 <div>
-    <ion-fab-button [color]="settingsService.theme" (click)="imageEditMode = !imageEditMode" *ngIf="!imageEditMode">
+    <ion-fab-button (click)="imageEditMode = !imageEditMode" *ngIf="!imageEditMode">
         <ion-icon name="pencil-outline"></ion-icon>
     </ion-fab-button>
 </div>
 <div *ngIf="imageEditMode">
     <input type="file" (change)="onFileSelected($event)">
-    <ion-fab-button [color]="settingsService.theme" (click)="abort()">
+    <ion-fab-button (click)="abort()">
         <ion-icon color="danger" name="close-outline"></ion-icon>
     </ion-fab-button>
     <ion-fab-button color="danger" (click)="delete()">
         <ion-icon color="dark" name="trash-outline"></ion-icon>
     </ion-fab-button>
-    <ion-fab-button [color]="settingsService.theme" (click)="save()">
+    <ion-fab-button (click)="save()">
         <ion-icon color="success" name="save-outline"></ion-icon>
     </ion-fab-button>
 </div>

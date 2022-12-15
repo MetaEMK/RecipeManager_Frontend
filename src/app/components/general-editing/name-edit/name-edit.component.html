@@ -8,15 +8,15 @@
     </ion-fab-button>
 </div>
 
-<ion-card [color]="themeService.theme" *ngIf="nameEdit && editMode">
+<ion-card *ngIf="nameEdit && editMode">
     <!-- Es gibt hier 2 Möglichkeiten, wir könnten auch einen ionic Header anzeigen lassen oder halt nen normalen Titel oder nen custom Zeugs-->
     <ion-card-header>
         <ion-card-title>Namen von: {{item.name}} ändern</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-        <ion-item mode="md" class="addBranchName" [color]="themeService.theme">
-            <ion-label [color]="themeService.opposittheme" position="floating">Abteilungsname</ion-label>
-            <ion-input [color]="themeService.opposittheme" [value]="newItemName" (ionChange)="changeName($event)"></ion-input>
+        <ion-item mode="md" class="addBranchName">
+            <ion-label position="floating">Abteilungsname</ion-label>
+            <ion-input [value]="newItemName" (ionChange)="changeName($event)"></ion-input>
         </ion-item>
     </ion-card-content>
     <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>

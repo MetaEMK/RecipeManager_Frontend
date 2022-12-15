@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
+
     while(true){
       this.time = new Date().toLocaleTimeString();
       await this.delay(500);
@@ -26,3 +27,9 @@ export class AppComponent implements OnInit {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }
+// Use matchMedia to check the user preference
+
+
+// Listen for changes to the prefers-color-scheme media query
+
+// Add or remove the "dark" class based on if the media query matches
