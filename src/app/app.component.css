@@ -6,3 +6,11 @@
     justify-content: center;
     gap: 10px;
 }
+
+.sidebar{
+    float: left;
+}
+.sidebarItem{
+    float: left;
+    padding-top: 25px;
+}
