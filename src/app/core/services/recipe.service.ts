@@ -127,30 +127,33 @@ export class RecipeService implements GeneralService<Recipe> {
     let response;
     try {
       response = await fetch(this.url_v1 + '/' + id, {
-        method: 'PUT',
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(updateBody)
       });
+      switch (response.status) {
+        case 200:
+          return (await response.json()).data;
+  
+        case 404:
+          error = (await response.json()).error;
+          throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
+  
+        case 400:
+          error = (await response.json()).error;
+          throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept konnte nicht aktualisiert werden", error);
+  
+        default:
+          error = (await response.json()).error;
+          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+      }
     }
     catch (error) {
       throw new ApiError(500, 'API_ERROR', 'API_RECIPE_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
 
-    switch (response.status) {
-      case 200:
-        return (await response.json()).data;
-
-      case 404:
-        error = (await response.json()).error;
-        throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
-
-      case 400:
-        error = (await response.json()).error;
-        throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept konnte nicht aktualisiert werden", error);
-
-      default:
-        error = (await response.json()).error;
-        throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
-    }
   }
 
   public async updateImage(recipeId: number, image: any) {

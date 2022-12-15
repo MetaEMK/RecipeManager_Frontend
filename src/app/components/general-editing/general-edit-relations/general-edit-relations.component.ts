@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output  } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output  } from '@angular/core';
 import { GeneralService } from 'src/app/core/generalService';
 import { Query } from 'src/app/core/query';
 import { SettingsService } from 'src/app/core/services/settings.service';
@@ -9,10 +9,11 @@ import { GeneralModelWithRouting } from 'src/app/model/generalModel';
   templateUrl: './general-edit-relations.component.html',
   styleUrls: ['./general-edit-relations.component.css']
 })
-export class GeneralEditRelationsComponent implements OnInit {
+export class GeneralEditRelationsComponent implements OnInit, OnChanges {
 
   @Input("items")
   public itemList: GeneralModelWithRouting[] = [];
+  private oldItemList: GeneralModelWithRouting[] = [];
 
   @Input()
   public editMode: boolean = true;
@@ -37,7 +38,18 @@ export class GeneralEditRelationsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("GeneralEditRelationsComponent.ngOnInit()" );
+  }
+
+  ngOnChanges(event: any): void
+  {
+    if(event.editMode?.currentValue == false)
+    {
+      this.itemsToAdd.forEach(x => this.itemList = this.itemList.filter(y => y.id != x.id));
+      this.itemsToAdd = [];
+      this.itemsToRemove = [];
+      this.output_itemsToAdd.emit(this.itemsToAdd);
+      this.output_itemsToRemove.emit(this.itemsToRemove);
+    }
   }
 
   public getColorOfChip(item: GeneralModelWithRouting): string|undefined

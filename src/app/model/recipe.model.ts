@@ -16,12 +16,12 @@ export interface UpdateRecipe {
     name?: string;
     description?: string;
 
-    branchIds: {
+    branch_ids: {
         add?: number[];
         rmv?: number[];
     };
 
-    categoryIds: {
+    category_ids: {
         add?: number[];
         rmv?: number[];
     };

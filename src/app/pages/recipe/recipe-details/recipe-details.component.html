@@ -17,10 +17,11 @@
         <app-name-edit title="Rezept" [item]="recipe" [editMode]="editMode" (changes)="newName = $event"></app-name-edit>
     </div>
 
-
-    <app-general-details-edit-relations [service]="branchService" [defaultQuery]="query" [items]="branches" (itemsToAdd)="addBranches = $event" (itemsToRemove)="rmvBranches = $event" *ngIf="editMode"></app-general-details-edit-relations>
-
-    <app-general-details-edit-relations [service]="categoryService" [defaultQuery]="query" [items]="categories" (itemsToAdd)="addCategories = $event" (itemsToRemove)="rmvCategories = $event" *ngIf="editMode"></app-general-details-edit-relations>
+    <h4>zugewiesenen Abteilungen</h4>
+    <app-general-details-edit-relations [service]="branchService" [editMode]="editMode" [defaultQuery]="query" [items]="branches" (itemsToAdd)="addBranches = $event" (itemsToRemove)="rmvBranches = $event"></app-general-details-edit-relations>
+    
+    <h4>zugewiesenen Kategorien</h4>
+    <app-general-details-edit-relations [service]="categoryService" [editMode]="editMode" [defaultQuery]="query" [items]="categories" (itemsToAdd)="addCategories = $event" (itemsToRemove)="rmvCategories = $event"></app-general-details-edit-relations>
 
 
 
