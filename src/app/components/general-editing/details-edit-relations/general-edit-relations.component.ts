@@ -40,6 +40,16 @@ export class GeneralEditRelationsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public getColorOfChip(item: GeneralModelWithRouting): string|undefined
+  {
+    if(this.itemsToAdd.find(x => x.id == item.id))
+      return "success";
+
+    if(this.itemsToRemove.find(x => x.id == item.id))
+      return "danger";
+      
+    return undefined;
+  }
 
   addItem(event: GeneralModelWithRouting): void
   {

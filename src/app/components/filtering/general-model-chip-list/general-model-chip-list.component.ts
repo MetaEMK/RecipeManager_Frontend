@@ -61,6 +61,30 @@ export class GeneralModelChipListComponent implements OnInit {
     this.selectedItemsOutput.emit(this.selectedItems);
   }
 
+  getColorOfSelectAllChip(): string|undefined
+  {
+    if(this.selectedItems.length == this.items.length)
+      return "primary";
+    else
+      return undefined;
+  }
+
+  getColorOfItemChip(item: GeneralModelWithRouting): string|undefined
+  {
+    if(this.selectedItems.includes(item.id))
+      return "primary";
+    else
+      return undefined;
+  }
+
+  getColorOfSelectUnassignedChip(): string|undefined
+  {
+    if(this.stateOfUnassigned)
+      return "primary";
+    else
+      return undefined;
+  }
+
   public changeState(event: GeneralModelWithRouting)
   {
     if (this.selectedItems.includes(event.id))
