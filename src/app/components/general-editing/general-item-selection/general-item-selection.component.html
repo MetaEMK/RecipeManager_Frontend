@@ -1,10 +1,10 @@
-<ion-card [color]="settingsService.theme" class="recipe">
+<ion-card class="recipe">
     <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
     <ion-card-content>
         <app-filter-by-name [minimumCharacters]="minimumCharacters" (value)="getItemsByQuery($event)"></app-filter-by-name>
         <div class="selectionList"> 
             <ion-list lines="full">
-                <ion-item  (click)="selectItem(item)" [color]="settingsService.theme" *ngFor="let item of filteredItems">
+                <ion-item  (click)="selectItem(item)" *ngFor="let item of filteredItems">
                     {{item.name}}
                     <!-- <ion-button color="primary" slot="end" (click)="selectItem(item)">auswählen</ion-button> -->
                 </ion-item>

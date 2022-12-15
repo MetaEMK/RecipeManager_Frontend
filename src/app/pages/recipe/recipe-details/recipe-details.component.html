@@ -3,14 +3,14 @@
     <app-recipe-details-image [recipe]="recipe" (wasSuccessfullyChanged)="imageChanges($event)"></app-recipe-details-image>
     <div class="headerContainer">
         <div class="editBox">
-            <ion-fab-button [color]="settingsService.theme" (click)="updateRecipe()" *ngIf="editMode">
+            <ion-fab-button (click)="updateRecipe()" *ngIf="editMode">
                 <ion-icon color="success" name="save-outline"></ion-icon>
             </ion-fab-button>
             <ion-fab-button size="great" color="danger" (click)="deleteRecipe()" *ngIf="editMode">
                 <ion-icon color="dark" name="trash-outline"></ion-icon>
             </ion-fab-button>
-            <ion-fab-button [color]="settingsService.theme" (click)="editMode = !editMode">
-                <ion-icon [color]="settingsService.opposittheme" name="pencil-outline" *ngIf="!editMode"></ion-icon>
+            <ion-fab-button  (click)="editMode = !editMode">
+                <ion-icon  name="pencil-outline" *ngIf="!editMode"></ion-icon>
                 <ion-icon color="danger" name="close-outline" *ngIf="editMode"></ion-icon>
             </ion-fab-button>
         </div>
@@ -37,7 +37,7 @@
 
 
 
-    <ion-card [color]="settingsService.theme">
+    <ion-card>
         <ion-card-header>
             <ion-card-title>Hier eine Art Warenkorb inder alle Zutaten über die Varianten summiert werden (optional)</ion-card-title>
         </ion-card-header>
@@ -61,7 +61,7 @@
 
     <div>
         <h2>Varianten</h2>
-        <ion-card [color]="settingsService.theme">
+        <ion-card>
             <ion-card-header>
                 <ion-card-title>Schokotart</ion-card-title>
                 <ion-card-subtitle>RUND</ion-card-subtitle>
@@ -72,7 +72,7 @@
                 gewünschte Menge <br>
             </ion-card-content>
         </ion-card>
-        <ion-card [color]="settingsService.theme">
+        <ion-card>
             <ion-card-header>
                 <ion-card-title>Schokokuppel</ion-card-title>
                 <ion-card-subtitle>Massenumrechnung</ion-card-subtitle>
@@ -83,7 +83,7 @@
                 gewünschte Menge <br>
             </ion-card-content>
         </ion-card>
-        <ion-card [color]="settingsService.theme">
+        <ion-card>
             <ion-card-header>
                 <ion-card-title>Schokodöner</ion-card-title>
                 <ion-card-subtitle>Eckig</ion-card-subtitle>

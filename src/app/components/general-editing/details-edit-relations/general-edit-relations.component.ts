@@ -33,13 +33,6 @@ export class GeneralEditRelationsComponent implements OnInit {
   public itemsToRemove: GeneralModelWithRouting[] = [];
 
 
-  public getItemState(item: GeneralModelWithRouting): string
-  {
-    if(this.itemsToAdd.includes(item)) return "success";
-    if(this.itemsToRemove.includes(item)) return "danger";
-    return this.settingsService.opposittheme;
-  }
-
   constructor(
     public settingsService: SettingsService
   ) { }

@@ -50,13 +50,6 @@ export class GeneralModelChipListComponent implements OnInit {
     this.unassignedStateOutput.emit(this.stateOfUnassigned);
   }
 
-  public get unassignedState(): string
-  {
-    if(this.stateOfUnassigned)
-      return "primary";
-    else
-      return this.settingsService.opposittheme;
-  }
 
   public selectAll()
   {
@@ -66,14 +59,6 @@ export class GeneralModelChipListComponent implements OnInit {
       this.selectedItems = this.items.map(item => item.id);
 
     this.selectedItemsOutput.emit(this.selectedItems);
-  }
-
-  public get selectAllState(): string
-  {
-    if(this.selectedItems.length == this.items.length)
-      return "primary";
-    else
-      return this.settingsService.opposittheme;
   }
 
   public changeState(event: GeneralModelWithRouting)
@@ -87,18 +72,6 @@ export class GeneralModelChipListComponent implements OnInit {
       this.selectedItems.push(event.id);
     }
     this.selectedItemsOutput.emit(this.selectedItems);
-  }
-
-  public getState(item: GeneralModelWithRouting)
-  {
-    if(this.selectedItems.includes(item.id))
-    {
-      return "primary";
-    }
-    else
-    {
-      return this.settingsService.opposittheme
-    }
   }
 
 }

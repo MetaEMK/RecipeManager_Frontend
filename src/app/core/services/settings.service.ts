@@ -5,18 +5,19 @@ import { Injectable, OnInit } from '@angular/core';
 })
 export class SettingsService  {
 
-  public isDarkMode: boolean = false;  
-  public get theme(): string {
-    return this.isDarkMode ? 'dark' : 'light';
-  }
+  public isDarkMode: string = "auto";  
+  // public get theme(): string {
+  //   return this.isDarkMode ? 'dark' : 'light';
+  // }
 
-  public get opposittheme(): string {
-    return this.isDarkMode ? 'light' : 'dark';
-  }
+  // public get opposittheme(): string {
+  //   return this.isDarkMode ? 'light' : 'dark';
+  // }
 
   public recipeImagePlaceholderPath: string = 'assets/images/placeholder.png';
 
   constructor() {
-    this.isDarkMode = localStorage.getItem('theme') === 'dark';
+    let prefDark = localStorage.getItem('theme');
+    this.isDarkMode = prefDark !== null  ? prefDark : "auto";
   }
 }

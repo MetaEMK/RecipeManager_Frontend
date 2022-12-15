@@ -1,6 +1,6 @@
 <div *ngIf="itemList">
     <app-general-item-selection [service]="service" [alreadySelectedItems]="itemsToAdd" [defaultQuery]="defaultQuery"  [minimumCharacters]="1" (itemSelected)="addItem($event)"></app-general-item-selection>
-    <ion-chip [color]="getItemState(item)" (click)="toggleItem(item)" *ngFor="let item of itemList">
+    <ion-chip  (click)="toggleItem(item)" *ngFor="let item of itemList">
         {{item.name}}
         <ion-icon name="close-circle"></ion-icon>
     </ion-chip>
