@@ -32,8 +32,8 @@ export class BranchEditComponent implements OnInit {
 
   //edit
   public editMode: boolean = false;
-  public get deletePossible(): boolean {return this.branch?.recipeCategories.length === 0 && this.editMode };
   public defaultQuery: Query = new Query();
+  private lastQuery: Query = new Query();
   public newName: string|undefined;
   public addRecipes: number[] = [];
   public rmvRecipe: number[] = [];
@@ -49,16 +49,14 @@ export class BranchEditComponent implements OnInit {
 
   ngOnInit()
   {
-    this.loading = true;
     const slug = this.route.snapshot.paramMap.get('slug');
-    if(slug ) {
+    if(slug) {
       try {
         this.branchService.getBySlug(slug).then(async (branch) => {
           this.branch = branch;
           this.defaultQuery.add("branchExclude", branch.id.toString());
           await this.getBranch(branch.id);
           this.loading = false;
-
         })
         .catch((error) => {
           console.log(error);
@@ -92,9 +90,9 @@ export class BranchEditComponent implements OnInit {
     }
     else {
       this.loading = true;
+      this.lastQuery = $event;
       if(this.branch?.id) $event.addFilter("branch", [this.branch.id.toString()]);
       this.filteredRecipes = [];
-      console.log("Query in brach-edit: " + $event);
       this.recipeService.getByQuery($event).then((recipes) => {
         this.loading = false;
         this.filteredRecipes = recipes;
@@ -124,8 +122,6 @@ export class BranchEditComponent implements OnInit {
       {
         try {
           await this.branchService.update(this.branch.id, this.addRecipes, this.rmvRecipe, this.newName);
-          await this.getBranch(this.branch.id);
-          this.editMode = false;
           this.router.navigate(["/branches/" + this.branch.slug]);
           this.editMode = false;
           toast = await this.toastController.create({
@@ -134,7 +130,9 @@ export class BranchEditComponent implements OnInit {
             position: "top",
             color: "success"  
           });
-
+          this.changeEditMode();
+          await this.getBranch(this.branch.id);
+          await this.searchByQuery(this.lastQuery);
         } catch (error) {
           console.log(error);
           const err = error as ApiError;
@@ -189,5 +187,16 @@ export class BranchEditComponent implements OnInit {
     event.forEach(element => {
       this.addRecipes.push(element.id);
     });
+  }
+
+  public changeEditMode()
+  {
+    this.editMode = !this.editMode;
+    if(!this.editMode)
+    {
+      this.newName = undefined;
+      this.addRecipes = [];
+      this.rmvRecipe = [];
+    }
   }
 }

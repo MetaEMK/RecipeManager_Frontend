@@ -47,15 +47,20 @@ export class GeneralItemSelectionComponent  implements OnInit {
     if (this.service == null  || this.defaultQuery == null || !nameQueryValue)
       return;
 
+    console.log("getItemsByQuery");
+    console.log(nameQueryValue);
 
     this.loading = true;
     let searchQuery: Query = new Query();
     searchQuery.add("name", nameQueryValue);
     searchQuery.addQueryItems(this.defaultQuery.items);
 
+    console.log(searchQuery.toString());
+
     try {
       let items = await this.service.getByQuery(searchQuery);
-      this.filteredItems = items.filter(i => !this.alreadySelectedItems.some(a => a.id == i.id));
+      console.log(items);
+      this.filteredItems = items.filter(i => !this.alreadySelectedItems.find(a => a.id === i.id));
       this.loading = false;
     } catch (error) {
       if(error instanceof ApiError)

@@ -25,6 +25,7 @@ export class CategoryDetailsComponent implements OnInit {
   public filteredRecipes: Recipe[] = [];
 
   public defaultQuery: Query = new Query();
+  private lastQuery: Query = new Query();
 
   public newName: string|undefined;
   public addRecipes: number[] = [];
@@ -74,24 +75,31 @@ export class CategoryDetailsComponent implements OnInit {
   }
   public async getCategory(id: number)
   {
+    console.log("his.category");
     try {
-      this.category = await this.categoryService.getById(id);
+      this.category = undefined;
+      const category = await this.categoryService.getById(id);
+      console.log(category);
+      console.log(category.recipeBranches);
+      this.category = category;
     } catch (error) {
       console.log(error);
     }
   }
 
-  public async searchByQuery($event: Query)
+  public async searchByQuery(event: Query)
   {
-    if($event.items.length === 0 ) {
+    
+    if(event.items.length === 0 ) {
       this.filteredRecipes = [];
     }
     else {
       this.loading = true;
-      if(this.category?.id) $event.addFilter("category", [this.category.id.toString()]);
+      this.lastQuery = event;
+      if(this.category?.id) event.addFilter("category", [this.category.id.toString()]);
       this.filteredRecipes = [];
-      console.log("Query in category-edit: " + $event);
-      this.recipeService.getByQuery($event).then((recipes) => {
+      console.log("Query in category-edit: " + event);
+      this.recipeService.getByQuery(event).then((recipes) => {
         this.loading = false;
         this.filteredRecipes = recipes;
       }).catch((error) => {
@@ -120,15 +128,16 @@ export class CategoryDetailsComponent implements OnInit {
           try {
             this.category = await this.categoryService.update(this.category.id, this.addRecipes, this.rmvRecipes, this.newName);
             this.recipes = this.category.recipes;
-            this.editMode = false;
             this.router.navigate(["/categories/" + this.category.slug]);
-            this.editMode = false;
             toast = await this.toastController.create({
               message: "Kategorie wurde erfolgreich geändert",
               duration: 3000,
               position: "top",
               color: "success"  
             });
+            await this.getCategory(this.category.id);
+            await this.searchByQuery(this.lastQuery);
+            this.changeEditMode();
           } catch (error) {
             console.log(error);
             const err = error as ApiError;
@@ -184,5 +193,16 @@ export class CategoryDetailsComponent implements OnInit {
     event.forEach(element => {
       this.addRecipes.push(element.id);
     });
+  }
+
+  public changeEditMode()
+  {
+    this.editMode = !this.editMode;
+    if(!this.editMode)
+    {
+      this.newName = undefined;
+      this.addRecipes = [];
+      this.rmvRecipes = [];
+    }
   }
 }

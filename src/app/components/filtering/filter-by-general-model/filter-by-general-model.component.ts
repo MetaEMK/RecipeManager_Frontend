@@ -66,7 +66,7 @@ export class FilterByGeneralModelComponent implements OnInit {
   ngOnInit() {
     this.filteredItems = [];
     
-    if(this.filterCategories)
+    if(this.filterCategories && !this.filterBranches)
     {
       if(this.branches.length === 1)
       {
@@ -77,7 +77,7 @@ export class FilterByGeneralModelComponent implements OnInit {
       }
     }
 
-    if(this.filterBranches)
+    if(this.filterBranches && !this.filterCategories)
     {
       if(this.categories.length === 1)
       {
