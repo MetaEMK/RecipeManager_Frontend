@@ -10,6 +10,7 @@ import { ApiError } from 'src/app/model/apierror.model';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
 import { Recipe } from 'src/app/model/recipe.model';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
   selector: 'app-branch-edit',
@@ -34,7 +35,7 @@ export class BranchEditComponent implements OnInit {
   public get deletePossible(): boolean {return this.branch?.recipeCategories.length === 0 && this.editMode };
   public defaultQuery: Query = new Query();
   public newName: string|undefined;
-  public addRecipe: number[] = [];
+  public addRecipes: number[] = [];
   public rmvRecipe: number[] = [];
 
   constructor(
@@ -55,7 +56,6 @@ export class BranchEditComponent implements OnInit {
         this.branchService.getBySlug(slug).then(async (branch) => {
           this.branch = branch;
           this.defaultQuery.add("branchExclude", branch.id.toString());
-          this.defaultQuery.add("categoryNone", "true");
           await this.getBranch(branch.id);
           this.loading = false;
 
@@ -112,7 +112,7 @@ export class BranchEditComponent implements OnInit {
     if(this.branch)
     {
       let toast;
-      if(!this.newName && this.addRecipe.length === 0 && this.rmvRecipe.length === 0) {
+      if(!this.newName && this.addRecipes.length === 0 && this.rmvRecipe.length === 0) {
         toast = await this.toastController.create({
           message: "Es wurden keine Änderungen vorgenommen",
           duration: 3000,
@@ -123,7 +123,7 @@ export class BranchEditComponent implements OnInit {
       else
       {
         try {
-          await this.branchService.update(this.branch.id, this.addRecipe, this.rmvRecipe, this.newName);
+          await this.branchService.update(this.branch.id, this.addRecipes, this.rmvRecipe, this.newName);
           await this.getBranch(this.branch.id);
           this.editMode = false;
           this.router.navigate(["/branches/" + this.branch.slug]);
@@ -181,5 +181,13 @@ export class BranchEditComponent implements OnInit {
       await toast.present();
     }
     this.loading = false;
+  }
+
+  public addItemsToAddList(event: GeneralModelWithRouting[])
+  {
+    this.addRecipes = [];
+    event.forEach(element => {
+      this.addRecipes.push(element.id);
+    });
   }
 }

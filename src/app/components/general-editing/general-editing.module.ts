@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { GeneralAddComponent } from './general-add/general-add.component';
 import { GeneralItemSelectionComponent } from './general-item-selection/general-item-selection.component';
 import { FilteringModule } from '../filtering/filtering.module';
-import { GeneralEditRelationsComponent } from './details-edit-relations/general-edit-relations.component';
+import { GeneralEditRelationsComponent } from './general-edit-relations/general-edit-relations.component';
 
 
 

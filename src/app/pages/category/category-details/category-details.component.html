@@ -17,7 +17,7 @@
     </div>
 
     <app-filter-by-general-model [categories]="[category]" [branches]="category.recipeBranches" [filterCategories]="false" (filteredItems)="searchByQuery($event)"></app-filter-by-general-model> 
-    <app-general-details-edit-relations [service]="recipeService" [defaultQuery]="defaultQuery" *ngIf="editMode"></app-general-details-edit-relations>
+    <app-general-details-edit-relations [service]="recipeService" [defaultQuery]="defaultQuery" (itemsToAdd)="addItemsToAddList($event)" *ngIf="editMode"></app-general-details-edit-relations>
 
-    <app-recipe-card-view [recipes]="filteredRecipes" [category]="category" [editMode]="editMode" (add)="addRecipes = $event" (rmv)="rmvRecipes = $event"></app-recipe-card-view>
+    <app-recipe-card-view [recipes]="filteredRecipes" [category]="category" [editMode]="editMode" (rmv)="rmvRecipes = $event"></app-recipe-card-view>
 </div>

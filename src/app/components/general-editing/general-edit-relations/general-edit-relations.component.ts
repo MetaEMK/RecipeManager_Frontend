@@ -12,11 +12,10 @@ import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 export class GeneralEditRelationsComponent implements OnInit {
 
   @Input("items")
-
   public itemList: GeneralModelWithRouting[] = [];
 
-  @Input("validItemsToAdd")
-  public validItemsToAdd: GeneralModelWithRouting[] = [];
+  @Input()
+  public editMode: boolean = true;
 
   @Input()
   public service?: GeneralService<GeneralModelWithRouting>;
@@ -38,6 +37,7 @@ export class GeneralEditRelationsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log("GeneralEditRelationsComponent.ngOnInit()" );
   }
 
   public getColorOfChip(item: GeneralModelWithRouting): string|undefined
@@ -58,6 +58,7 @@ export class GeneralEditRelationsComponent implements OnInit {
 
   public toggleItem(item: GeneralModelWithRouting): void
   {
+    if(!this.editMode) return;
     let isInItemsToAdd = this.itemsToAdd.find((x => x.id == item.id));
     let isInItemsToRemove = this.itemsToRemove.find(x => x.id == item.id);
     let isInItemList = this.itemList.find(x => x.id == item.id);

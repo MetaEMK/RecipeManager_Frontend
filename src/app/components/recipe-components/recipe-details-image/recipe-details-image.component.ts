@@ -18,7 +18,7 @@ export class RecipeDetailsImageComponent implements OnInit {
 
   @Output("wasSuccessfullyChanged")
   public output_imageChangeSuccess: EventEmitter<boolean> = new EventEmitter<boolean>();
-  public imageEditMode: boolean = false; // TODO: make
+  public imageEditMode: boolean = false;
 
   public imagePath?: string;
 
@@ -57,7 +57,7 @@ export class RecipeDetailsImageComponent implements OnInit {
     let toast;
     try {
       await this.recipeService.updateImage(this.recipe.id, this.newImage);
-      this.imagePath = this.recipe.imagePath + "?t=" + new Date().getTime();
+      this.imagePath = this.recipe.imagePath;
       toast = await this.toastControler.create({
         message: `Bild wurde geändert.`,
         duration: 3000,

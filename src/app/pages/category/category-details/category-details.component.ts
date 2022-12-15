@@ -8,6 +8,7 @@ import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
 import { Recipe } from 'src/app/model/recipe.model';
+import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
   selector: 'app-category-details',
@@ -48,7 +49,7 @@ export class CategoryDetailsComponent implements OnInit {
           this.categoryService.getBySlug(slug).then((category) => {
           this.category = category;
           this.defaultQuery.add("categoryExclude", category.id.toString());
-          this.defaultQuery.add("branchNone", "true");
+          this.defaultQuery.add("categoryNone", "true");
           this.loading = false;
         })
         .catch((error) => {
@@ -60,7 +61,7 @@ export class CategoryDetailsComponent implements OnInit {
         try {
           this.categoryService.getById(Number(slug)).then((category) => {
             this.category = category;
-            this.defaultQuery.add("branchNone", "true");
+            this.defaultQuery.add("categoryNone", "true");
             this.defaultQuery.add("categoryExclude", category.id.toString());
             this.loading = false;
           })
@@ -177,4 +178,11 @@ export class CategoryDetailsComponent implements OnInit {
     this.loading = false;
   }
   
+  public addItemsToAddList(event: GeneralModelWithRouting[])
+  {
+    this.addRecipes = [];
+    event.forEach(element => {
+      this.addRecipes.push(element.id);
+    });
+  }
 }
