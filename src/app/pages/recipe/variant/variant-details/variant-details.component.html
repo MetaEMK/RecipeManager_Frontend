@@ -1,0 +1,38 @@
+<p>variant-details works!</p>
+
+<div *ngIf="recipe && variant">
+    <div>
+        <h1>Variante: {{variant.name}}</h1>
+        <p>{{variant.description}}</p>
+        <div>
+            Umrechenart: {{variant.conversionType.name}}<br>
+            Basisgröße: {{variant.size.name}}
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <app-variant-size-selecter
+                [preSelectedConversionType]="variant.conversionType"
+                [preSelectedSize]="variant.size"
+                [fromSize]="variant.size"
+                [showConversionType]="false"
+                (multiplicator)="multiplicator = $event"
+            >
+            </app-variant-size-selecter>
+        </div>
+
+        <h3>Zutaten</h3>
+        <div>
+            <ion-button (click)="addSection()">neue Sektion hinzufügen</ion-button>
+            <ion-button (click)="saveAllTest()">Sektionen speichern - nur im DevMode -</ion-button>
+        </div>
+        <div *ngIf="ingredientMap && finMap">
+            <div *ngFor="let key of keys">
+                <app-variant-section [sectionId]="key" [editMode]="true" (newIngredients)="onChangeIngredientListOnSection(key, $event)" [ingredients]="ingredientMap.get(key) || []"></app-variant-section>
+            </div>
+        </div>
+    </div>
+
+
+</div>

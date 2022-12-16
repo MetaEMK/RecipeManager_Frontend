@@ -1,6 +1,6 @@
-import { GeneralModel } from "./generalModel";
 
-export interface Ingredient extends GeneralModel {
+export interface Ingredient {
+    name: string;
     quantity: number;
     unit: string;
     section: number;

@@ -50,20 +50,22 @@ export class RecipeDetailsComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loading = true;
-    console.log("Recipe details page");
 
-    const slug = this.route.snapshot.paramMap.get('slug');
+    const slug = this.route.snapshot.paramMap.get('recipeIdentifier');
     const editMode = this.route.snapshot.queryParamMap.get("editMode");
     
     if(!slug) 
     {
       this.loading = false;
-      console.log("No slug provided");
       this.router.navigate(["/recipes"]);
       return;
     }
     
-    await this.getRecipeDetails(undefined, slug);
+    if(Number.isNaN(+slug))
+      await this.getRecipeDetails(undefined, slug);
+    else
+      await this.getRecipeDetails(Number(slug));
+
     await this.getAllCategoriesForRecipe(this.recipe.id);
     await this.getAllBranchesForRecipe(this.recipe.id);
     await this.getAllVariantsForRecipe(this.recipe.id);

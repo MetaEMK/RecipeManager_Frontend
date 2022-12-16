@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { VariantService } from 'src/app/core/services/variant.service';
+import { ConversionTypes } from 'src/app/model/conversion-types.model';
 import { Size } from 'src/app/model/size.model';
 
 @Component({
@@ -19,6 +20,8 @@ export class VariantAddModalComponent {
 
   public itemSize?: Size;
 
+  public itemConversionType?: ConversionTypes
+
   constructor(
     private modalController: ModalController,
     private variantService: VariantService,
@@ -29,10 +32,9 @@ export class VariantAddModalComponent {
   }
 
   public async onAddItem() {
-    console.log(this.recipeId);
-    if(this.recipeId && this.itemName && this.itemSize)
+    if(this.recipeId && this.itemName && this.itemSize && this.itemConversionType)
     {
-      let item = await this.variantService.createVariant(this.recipeId ,this.itemName, this.itemSize.id, this.itemDescription);
+      let item = await this.variantService.createVariant(this.recipeId ,this.itemName, this.itemConversionType.id, this.itemSize.id, this.itemDescription);
       console.log(item);
       this.modalController.dismiss(true);
     }

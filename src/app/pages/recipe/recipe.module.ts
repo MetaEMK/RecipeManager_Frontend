@@ -10,12 +10,14 @@ import { RecipeComponentsModule } from 'src/app/components/recipe-components/rec
 import { FilteringModule } from 'src/app/components/filtering/filtering.module';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 import { VariantComponentsModule } from 'src/app/components/variant-components/variant-components.module';
+import { VariantDetailsComponent } from './variant/variant-details/variant-details.component';
 
 
 @NgModule({
   declarations: [
     RecipeOverviewComponent,
-    RecipeDetailsComponent
+    RecipeDetailsComponent,
+    VariantDetailsComponent
   ],
   imports: [
     CommonModule,

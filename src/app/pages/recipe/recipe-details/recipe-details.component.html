@@ -15,6 +15,7 @@
             </ion-fab-button>
         </div>
         <app-name-edit title="Rezept" [item]="recipe" [editMode]="editMode" (changes)="newName = $event"></app-name-edit>
+        <p *ngIf="recipe.description">{{recipe.description}}</p>
     </div>
 
     <h4>zugewiesenen Abteilungen</h4>

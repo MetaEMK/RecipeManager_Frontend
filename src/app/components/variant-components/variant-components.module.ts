@@ -5,6 +5,8 @@ import { IonicModule } from '@ionic/angular';
 import { VariantAddModalComponent } from './variant-add-modal/variant-add-modal.component';
 import { FormsModule } from '@angular/forms';
 import { VariantSizeSelecterComponent } from './variant-size-selecter/variant-size-selecter.component';
+import { VariantSectionComponent } from './variant-section/variant-section.component';
+import { VariantEditIngredientModalComponent } from './variant-edit-ingredient-modal/variant-edit-ingredient-modal.component';
 
 
 
@@ -12,7 +14,9 @@ import { VariantSizeSelecterComponent } from './variant-size-selecter/variant-si
   declarations: [
     VariantCardComponent,
     VariantAddModalComponent,
-    VariantSizeSelecterComponent
+    VariantSizeSelecterComponent,
+    VariantSectionComponent,
+    VariantEditIngredientModalComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +28,8 @@ import { VariantSizeSelecterComponent } from './variant-size-selecter/variant-si
   exports: [
     VariantCardComponent,
     VariantAddModalComponent,
-    VariantSizeSelecterComponent
+    VariantSizeSelecterComponent,
+    VariantSectionComponent
   ]
 })
 export class VariantComponentsModule { }

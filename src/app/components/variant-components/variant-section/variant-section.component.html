@@ -1,0 +1,20 @@
+<p>variant-section works!</p>
+
+<div>
+    <h2>{{title}}</h2>
+    <ion-card>
+        <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
+            <ion-item (click)="openAddIngredientModal(ing)" *ngFor="let ing of ingredients">
+              <ion-label>
+                  {{ing.name}}: {{ing.quantity}}{{ing.unit}}</ion-label>
+                  <ion-icon slot="start" name="pencil-outline" *ngIf="editMode"></ion-icon>
+                  <ion-icon slot="start" color="danger" name="trash-outline" *ngIf="editMode"></ion-icon>
+              <ion-reorder slot="end"></ion-reorder>
+            </ion-item>
+            <ion-item (click)="openAddIngredientModal()">
+                <ion-icon slot="start" name="add"></ion-icon>
+                <ion-label position="fixed">Zutat hinzufügen</ion-label>
+            </ion-item>
+        </ion-reorder-group>
+    </ion-card>
+</div>

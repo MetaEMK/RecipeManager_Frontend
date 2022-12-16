@@ -225,11 +225,9 @@ export class RecipeService implements GeneralService<Recipe> {
 
   public async create(name: string, description?: string, img?: any): Promise<Recipe>
   {
-    if(!description) description = "test";
-
     let formData = new FormData();
     formData.append('name', name);
-    if(description) formData.append('description', description);
+    formData.append('description', description || 'null');
     if(img) formData.append('image', img);
 
     let error: ApiError;

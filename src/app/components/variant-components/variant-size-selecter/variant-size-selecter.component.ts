@@ -35,13 +35,16 @@ export class VariantSizeSelecterComponent implements OnInit {
   public size?: Size;
 
 
-  @Output()
-  private output_selectedConversionSize: EventEmitter<ConversionType> = new EventEmitter<ConversionType>();
+  @Output("selectedConversionType")
+  private output_selectedConversionType: EventEmitter<ConversionType> = new EventEmitter<ConversionType>();
   public selectedConversionSize?: ConversionType;
 
-  @Output()
+  @Output("selectedSize")
   private output_selectedSize: EventEmitter<Size> = new EventEmitter<Size>();
   public selectedSize?: Size;
+
+  @Output("multiplicator")
+  private output_multiplicator: EventEmitter<number> = new EventEmitter<number>();
 
   public conversionTypes: ConversionType[] = []
   public sizes: Size[] = []
@@ -77,7 +80,7 @@ export class VariantSizeSelecterComponent implements OnInit {
   public async selectType(event: any): Promise<void> {
     const conversionType = this.conversionTypes.find(x => x.id === event.detail.value);
     this.selectedConversionSize = conversionType;
-    this.output_selectedConversionSize.emit(conversionType);
+    this.output_selectedConversionType.emit(conversionType);
     
     if(conversionType)
       await this.getSizes(conversionType);
@@ -87,5 +90,13 @@ export class VariantSizeSelecterComponent implements OnInit {
     const size = this.sizes.find(x => x.id === event.detail.value);
     this.selectedSize = size;
     this.output_selectedSize.emit(size);
+
+    if(this.fromSize && size)
+    {
+      if(this.fromSize.id === size.id)
+        this.output_multiplicator.emit(1);
+      else
+        this.output_multiplicator.emit(2.5);
+    }
   }
 }
