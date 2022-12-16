@@ -53,11 +53,11 @@ export class RecipeService implements GeneralService<Recipe> {
 
         case 404:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
+          throw new ApiError(response.status, error.code, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
           
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     }
     catch (error) {
@@ -79,11 +79,11 @@ export class RecipeService implements GeneralService<Recipe> {
 
         case 404:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
+          throw new ApiError(response.status, error.code, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
           
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     }
     catch (error) {
@@ -105,11 +105,11 @@ export class RecipeService implements GeneralService<Recipe> {
 
         case 404:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
+          throw new ApiError(response.status, error.code, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
           
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     }
     catch (error) {
@@ -139,15 +139,15 @@ export class RecipeService implements GeneralService<Recipe> {
   
         case 404:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
+          throw new ApiError(response.status, error.code, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
   
         case 400:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept konnte nicht aktualisiert werden", error);
+          throw new ApiError(response.status, error.code, error.type, "Die angeforderte Rezept konnte nicht aktualisiert werden", error);
   
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     }
     catch (error) {
@@ -175,11 +175,11 @@ export class RecipeService implements GeneralService<Recipe> {
 
           case 404:
             error = (await response.json()).error;
-            throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
+            throw new ApiError(response.status, error.code, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
 
           default:
             error = (await response.json()).error;
-            throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+            throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
         }
       }
       catch (error) {
@@ -207,11 +207,11 @@ export class RecipeService implements GeneralService<Recipe> {
 
         case 404:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
+          throw new ApiError(response.status, error.code, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
 
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     }
     catch (error) {
@@ -246,11 +246,11 @@ export class RecipeService implements GeneralService<Recipe> {
 
         case 409:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Ein Rezept mit diesem Namen existiert bereits", error);
+          throw new ApiError(response.status, error.code, error.type, "Ein Rezept mit diesem Namen existiert bereits", error);
           
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     }
     catch (error) {
@@ -275,11 +275,11 @@ export class RecipeService implements GeneralService<Recipe> {
 
         case 404:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
+          throw new ApiError(response.status, error.code, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
 
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
 
       }
     } catch (error) 

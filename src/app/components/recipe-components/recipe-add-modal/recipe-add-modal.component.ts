@@ -14,6 +14,7 @@ export class RecipeAddModalComponent {
   public itemName: string = '';
   public itemDescription?: string;
   private testImage: any;
+  public imagePath: any;
 
 
   constructor(
@@ -46,5 +47,11 @@ export class RecipeAddModalComponent {
     }
     uploadImage(event: any) {
       this.testImage = event.target.files[0];
+      this.imagePath = this.testImage;
+    }
+
+    public async onCancel()
+    {
+      await this.modalController.dismiss();
     }
 }

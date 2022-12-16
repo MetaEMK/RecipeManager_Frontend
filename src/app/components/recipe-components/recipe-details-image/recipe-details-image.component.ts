@@ -56,8 +56,8 @@ export class RecipeDetailsImageComponent implements OnInit {
     this.loading = true;
     let toast;
     try {
-      await this.recipeService.updateImage(this.recipe.id, this.newImage);
-      this.imagePath = this.recipe.imagePath;
+      let newRec = await this.recipeService.updateImage(this.recipe.id, this.newImage);
+      this.imagePath = newRec.imagePath;
       toast = await this.toastControler.create({
         message: `Bild wurde geändert.`,
         duration: 3000,

@@ -1,6 +1,14 @@
 <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
-
-<button (click)="onAddItem()">erstellen</button>
+<div class="headerContainer">
+    <div>
+        <h1>Rezeptübersicht</h1>
+    </div>
+    <div>
+        <ion-fab-button class="addButton" color="success" (click)="onAddItem()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </div>
+</div>
 
 <app-filter-by-general-model [minimumFilterCount]="1" [branches]="this.branchService.branches" [categories]="categoryService.categories" (filteredItems)="getByQuery($event)"></app-filter-by-general-model>
 

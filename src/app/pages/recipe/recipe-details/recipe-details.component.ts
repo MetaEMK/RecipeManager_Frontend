@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Query, QueryItem } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
-import { ApiError } from 'src/app/model/apierror.model';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 import { Recipe, UpdateRecipe } from 'src/app/model/recipe.model';
+import { VariantAddModalComponent } from 'src/app/components/variant-components/variant-add-modal/variant-add-modal.component';
+import { VariantService } from 'src/app/core/services/variant.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -36,13 +37,14 @@ export class RecipeDetailsComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
-    private activeRoute: ActivatedRoute,
     private router: Router,
     private route: ActivatedRoute,
     public settingsService: SettingsService,
     private toastControler: ToastController,
     public branchService: BranchService,
-    public categoryService: CategoryService
+    public categoryService: CategoryService,
+    private modalcontroller: ModalController,
+    private variantService: VariantService
     
   ) { }
 
@@ -63,6 +65,7 @@ export class RecipeDetailsComponent implements OnInit {
     await this.getRecipeDetails(undefined, slug);
     await this.getAllCategoriesForRecipe(this.recipe.id);
     await this.getAllBranchesForRecipe(this.recipe.id);
+    await this.getAllVariantsForRecipe(this.recipe.id);
     
     this.query = new Query();
     this.query.add("recipeExclude", this.recipe?.id.toString());
@@ -90,6 +93,22 @@ export class RecipeDetailsComponent implements OnInit {
       });
     }
   }
+
+  public async getAllVariantsForRecipe(id: number)
+  {
+    let toast;
+    try {
+      this.recipe.variants = await this.variantService.getVariantsForRecipe(id);
+    } catch (error: any) {
+      toast = await this.toastControler.create({
+        position: "top",
+        message: error.message,
+        duration: 3000,
+        color: "danger"
+      });
+    }
+  }
+
 
   public async getAllCategoriesForRecipe(id: number)
   {
@@ -168,4 +187,16 @@ export class RecipeDetailsComponent implements OnInit {
   async deleteRecipe(): Promise<void> {
     this.loading = true;
   }
+
+  public async addVariant(): Promise<void> {
+    let test = await this.modalcontroller.create({
+      component: VariantAddModalComponent,
+      componentProps: {
+        recipeId: this.recipe.id
+      }
+    });
+    
+    test.present();
+  }
+
 }

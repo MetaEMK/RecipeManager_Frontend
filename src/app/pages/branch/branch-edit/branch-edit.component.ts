@@ -91,13 +91,15 @@ export class BranchEditComponent implements OnInit {
     else {
       this.loading = true;
       this.lastQuery = $event;
+
       if(this.branch?.id) $event.addFilter("branch", [this.branch.id.toString()]);
       this.filteredRecipes = [];
+
       this.recipeService.getByQuery($event).then((recipes) => {
         this.loading = false;
         this.filteredRecipes = recipes;
-      }).
-      catch((error) => {
+      })
+      .catch((error) => {
         this.loading = false;
         console.error(error);
       });

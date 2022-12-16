@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { VariantService } from 'src/app/core/services/variant.service';
+import { Size } from 'src/app/model/size.model';
+import { Variant } from 'src/app/model/variant.model';
 
 @Component({
   selector: 'app-variant-card',
@@ -6,5 +9,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./variant-card.component.css']
 })
 export class VariantCardComponent {
+
+  @Input()
+  public variant!: Variant;
+
+  public selectedToSize?: Size;
+
+  constructor(
+  ) { }
+
+
+  //TODO: Hier der emit für den Warenkorb später
+  public onSelectedToSizeChange(size: Size) {
+    console.log(size);
+    this.selectedToSize = size;
+  }
 
 }

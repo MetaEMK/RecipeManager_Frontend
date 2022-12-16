@@ -9,6 +9,7 @@ import { GeneralEditingModule } from 'src/app/components/general-editing/general
 import { RecipeComponentsModule } from 'src/app/components/recipe-components/recipe-components.module';
 import { FilteringModule } from 'src/app/components/filtering/filtering.module';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
+import { VariantComponentsModule } from 'src/app/components/variant-components/variant-components.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { RecipeDetailsComponent } from './recipe-details/recipe-details.componen
     }),
     GeneralEditingModule,
     RecipeComponentsModule,
-    FilteringModule
+    FilteringModule,
+    VariantComponentsModule
   ]
 })
 export class RecipeModule { }

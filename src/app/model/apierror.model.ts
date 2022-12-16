@@ -1,7 +1,7 @@
 
 export class ApiError {
     public httpStatusCode: number;
-    public errorCode: string;
+    public code: string;
     public type: string;
     public module?: string;
     public message: string;
@@ -9,7 +9,7 @@ export class ApiError {
 
     constructor(httpStatusCode: number, errorCode: string, type: string, messageForUser: string, info?: any) {
         this.httpStatusCode = httpStatusCode;
-        this.errorCode = errorCode;
+        this.code = errorCode;
         this.type = type;
         this.message = messageForUser;
         this.info = info;

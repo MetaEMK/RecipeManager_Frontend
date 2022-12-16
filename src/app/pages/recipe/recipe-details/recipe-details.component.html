@@ -24,20 +24,16 @@
     <app-general-details-edit-relations [service]="categoryService" [editMode]="editMode" [defaultQuery]="query" [items]="categories" (itemsToAdd)="addCategories = $event" (itemsToRemove)="rmvCategories = $event"></app-general-details-edit-relations>
 
 
+    <h4>Varianten</h4>
+    <ion-button (click)="addVariant()">Varianten hinzufügen</ion-button>
+
+    <app-variant-card [variant]="variant" *ngFor="let variant of recipe.variants"></app-variant-card>
+
+</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+//TODO cleanup
+<div *ngIf="!recipe">
     <ion-card>
         <ion-card-header>
             <ion-card-title>Hier eine Art Warenkorb inder alle Zutaten über die Varianten summiert werden (optional)</ion-card-title>
@@ -97,3 +93,4 @@
         </ion-card>
     </div>
 </div>
+  

@@ -2,7 +2,7 @@
     <div class="headerContainer">
         <ion-header>
             <ion-toolbar>
-                <ion-title>neues Rezept erstellen</ion-title>
+                <ion-title>neue Variante erstellen</ion-title>
             </ion-toolbar>
         </ion-header>
     </div>
@@ -16,15 +16,11 @@
             <ion-label position="floating">Beschreibung</ion-label>
             <ion-textarea [(ngModel)]="itemDescription"></ion-textarea>
         </ion-item>
-        
-        <ion-item>
-            <div style="height: 250px; width: auto; object-fit: scale-down;">
-                <img [src]="imagePath" *ngIf="imagePath"/>
-            </div>
+
+        <ion-item style="width: 100%;">
+            <app-variant-size-selecter (output_selectedSize)="itemSize = $event"></app-variant-size-selecter>
         </ion-item>
-        <ion-item>
-            <input type="file" accept="image/jpeg,image/png" (change)="uploadImage($event)">
-        </ion-item>
+
     </div>
 
 </div>

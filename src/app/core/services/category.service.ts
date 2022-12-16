@@ -46,7 +46,7 @@ export class CategoryService implements GeneralService<Category> {
           return (await response.json()).data;
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     } catch (error) {
       if(error instanceof ApiError) {
@@ -87,11 +87,11 @@ export class CategoryService implements GeneralService<Category> {
           
         case 404:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Die Kategorie konnte nicht gefunden werden.", error);
+          throw new ApiError(response.status, error.code, error.type, "Die Kategorie konnte nicht gefunden werden.", error);
 
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.errorCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     }
     catch (error) {
