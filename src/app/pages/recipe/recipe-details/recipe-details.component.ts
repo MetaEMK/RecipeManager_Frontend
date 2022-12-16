@@ -50,6 +50,7 @@ export class RecipeDetailsComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loading = true;
+    console.log("Recipe details page");
 
     const slug = this.route.snapshot.paramMap.get('slug');
     const editMode = this.route.snapshot.queryParamMap.get("editMode");
@@ -71,7 +72,12 @@ export class RecipeDetailsComponent implements OnInit {
     this.query.add("recipeExclude", this.recipe?.id.toString());
     
     if(editMode)
-    this.editMode = true;
+    {
+      console.log("Edit mode");
+      await this.router.navigate(['/recipes', this.recipe.slug]);
+      this.editMode = true;
+
+    }
     
     this.loading = false;
   }
@@ -185,7 +191,29 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   async deleteRecipe(): Promise<void> {
-    this.loading = true;
+    let toast;
+    try {
+      await this.recipeService.delete(this.recipe.id);
+      toast = await this.toastControler.create({
+        position: "top",
+        message: "Rezept gelöscht",
+        duration: 3000,
+        color: "success"
+      });
+      await toast.present();
+      this.router.navigate(["/recipes"]);
+    }
+
+    catch(error: any)
+    {
+      console.error(error);
+      toast = await this.toastControler.create({
+        position: "top",
+        message: error.message,
+        duration: 3000,
+        color: "danger"
+      });
+    }
   }
 
   public async addVariant(): Promise<void> {
@@ -197,6 +225,11 @@ export class RecipeDetailsComponent implements OnInit {
     });
     
     test.present();
+
+    test.onDidDismiss().then(async (data) => {
+      if(data)
+        await this.getAllVariantsForRecipe(this.recipe.id);
+    });
   }
 
 }
