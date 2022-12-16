@@ -14,8 +14,10 @@ import { Variant } from 'src/app/model/variant.model';
 })
 export class VariantDetailsComponent implements OnInit {
 
-  public variant?: Variant
-  public recipe?: Recipe
+  public editMode: boolean = false;
+
+  public variant?: Variant;
+  public recipe?: Recipe;
 
   public multiplicator: number = 1;
   public ingredientMap?: Map<number, Ingredient[]> = new Map<number, Ingredient[]>();

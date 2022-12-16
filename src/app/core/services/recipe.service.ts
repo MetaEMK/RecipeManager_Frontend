@@ -227,7 +227,7 @@ export class RecipeService implements GeneralService<Recipe> {
   {
     let formData = new FormData();
     formData.append('name', name);
-    formData.append('description', description || 'null');
+    if(description) formData.append('description', description);
     if(img) formData.append('image', img);
 
     let error: ApiError;
@@ -236,7 +236,6 @@ export class RecipeService implements GeneralService<Recipe> {
         method: 'POST',
         body: formData
       });
-      console.log(response.status);
       switch (response.status) {
         case 201:
           console.log("response");

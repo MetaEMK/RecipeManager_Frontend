@@ -28,18 +28,17 @@ export class VariantSectionComponent implements OnInit {
 
   public newIngredientName: string = "";
 
-  private maxNumber: number = 0;
+  private maxNumber: number = -1;
 
   constructor(
     private modalController: ModalController
   ) { }
 
   ngOnInit(): void {
-    if(this.ingredients)
+    if(this.ingredients.length > 0)
     {
       this.ingredients = this.ingredients.sort((a,b) => a.order - b.order);
       this.maxNumber = Math.max(...this.ingredients.map(x => x.order));
-      console.log(this.maxNumber);
       this.output_ingredients.emit(this.ingredients);
     }
   }
@@ -71,49 +70,54 @@ export class VariantSectionComponent implements OnInit {
   }
 
   public async openAddIngredientModal(item?: Ingredient) {
-    let addModal = await this.modalController.create({
-      component: VariantEditIngredientModalComponent,
-      componentProps: {
-        ingredient: item,
-        alreadyUsedIngredients: this.ingredients
-      }
-    });
-
-    await addModal.present();
-
-    let result = await addModal.onDidDismiss();
-    switch(result.role)
+    if(this.editMode)
     {
-      case "create":
-        if(!this.ingredients)
-          this.ingredients = [];
 
-        const newIng: Ingredient = {
-          name: result.data.name,
-          quantity: Number(result.data.quantity),
-          unit: result.data.unit,
-          section: this.sectionId,
-          order: ++this.maxNumber
+    
+      let addModal = await this.modalController.create({
+        component: VariantEditIngredientModalComponent,
+        componentProps: {
+          ingredient: item,
+          alreadyUsedIngredients: this.ingredients
         }
-        this.ingredients.push(newIng);
-      break;
+      });
 
-      case "update":
-        let old = this.ingredients?.find(x => x.order == result.data.order);
-        if(old)
-        {
-          old.name = result.data.name;
-          old.quantity = Number(result.data.quantity);
-          old.unit = result.data.unit;
-        }
-        else
-          console.error("Could not find ingredient to update!");
-      break;
-      default:
-        console.log("No action taken: " + result.role);
-      break;
+      await addModal.present();
+
+      let result = await addModal.onDidDismiss();
+      switch(result.role)
+      {
+        case "create":
+          if(!this.ingredients)
+            this.ingredients = [];
+
+          const newIng: Ingredient = {
+            name: result.data.name,
+            quantity: Number(result.data.quantity),
+            unit: result.data.unit,
+            section: this.sectionId,
+            order: ++this.maxNumber
+          }
+          this.ingredients.push(newIng);
+        break;
+
+        case "update":
+          let old = this.ingredients?.find(x => x.order == result.data.order);
+          if(old)
+          {
+            old.name = result.data.name;
+            old.quantity = Number(result.data.quantity);
+            old.unit = result.data.unit;
+          }
+          else
+            console.error("Could not find ingredient to update!");
+        break;
+        default:
+          console.log("No action taken: " + result.role);
+        break;
+      }
     }
-    this.ingredients = this.ingredients.sort((a,b) => a.order - b.order);
+    this.ingredients = this.ingredients.sort((a,b) =>{console.log(a); console.log(b); return a.order - b.order});
     this.output_ingredients.emit(this.ingredients);
   }
 }

@@ -23,13 +23,18 @@
         </div>
 
         <h3>Zutaten</h3>
-        <div>
+        Multiplikator: {{multiplicator}}
+        <ion-fab-button (click)="editMode = !editMode">
+            <ion-icon name="pencil-outline"></ion-icon>
+        </ion-fab-button>
+        <div *ngIf="editMode">
             <ion-button (click)="addSection()">neue Sektion hinzufügen</ion-button>
             <ion-button (click)="saveAllTest()">Sektionen speichern - nur im DevMode -</ion-button>
         </div>
         <div *ngIf="ingredientMap && finMap">
-            <div *ngFor="let key of keys">
-                <app-variant-section [sectionId]="key" [editMode]="true" (newIngredients)="onChangeIngredientListOnSection(key, $event)" [ingredients]="ingredientMap.get(key) || []"></app-variant-section>
+            <div *ngFor="let key of keys; index as i">
+                <h4>Schritt: {{i+1}}</h4>
+                <app-variant-section [sectionId]="key" [editMode]="editMode" (newIngredients)="onChangeIngredientListOnSection(key, $event)" [ingredients]="ingredientMap.get(key) || []"></app-variant-section>
             </div>
         </div>
     </div>
