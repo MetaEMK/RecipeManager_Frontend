@@ -22,6 +22,9 @@ export class VariantSectionComponent implements OnInit {
   @Input()
   public ingredients: Ingredient[] = [];
 
+  @Input()
+  public multiplicator: number = 1;
+
   @Output("newIngredients")
   public output_ingredients: EventEmitter<Ingredient[]> = new EventEmitter<Ingredient[]>();
 
@@ -120,4 +123,24 @@ export class VariantSectionComponent implements OnInit {
     this.ingredients = this.ingredients.sort((a,b) =>{console.log(a); console.log(b); return a.order - b.order});
     this.output_ingredients.emit(this.ingredients);
   }
+
+  public deleteIngredient(item: Ingredient) {
+    let newIngredients: Ingredient[] = [];
+    let isDeleted = false;
+    this.ingredients.forEach(x => {
+      if(isDeleted && x.name !== item.name)
+      {
+        x.order--;
+        newIngredients.push(x);
+      }
+
+      if(!isDeleted && x.name !== item.name)
+        newIngredients.push(x);
+
+      if(x.name === item.name)
+        isDeleted = true;
+    });
+    this.ingredients = newIngredients;
+  }
+
 }

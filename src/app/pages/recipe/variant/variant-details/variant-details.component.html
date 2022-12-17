@@ -24,7 +24,7 @@
 
         <h3>Zutaten</h3>
         Multiplikator: {{multiplicator}}
-        <ion-fab-button (click)="editMode = !editMode">
+        <ion-fab-button (click)="changeEditMode()">
             <ion-icon name="pencil-outline"></ion-icon>
         </ion-fab-button>
         <div *ngIf="editMode">
@@ -34,7 +34,10 @@
         <div *ngIf="ingredientMap && finMap">
             <div *ngFor="let key of keys; index as i">
                 <h4>Schritt: {{i+1}}</h4>
-                <app-variant-section [sectionId]="key" [editMode]="editMode" (newIngredients)="onChangeIngredientListOnSection(key, $event)" [ingredients]="ingredientMap.get(key) || []"></app-variant-section>
+                <ion-fab-button slot="end" (click)="removeSection(key)" *ngIf="editMode">
+                    <ion-icon color="danger" name="trash-outline"></ion-icon>
+                </ion-fab-button>
+                <app-variant-section [sectionId]="key" [editMode]="editMode" [multiplicator]="multiplicator" (newIngredients)="onChangeIngredientListOnSection(key, $event)" [ingredients]="ingredientMap.get(key) || []" ></app-variant-section>
             </div>
         </div>
     </div>

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { Query } from 'src/app/core/query';
 import { ConversionTypesService } from 'src/app/core/services/conversion-types.service';
+import { ConversionService } from 'src/app/core/services/conversion.service';
 import { SizeService } from 'src/app/core/services/size.service';
 import { ConversionTypes as ConversionType } from 'src/app/model/conversion-types.model';
 import { Size } from 'src/app/model/size.model';
@@ -52,13 +54,25 @@ export class VariantSizeSelecterComponent implements OnInit {
   constructor(
     private conversionTypeService: ConversionTypesService,
     private sizeService: SizeService,
+    private converSionService: ConversionService,
   ) { }
 
   async ngOnInit(): Promise<void> {
     await this.getConversionTypes();
 
-    if (this.conversionType) 
+    if (this.conversionType && !this.fromSize) 
       await this.getSizes(this.conversionType);
+
+    if(this.conversionType && this.fromSize)
+    {
+      let query = new Query();
+      query.add("fromSize", this.fromSize.id.toString());
+
+      const conversions = await this.converSionService.getConversion(this.conversionType, query);
+      
+      this.sizes = [this.fromSize];
+      conversions.forEach(x => this.sizes.push(x.toSize));
+    }
   }
 
   public async getConversionTypes(): Promise<void> {
@@ -86,17 +100,26 @@ export class VariantSizeSelecterComponent implements OnInit {
       await this.getSizes(conversionType);
   }
 
-  public selectSize(event: any): void {
-    const size = this.sizes.find(x => x.id === event.detail.value);
-    this.selectedSize = size;
-    this.output_selectedSize.emit(size);
+  public async selectSize(event: any): Promise<void> {
+    const selectedSize = this.sizes.find(x => x.id === event.detail.value);
+    this.selectedSize = selectedSize;
+    this.output_selectedSize.emit(selectedSize);
 
-    if(this.fromSize && size)
+    if(this.fromSize && selectedSize)
     {
-      if(this.fromSize.id === size.id)
+      if(this.fromSize.id === selectedSize.id)
         this.output_multiplicator.emit(1);
       else
-        this.output_multiplicator.emit(2.5);
+      {
+        if(this.conversionType && this.fromSize && selectedSize)
+        {
+          let query = new Query();
+          query.add("fromSize", this.fromSize.id.toString());
+          query.add("toSize", selectedSize.id.toString());
+          let data = await this.converSionService.getConversion(this.conversionType, query);;
+          this.output_multiplicator.emit(data[0].multiplicator);
+        }
+      }
     }
   }
 }

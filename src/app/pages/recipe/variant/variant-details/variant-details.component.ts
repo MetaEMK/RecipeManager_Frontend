@@ -21,7 +21,6 @@ export class VariantDetailsComponent implements OnInit {
 
   public multiplicator: number = 1;
   public ingredientMap?: Map<number, Ingredient[]> = new Map<number, Ingredient[]>();
-  public editedIngredientMap?: Map<number, Ingredient[]> = new Map<number, Ingredient[]>();
   public finMap: boolean = false;
   public keys: number[] = [];
 
@@ -120,8 +119,25 @@ export class VariantDetailsComponent implements OnInit {
     });
 
     this.keys = Array.from(this.ingredientMap.keys());
-    this.editedIngredientMap = this.ingredientMap;
     this.finMap = true;
+  }
+
+  public removeSection(section: number): void {
+    if(this.ingredientMap)
+    {
+      this.ingredientMap.delete(section);
+      this.keys = Array.from(this.ingredientMap.keys());
+    }
+  }
+
+  public async changeEditMode(): Promise<void> {
+    this.editMode = !this.editMode;
+    if(this.recipe && this.variant && !this.editMode)
+    {
+      await this.getVariant(this.recipe.id, this.variant.id)
+      console.log(this.variant);
+      this.reorderIngredientMap();
+    }
   }
 
   public addSection(): void {
@@ -136,23 +152,44 @@ export class VariantDetailsComponent implements OnInit {
   public onChangeIngredientListOnSection(section: number, ingredients: Ingredient[]): void {
     if(this.ingredientMap)
     {
-      this.editedIngredientMap?.set(section, ingredients);
-      console.log(this.editedIngredientMap);
+      this.ingredientMap?.set(section, ingredients);
+      console.log(this.ingredientMap);
     }
   }
 
   public async saveAllTest(): Promise<void> {
-    if(this.editedIngredientMap && this.recipe && this.variant)
+    if(this.ingredientMap && this.recipe && this.variant)
     {
       let ingredients: Ingredient[] = [];
-      this.editedIngredientMap.forEach(ingredientList => {
+      this.ingredientMap.forEach(ingredientList => {
         ingredientList.forEach(ingredient => {
           ingredients.push(ingredient);
         });
       });
 
-      this.variantService.updateVariant(this.recipe.id, this.variant?.id, undefined, undefined, undefined, ingredients);
-     
+      let toast;
+      try {
+        this.variantService.updateVariant(this.recipe.id, this.variant?.id, undefined, undefined, undefined, ingredients);
+        toast = await this.toastController.create({
+          position: 'top',
+          color: 'success',
+          message: 'Variante erfolgreich gespeichert',
+          duration: 3000
+        });
+        await this.delay(500);
+        await this.changeEditMode();
+      } catch (error: any) {
+        toast = await this.toastController.create({
+          position: 'top',
+          color: 'danger',
+          message: error.message,
+          duration: 3000
+        });
+      }
+      await toast.present();
     }
+  }
+  public delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }

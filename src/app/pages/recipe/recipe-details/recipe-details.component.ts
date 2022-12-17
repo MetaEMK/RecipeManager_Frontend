@@ -12,6 +12,7 @@ import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 import { Recipe, UpdateRecipe } from 'src/app/model/recipe.model';
 import { VariantAddModalComponent } from 'src/app/components/variant-components/variant-add-modal/variant-add-modal.component';
 import { VariantService } from 'src/app/core/services/variant.service';
+import { Variant } from 'src/app/model/variant.model';
 
 @Component({
   selector: 'app-recipe-details',
@@ -232,6 +233,10 @@ export class RecipeDetailsComponent implements OnInit {
       if(data)
         await this.getAllVariantsForRecipe(this.recipe.id);
     });
+  }
+
+  public routeToVariant(variant: Variant): void {
+    this.router.navigate(["/recipes", this.recipe.slug,  "variant", variant.id]);
   }
 
 }
