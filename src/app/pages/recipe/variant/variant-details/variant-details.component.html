@@ -1,15 +1,24 @@
 <p>variant-details works!</p>
 
 <div *ngIf="recipe && variant">
-    <div>
-        <h1>Variante: {{variant.name}}</h1>
-        <p>{{variant.description}}</p>
-        <div>
-            Umrechenart: {{variant.conversionType.name}}<br>
-            Basisgröße: {{variant.size.name}}
-        </div>
-    </div>
+    <app-general-edit-master-data
+        [enableNameEdit]="true"
+        [enableDescriptionEdit]="true"
+        [enableSizeEdit]="true"
 
+        title="Rezeptvariante"
+        [name]="variant.name"
+        [description]="variant.description"
+        [size]="variant.size"
+        [conversionType]="variant.conversionType"
+
+        [editMode]="editMode"
+
+        (nameChanged)="newName = $event"
+        (descriptionChanged)="newDescription = $event"
+        (sizeChanged)="newSize = $event"
+    >
+    </app-general-edit-master-data>
     <div>
         <div>
             <app-variant-size-selecter
@@ -18,6 +27,7 @@
                 [fromSize]="variant.size"
                 [showConversionType]="false"
                 (multiplicator)="multiplicator = $event"
+                *ngIf="!editMode"
             >
             </app-variant-size-selecter>
         </div>
@@ -33,7 +43,7 @@
         </div>
         <div *ngIf="ingredientMap && finMap">
             <div *ngFor="let key of keys; index as i">
-                <h4>Schritt: {{i+1}}</h4>
+                <h4>Schritt: {{i+1}} S: {{key}}</h4>
                 <ion-fab-button slot="end" (click)="removeSection(key)" *ngIf="editMode">
                     <ion-icon color="danger" name="trash-outline"></ion-icon>
                 </ion-fab-button>

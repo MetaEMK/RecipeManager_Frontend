@@ -7,6 +7,8 @@ import { GeneralAddComponent } from './general-add/general-add.component';
 import { GeneralItemSelectionComponent } from './general-item-selection/general-item-selection.component';
 import { FilteringModule } from '../filtering/filtering.module';
 import { GeneralEditRelationsComponent } from './general-edit-relations/general-edit-relations.component';
+import { GeneralEditMasterDataComponent } from './general-edit-master-data/general-edit-master-data.component';
+import { VariantComponentsModule } from '../variant-components/variant-components.module';
 
 
 
@@ -16,6 +18,7 @@ import { GeneralEditRelationsComponent } from './general-edit-relations/general-
     GeneralAddComponent,
     GeneralItemSelectionComponent,
     GeneralEditRelationsComponent,
+    GeneralEditMasterDataComponent,
   ],
   imports: [
     CommonModule,
@@ -23,13 +26,15 @@ import { GeneralEditRelationsComponent } from './general-edit-relations/general-
     IonicModule.forRoot({
       mode: 'ios'
     }),
-    FilteringModule
+    FilteringModule,
+    VariantComponentsModule
   ],
   exports: [
     NameEditComponent,
     GeneralAddComponent,
     GeneralItemSelectionComponent,
-    GeneralEditRelationsComponent
+    GeneralEditRelationsComponent,
+    GeneralEditMasterDataComponent,
   ]
 })
 export class GeneralEditingModule { }

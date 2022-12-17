@@ -1,0 +1,44 @@
+<p>general-edit-master-data works!</p>
+<div *ngIf="!editMode">
+    <h1 *ngIf="name && title">{{title}}: {{name}}</h1>
+
+    <p *ngIf="description">{{description}}</p>
+
+    <div *ngIf="size && conversionType">
+        <p>
+            Umrechenart: {{conversionType.name}}<br>
+            Basisgröße: {{size.name}}
+        </p>
+    </div>
+</div>
+
+<div *ngIf="editMode">
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>Stammdaten von: {{name}} bearbeiten</ion-card-title>
+            <ion-card-subtitle *ngIf="title">{{title}}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+            <ion-item *ngIf="enableNameEdit">
+                <ion-label position="floating">Name</ion-label>
+                <ion-input (ionChange)="onNameChange($event)"></ion-input>
+            </ion-item>
+        
+            <ion-item *ngIf="enableDescriptionEdit">
+                <ion-label position="floating">Beschreibung</ion-label>
+                <ion-textarea (ionChange)="onDescriptionChange($event)"></ion-textarea>
+            </ion-item>
+        
+            <div *ngIf="editMode && size && conversionType">
+                <app-variant-size-selecter
+                    [allowChangesToConversionType]="false"
+                    [preSelectedConversionType]="conversionType"
+                    [preSelectedSize]="size"
+                    (selectedSize)="onSizeChange($event)"
+                >
+                </app-variant-size-selecter>
+            </div>
+        </ion-card-content>
+    </ion-card>
+</div>

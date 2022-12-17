@@ -5,6 +5,7 @@ import { RecipeService } from 'src/app/core/services/recipe.service';
 import { VariantService } from 'src/app/core/services/variant.service';
 import { Ingredient } from 'src/app/model/ingredient.model';
 import { Recipe } from 'src/app/model/recipe.model';
+import { Size } from 'src/app/model/size.model';
 import { Variant } from 'src/app/model/variant.model';
 
 @Component({
@@ -24,6 +25,13 @@ export class VariantDetailsComponent implements OnInit {
   public finMap: boolean = false;
   public keys: number[] = [];
 
+  public newName?: string;
+  public newDescription?: string;
+  public newSize?: Size;
+
+  public test(event: any): void {
+    console.log(event);
+  }
 
   constructor(
     private recipeService: RecipeService,
@@ -117,7 +125,7 @@ export class VariantDetailsComponent implements OnInit {
       else
       this.ingredientMap.set(ingredient.section, [ingredient]);
     });
-
+    console.log(this.ingredientMap);
     this.keys = Array.from(this.ingredientMap.keys());
     this.finMap = true;
   }
@@ -169,7 +177,7 @@ export class VariantDetailsComponent implements OnInit {
 
       let toast;
       try {
-        const newVariant = await this.variantService.updateVariant(this.recipe.id, this.variant?.id, undefined, undefined, undefined, ingredients);
+        const newVariant = await this.variantService.updateVariant(this.recipe.id, this.variant?.id, this.newName, this.newDescription, this.newSize, ingredients);
         toast = await this.toastController.create({
           position: 'top',
           color: 'success',
