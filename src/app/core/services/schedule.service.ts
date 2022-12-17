@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiError } from 'src/app/model/apierror.model';
 import { ScheduleItem } from 'src/app/model/scheduleItem.model';
 import { environment } from 'src/environment/environment';
+import { Query } from '../query';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,9 @@ export class ScheduleService {
   constructor() { }
 
 
-  public async getAllByBranchId(branchId: number): Promise<ScheduleItem[]> {
-    const url = `${this.url_v1}/${branchId}/schedule`;
+  public async getAllByBranchId(branchId: number, query?: Query): Promise<ScheduleItem[]> {
+    let url = `${this.url_v1}/${branchId}/schedule`;
+    if(query) url += query.toString();
     let error: any;
 
     try {

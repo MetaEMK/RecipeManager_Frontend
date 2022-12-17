@@ -9,13 +9,15 @@ import { SettingsComponent } from './settings/settings.component';
 
 import { IonicModule } from '@ionic/angular';
 import { ScheduleComponentsModule } from 'src/app/components/schedule-components/schedule-components.module';
+import { SchedulerDetailsComponent } from './scheduler-details/scheduler-details.component';
 
 
 @NgModule({
   declarations: [
     StartpageComponent,
     NotFoundComponent,
-    SettingsComponent
+    SettingsComponent,
+    SchedulerDetailsComponent
   ],
   imports: [
     CommonModule,

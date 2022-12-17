@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { ScheduleService } from 'src/app/core/services/schedule.service';
 import { Branch } from 'src/app/model/branch.model';
@@ -28,14 +29,12 @@ export class SchedulerComponent implements OnInit, OnChanges {
 
   constructor(
     public branchService: BranchService,
-    public scheduleService: ScheduleService
+    public scheduleService: ScheduleService,
+    public router: Router
   ) { }
 
   async ngOnInit(): Promise<void> {
     await this.orderScheduleItems();
-
-    let test = new Date();
-    console.log(test.getDay());
   }
 
   async ngOnChanges(event: any): Promise<void> {
@@ -51,13 +50,9 @@ export class SchedulerComponent implements OnInit, OnChanges {
     this.days.forEach((day) => {
       this.scheduleItems.set(day, list.filter(item => item.day == day));
     });
+  }
 
-    console.log(this.days);
-
-    
-    // scheduleItemDay.forEach((day) => {
-    //   this.scheduleItems.set(index, list.filter(item => item.day == index));
-    // }
-
+  public routeToScheduleDetails(day: number){
+    this.router.navigate(['home', 'scheduler', this.branch.id, day]);
   }
 }

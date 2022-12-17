@@ -5,6 +5,9 @@
         <ion-card [color]="getColor(day)">
             <ion-card-header>
                 <ion-card-subtitle>{{scheduleItemDay[day]}}</ion-card-subtitle>
+                <ion-fab-button (click)="routeToScheduleDetails(day)" >
+                    <ion-icon name="pencil"></ion-icon>
+                </ion-fab-button>
             </ion-card-header>
             <ion-card-content>
                 <ion-card *ngFor="let item of scheduleItems.get(day)">
