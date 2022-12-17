@@ -19,8 +19,8 @@ export class ScheduleService {
   constructor() { }
 
 
-  public async getAllByBranchId(branchId: number): Promise<any> {
-    const url = `${this.url_v1}/${branchId}/schedules`;
+  public async getAllByBranchId(branchId: number): Promise<ScheduleItem[]> {
+    const url = `${this.url_v1}/${branchId}/schedule`;
     let error: any;
 
     try {
@@ -47,8 +47,8 @@ export class ScheduleService {
     }
   }
 
-  public async createSchuleItem(branchId: number, day: number, variantId: number, sizeId: number, quantity: number): Promise<any> {
-    const url = `${this.url_v1}/${branchId}/schedules`;
+  public async createSchuleItem(branchId: number, day: number, variantId: number, sizeId: number, quantity: number): Promise<ScheduleItem> {
+    const url = `${this.url_v1}/${branchId}/schedule`;
     let error: any;
 
     try {
@@ -80,8 +80,8 @@ export class ScheduleService {
     }
   }
 
-  public async deleteScheduleItem(branchId: number, scheduleItemId: number): Promise<any> {
-    const url = `${this.url_v1}/${branchId}/schedules/${scheduleItemId}`;
+  public async deleteScheduleItem(branchId: number, scheduleItemId: number): Promise<void> {
+    const url = `${this.url_v1}/${branchId}/schedule/${scheduleItemId}`;
     let error: any;
 
     try {

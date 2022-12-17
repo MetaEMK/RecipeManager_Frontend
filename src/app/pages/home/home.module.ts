@@ -8,6 +8,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { SettingsComponent } from './settings/settings.component';
 
 import { IonicModule } from '@ionic/angular';
+import { ScheduleComponentsModule } from 'src/app/components/schedule-components/schedule-components.module';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { IonicModule } from '@ionic/angular';
         mode: 'ios'
       }
     ),
-    FormsModule
+    FormsModule,
+    ScheduleComponentsModule
   ]
 })
 export class HomeModule { }

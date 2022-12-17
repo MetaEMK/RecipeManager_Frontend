@@ -1,0 +1,18 @@
+
+.scheduleContainer
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.scheduleDay
+{
+    max-width: 400px;
+    width: 15vw;
+    min-width: 300px;
+}
+
+.item
+{
+    padding: 5px;
+}

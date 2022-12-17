@@ -1,0 +1,19 @@
+<p>scheduler works!</p>
+<div class="scheduleContainer">
+    <h1>{{branch.name}}</h1>
+    <div class="scheduleDay" *ngFor="let day of days">
+        <ion-card [color]="getColor(day)">
+            <ion-card-header>
+                <ion-card-subtitle>{{scheduleItemDay[day]}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-card *ngFor="let item of scheduleItems.get(day)">
+                    <div class="item">
+                        {{item.variant.name}}
+                        <p>Menge: {{item.quantity}}, Größe: {{item.size.name}}</p>
+                    </div>
+                </ion-card>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</div>

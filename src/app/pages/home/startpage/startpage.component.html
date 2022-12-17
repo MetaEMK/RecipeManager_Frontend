@@ -1,58 +1,13 @@
 <h1>Startpage</h1>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
-<p>startpage works!</p>
+
+<div>
+    <h4>dev Only</h4>
+    <ion-button (click)="showSchedule(branch)" *ngFor="let branch of branchService.branches">{{branch.name}}</ion-button>
+
+    <div *ngIf="selectedBranch">
+        <app-scheduler [branch]="selectedBranch"></app-scheduler>
+    </div>
+</div>
+
+
+<h1>Abteilung: </h1>
