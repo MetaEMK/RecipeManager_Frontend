@@ -5,24 +5,38 @@ import { Injectable, OnInit } from '@angular/core';
 })
 export class SettingsService  {
 
-  public isDarkMode: string = "auto";  
-  // public get theme(): string {
-  //   return this.isDarkMode ? 'dark' : 'light';
-  // }
+  public themeMode: string = "auto"; 
 
-  // public get opposittheme(): string {
-  //   return this.isDarkMode ? 'light' : 'dark';
-  // }
 
   public recipeImagePlaceholderPath: string = 'assets/images/placeholder.png';
 
   constructor() {
+    this.changeTheme();
+  }
+
+  public changeTheme(toTheme?: string): void {
+
+    if (toTheme) {
+      localStorage.setItem('theme', toTheme);
+    }
+
     let prefDark = localStorage.getItem('theme');
-    this.isDarkMode = prefDark !== null  ? prefDark : "auto";
+
+    switch (prefDark) {
+      case "dark":
+        this.themeMode = "dark";
+        break;
+      case "light":
+        this.themeMode = "light";
+        break;
+      default:
+        this.themeMode = "auto";
+        break;
+    }
 
     let prefersDark;
-
-    switch (this.isDarkMode) {
+    
+    switch (this.themeMode) {
       case "auto":
         prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
         this.toggleDarkTheme(prefersDark.matches);
@@ -38,9 +52,14 @@ export class SettingsService  {
       break;
 
     case "light":
+      prefersDark = window.matchMedia('(prefers-color-scheme: light)');
+      this.toggleDarkTheme(prefersDark.matches);
+
+      prefersDark.addListener((mediaQuery) => this.toggleDarkTheme(mediaQuery.matches));
       break;
     }
-}
+  }
+
   private toggleDarkTheme(shouldAdd: any) {
     document.body.classList.toggle('dark', shouldAdd);
   }
