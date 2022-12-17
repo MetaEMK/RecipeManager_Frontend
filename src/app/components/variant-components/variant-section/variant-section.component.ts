@@ -40,7 +40,13 @@ export class VariantSectionComponent implements OnInit {
   ngOnInit(): void {
     if(this.ingredients.length > 0)
     {
-      this.ingredients = this.ingredients.sort((a,b) => a.order - b.order);
+      this.ingredients = this.ingredients.sort((a,b) => {return a.order - b.order});
+      let t: Ingredient[] = [];
+      this.ingredients.forEach((x, index) => {
+        x.order = index;
+        t.push(x);
+      });
+      this.ingredients = t;
       this.maxNumber = Math.max(...this.ingredients.map(x => x.order));
       this.output_ingredients.emit(this.ingredients);
     }
@@ -48,26 +54,23 @@ export class VariantSectionComponent implements OnInit {
 
   doReorder(ev: any) {
     ev.stopPropagation();
+    console.log(ev.detail);
     if(!this.ingredients)
       return;
 
-    let draggedItem = this.ingredients.find(x => x.order == ev.detail.from);
-    let targetItem = this.ingredients.find(x => x.order == ev.detail.to);
+      let draggedItem = this.ingredients[ev.detail.from];
+      let targetItem = this.ingredients[ev.detail.to];
 
-    console.log(draggedItem);
-    console.log(targetItem);
-
-    if(draggedItem && targetItem)
-    {
+      if(draggedItem && targetItem)
+      {
       draggedItem.order = ev.detail.to;
       targetItem.order = ev.detail.from;
-
-    }
+      }
     else console.log("Error: Could not find dragged or target item!");
 
     
     ev.detail.complete();
-    this.ingredients = this.ingredients.sort((a,b) => a.order - b.order);
+    this.ingredients = this.ingredients.sort((a,b) => {return a.order - b.order});
     this.output_ingredients.emit(this.ingredients);
 
   }
@@ -120,7 +123,7 @@ export class VariantSectionComponent implements OnInit {
         break;
       }
     }
-    this.ingredients = this.ingredients.sort((a,b) =>{console.log(a); console.log(b); return a.order - b.order});
+    this.ingredients = this.ingredients.sort((a,b) =>{ return a.order - b.order});
     this.output_ingredients.emit(this.ingredients);
   }
 
@@ -142,5 +145,4 @@ export class VariantSectionComponent implements OnInit {
     });
     this.ingredients = newIngredients;
   }
-
 }

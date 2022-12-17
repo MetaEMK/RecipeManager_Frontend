@@ -95,7 +95,7 @@ export class VariantService {
   }
 
   //TODO: implement UpdateVariant
-  public async updateVariant(recipeId: number, variantId: number, name?: string, description?: string, size?: Size, ingredients?: Ingredient[]): Promise<void> {
+  public async updateVariant(recipeId: number, variantId: number, name?: string, description?: string, size?: Size, ingredients?: Ingredient[]): Promise<Variant> {
     let bodyObj: any = {};
     if(name) bodyObj.name = name;
     if(description) bodyObj.description = description;
@@ -115,7 +115,7 @@ export class VariantService {
       let error: any;
       switch (response.status) {
         case 200:
-          return;
+          return (await response.json()).data;
 
         case 400:
           error = (await response.json()).error;

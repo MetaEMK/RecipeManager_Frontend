@@ -169,15 +169,16 @@ export class VariantDetailsComponent implements OnInit {
 
       let toast;
       try {
-        this.variantService.updateVariant(this.recipe.id, this.variant?.id, undefined, undefined, undefined, ingredients);
+        const newVariant = await this.variantService.updateVariant(this.recipe.id, this.variant?.id, undefined, undefined, undefined, ingredients);
         toast = await this.toastController.create({
           position: 'top',
           color: 'success',
           message: 'Variante erfolgreich gespeichert',
           duration: 3000
         });
-        await this.delay(500);
-        await this.changeEditMode();
+        this.editMode = false;
+        this.variant = newVariant;
+        this.reorderIngredientMap();
       } catch (error: any) {
         toast = await this.toastController.create({
           position: 'top',
