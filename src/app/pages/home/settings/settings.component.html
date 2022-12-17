@@ -1,9 +1,15 @@
 <h1>Einstellungern</h1>
 
 <div>
-    <ion-toggle (click)="changeTheme()">Dark Mode</ion-toggle>
-</div>
-
-<div>
-    <ion-button color="warning" (click)="addDefaultConversionTypes()">Standardeinstellungen übernehmen</ion-button>
+    <ion-segment [value]="settingsService.themeMode" (ionChange)="changeTheme($event)">
+        <ion-segment-button value="dark">
+          <ion-label>Dark</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="auto">
+          <ion-label>Auto</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="light">
+            <ion-label>Light</ion-label>
+        </ion-segment-button>
+    </ion-segment>
 </div>
