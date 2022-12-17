@@ -35,6 +35,8 @@ export class VariantSizeSelecterComponent implements OnInit {
 
   @Input("preSelectedSize")
   public size?: Size;
+  public input_size?: Size;
+
 
 
   @Output("selectedConversionType")
@@ -94,6 +96,7 @@ export class VariantSizeSelecterComponent implements OnInit {
   public async selectType(event: any): Promise<void> {
     const conversionType = this.conversionTypes.find(x => x.id === event.detail.value);
     this.selectedConversionSize = conversionType;
+    this.conversionType = conversionType;
     this.output_selectedConversionType.emit(conversionType);
     
     if(conversionType)

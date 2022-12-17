@@ -135,7 +135,25 @@ export class VariantService {
     }
   }
 
-  public async deleteVariant(variantId: number): Promise<void> {
-    throw new Error('Not implemented');
+  public async deleteVariant(recipeId: number, variantId: number): Promise<void> {
+    let error: any;
+
+    try {
+      let response = await fetch(this.url_v1 + '/' + recipeId + '/variants/' + variantId, {
+        method: 'DELETE'
+      });
+
+      switch (response.status) {
+        case 204:
+          return;
+
+        default:
+          error = (await response.json()).error;
+          throw new Error(error.message);
+      }
+    }
+    catch (error: any) {
+      throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
+    }
   }
 }

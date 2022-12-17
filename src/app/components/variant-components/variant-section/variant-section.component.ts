@@ -23,6 +23,9 @@ export class VariantSectionComponent implements OnInit {
   public ingredients: Ingredient[] = [];
 
   @Input()
+  public quantity: number = 1;
+
+  @Input()
   public multiplicator: number = 1;
 
   @Output("newIngredients")

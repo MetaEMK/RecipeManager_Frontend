@@ -23,7 +23,7 @@
         <div>
             <app-variant-size-selecter
                 [preSelectedConversionType]="variant.conversionType"
-                [preSelectedSize]="variant.size"
+                [preSelectedSize]="size || variant.size"
                 [fromSize]="variant.size"
                 [showConversionType]="false"
                 (multiplicator)="multiplicator = $event"
@@ -37,7 +37,11 @@
         <ion-fab-button (click)="changeEditMode()">
             <ion-icon name="pencil-outline"></ion-icon>
         </ion-fab-button>
+        <ion-input type="number" placeholder="Anzahl eingeben" [(ngModel)]="quantity"></ion-input>
         <div *ngIf="editMode">
+            <ion-fab-button color="danger" (click)="deleteVariant()">
+                <ion-icon name="trash-outline"></ion-icon>
+            </ion-fab-button>
             <ion-button (click)="addSection()">neue Sektion hinzufügen</ion-button>
             <ion-button (click)="saveAllTest()">Sektionen speichern - nur im DevMode -</ion-button>
         </div>
@@ -47,7 +51,7 @@
                 <ion-fab-button slot="end" (click)="removeSection(key)" *ngIf="editMode">
                     <ion-icon color="danger" name="trash-outline"></ion-icon>
                 </ion-fab-button>
-                <app-variant-section [sectionId]="key" [editMode]="editMode" [multiplicator]="multiplicator" (newIngredients)="onChangeIngredientListOnSection(key, $event)" [ingredients]="ingredientMap.get(key) || []" ></app-variant-section>
+                <app-variant-section [quantity]="quantity" [sectionId]="key" [editMode]="editMode" [multiplicator]="multiplicator" (newIngredients)="onChangeIngredientListOnSection(key, $event)" [ingredients]="ingredientMap.get(key) || []" ></app-variant-section>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@
         <ion-reorder-group [disabled]="!editMode" (ionItemReorder)="doReorder($event)" disabled="false">
             <ion-item (click)="openAddIngredientModal(ing)" *ngFor="let ing of ingredients">
                 <ion-label>
-                    {{ing.name}}: {{ing.quantity*multiplicator}} {{ing.unit}}
+                    {{ing.name}}: {{ing.quantity*multiplicator*quantity}} {{ing.unit}}
                 </ion-label>
                 <p>Dev Only: S: {{ing.section}}, Order: {{ing.order}}</p>
 

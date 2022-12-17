@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { RecipeService } from 'src/app/core/services/recipe.service';
+import { SizeService } from 'src/app/core/services/size.service';
 import { VariantService } from 'src/app/core/services/variant.service';
 import { Ingredient } from 'src/app/model/ingredient.model';
 import { Recipe } from 'src/app/model/recipe.model';
@@ -21,6 +22,9 @@ export class VariantDetailsComponent implements OnInit {
   public recipe?: Recipe;
 
   public multiplicator: number = 1;
+  public quantity: number = 1;
+  public size?: Size;
+
   public ingredientMap?: Map<number, Ingredient[]> = new Map<number, Ingredient[]>();
   public finMap: boolean = false;
   public keys: number[] = [];
@@ -38,31 +42,58 @@ export class VariantDetailsComponent implements OnInit {
     private variantService: VariantService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private sizeService: SizeService
     ) { }
 
   async ngOnInit(): Promise<void> {
     const recipeIdentifier = this.route.snapshot.paramMap.get('recipeIdentifier');
     const variantId = this.route.snapshot.paramMap.get('variantId');
-;
 
+    const queryParamMap = this.route.snapshot.queryParamMap;
+    console.log(queryParamMap.has('sizeId'))
+
+    
+    console.log(queryParamMap);
+    
     if(!recipeIdentifier || !variantId)
     {
       this.router.navigate(["/recipes"]);
       return;
     }
-
+    
     if(!await this.getRecipe(recipeIdentifier))
-      this.router.navigate(["/recipes"]);
-
+    this.router.navigate(["/recipes"]);
+    
     if(this.recipe && !Number.isNaN(+variantId))
-      await this.getVariant(this.recipe.id, Number(variantId));
+    await this.getVariant(this.recipe.id, Number(variantId));
     else
-      this.router.navigate(["/recipes", recipeIdentifier]);
-
-
+    this.router.navigate(["/recipes", recipeIdentifier]);
+    
+    
+    await this.checkForQueryParams(queryParamMap);
     this.reorderIngredientMap();
   }
+
+  private async checkForQueryParams(queryParamMap: ParamMap): Promise<void> {
+    if(this.variant){
+      console.log(queryParamMap);
+      if(queryParamMap.has('quantity'))
+        this.quantity = Number(queryParamMap.get('quantity'));
+
+      if(queryParamMap.has('sizeId'))
+      {
+        try {
+          const conversionTypeId: number = this.variant?.conversionType.id;
+          const sizes: Size[] = await this.sizeService.getAll(conversionTypeId);
+          this.size = sizes.find(size => size.id == Number(queryParamMap.get('sizeId')));
+        } catch (error: any) {
+          console.warn(error);
+        }
+      }
+    }
+  }
+  
 
   private async getRecipe(recipeIdentifier: string): Promise<boolean> {
     try {
@@ -198,7 +229,29 @@ export class VariantDetailsComponent implements OnInit {
       await toast.present();
     }
   }
-  public delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+
+  public async deleteVariant(): Promise<void> {
+    if(this.recipe && this.variant)
+    {
+      let toast;
+      try {
+        await this.variantService.deleteVariant(this.recipe.id, this.variant.id);
+        toast = await this.toastController.create({
+          position: 'top',
+          color: 'success',
+          message: 'Variante erfolgreich gelöscht',
+          duration: 3000
+        });
+        this.router.navigate(["/recipes", this.recipe.id]);
+      } catch (error: any) {
+        toast = await this.toastController.create({
+          position: 'top',
+          color: 'danger',
+          message: error.message,
+          duration: 3000
+        });
+      }
+      await toast.present();
+    }
   }
 }
