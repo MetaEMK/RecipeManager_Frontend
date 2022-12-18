@@ -37,8 +37,22 @@ export class RecipeDetailsImageComponent implements OnInit {
   }
 
   public async onFileSelected(event: any) {
-    this.newImage = event.target.files[0];
-    console.log(event.target.files[0]);
+    
+    let img = event.target.files[0];
+
+    if(img.type != "image/jpeg" && img.type != "image/png")
+    {
+      let toast = await this.toastControler.create({
+        message: `Das Bild muss im Format .jpg oder .png sein.`,
+        duration: 3000,
+        position: 'top',
+        color: 'danger'
+      });
+      
+      await toast.present();
+    }
+    else
+      this.newImage = event.target.files[0];
   }
     
   public loading: boolean = false;
@@ -52,6 +66,21 @@ export class RecipeDetailsImageComponent implements OnInit {
   {
     this.rerenderImage = false;
     this.loading = true;
+
+    if(!this.newImage)
+    {
+      let toast = await this.toastControler.create({
+        message: `Es wurde kein valides Bild ausgewählt.`,
+        duration: 3000,
+        position: 'top',
+        color: 'warning'
+      });
+
+      await toast.present();
+
+      return;
+    }
+
     let toast;
     try {
       let newRec = await this.recipeService.updateImage(this.recipe.id, this.newImage);
@@ -65,7 +94,6 @@ export class RecipeDetailsImageComponent implements OnInit {
       this.imageEditMode = false;
     }
     catch (error) {
-      console.log(error);
       let err = error as ApiError;
       toast = await this.toastControler.create({
         message: err.message,

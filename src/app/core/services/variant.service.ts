@@ -30,7 +30,7 @@ export class VariantService {
           throw new Error(error.message);
       }
     } catch (error: any) {
-      if (error instanceof Error)
+      if (error instanceof ApiError)
         throw error;
 
       throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
@@ -52,7 +52,7 @@ export class VariantService {
           throw new Error(error.message);
       }
     } catch (error: any) {
-      if (error instanceof Error)
+      if (error instanceof ApiError)
         throw error;
 
       throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
@@ -85,7 +85,7 @@ export class VariantService {
 
         case 400:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.code, error.type, error.message, error);
+          throw ApiError.getBadRequestError(error);
 
         case 409:
           error = (await response.json()).error;
@@ -96,7 +96,7 @@ export class VariantService {
           throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     } catch (error: any) {
-      if (error instanceof Error)
+      if (error instanceof ApiError)
         throw error;
 
       throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
@@ -139,7 +139,7 @@ export class VariantService {
       }
     }
     catch (error: any) {
-      if (error instanceof Error)
+      if (error instanceof ApiError)
         throw error;
 
       throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
@@ -164,7 +164,7 @@ export class VariantService {
       }
     }
     catch (error: any) {
-      if (error instanceof Error)
+      if (error instanceof ApiError)
         throw error;
 
       throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);

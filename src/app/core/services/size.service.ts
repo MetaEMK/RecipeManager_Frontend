@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ApiError } from 'src/app/model/apierror.model';
 import { Size } from 'src/app/model/size.model';
 import { environment } from 'src/environment/environment';
 
@@ -23,69 +24,14 @@ export class SizeService {
 
         default:
           error = (await response.json()).error;
-          throw new Error(error.message);
+          throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
       }
     } catch (error: any) {
-      if (error instanceof Error)
+      if (error instanceof ApiError)
         throw error;
 
-      throw new Error(error);
+      throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
 
   }
-
-  public async create(conversionTypeId: number, name: string): Promise<Size> {
-    let error: any;
-
-    try {
-      let response = await fetch(this.url_v1 + '/' + conversionTypeId + '/sizes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name
-        })
-      });
-
-      switch (response.status) {
-        case 201:
-          return (await response.json()).data;
-
-        default:
-          error = (await response.json()).error;
-          throw new Error(error.message);
-      }
-    } catch (error: any) {
-      if (error instanceof Error)
-        throw error;
-
-      throw new Error(error);
-    }
-  }
-
-  public async delete(conversionTypeId: number, sizeId: number): Promise<void> {
-    let error: any;
-
-    try {
-      let response = await fetch(this.url_v1 + '/' + conversionTypeId + '/sizes/' + sizeId, {
-        method: 'DELETE'
-      });
-
-      switch (response.status) {
-        case 204:
-          return;
-
-        default:
-          error = (await response.json()).error;
-          throw new Error(error.message);
-      }
-    } catch (error: any) {
-      if (error instanceof Error)
-        throw error;
-
-      throw new Error(error);
-    }
-  }
-
 }
