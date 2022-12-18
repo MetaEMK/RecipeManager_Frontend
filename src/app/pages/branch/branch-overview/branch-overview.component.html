@@ -1,5 +1,5 @@
 <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
-<h1>Abteilungsübersicht</h1>
+<h1>Abteilungen</h1>
 
 <app-filter-by-name [title]="'Abteilungsnamen'" [minimumCharacters]="0" [items]="this.branchService.branches" searchLabel="Abteilung suchen..." searchPlaceholder="Abteilung suchen..." (value)="searchByQuery($event)"></app-filter-by-name>
 
