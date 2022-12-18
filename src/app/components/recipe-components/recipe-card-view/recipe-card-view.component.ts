@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, ɵɵsetComponentScope } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { Branch } from 'src/app/model/branch.model';
@@ -53,8 +53,6 @@ export class RecipeCardViewComponent implements OnChanges {
   ) { }
 
   async ngOnInit() {;
-    // if(this.branch) this.getRecipesWithBranch();
-    // else if(this.category) this.getRecipesWithCategory();
   }
 
   public getRecipesWithCategory(): void {
@@ -70,15 +68,11 @@ export class RecipeCardViewComponent implements OnChanges {
   }
 
   async ngOnChanges(event: any): Promise<void> {
-    console.log(event)
     if(event.searchQuery && (!event.branch && !event.category))
     {
-      console.log("searchQuery")
-      console.log(event.searchQuery.currentValue)
       this.recipes = [];
       this.searchQuery = event.searchQuery.currentValue;
       this.offset = 0;
-      // await this.ngOnInit();
       await this.searchByQuery();
     }
     if(event.editMode)
@@ -112,8 +106,6 @@ export class RecipeCardViewComponent implements OnChanges {
     query.offset = this.offset;
     query.limit = this.limit;
 
-    console.log(query.toString());
-
     try {
       let newRecipes = await this.recipeService.getByQuery(query);
       this.recipes = this.recipes.concat(newRecipes);
@@ -123,8 +115,7 @@ export class RecipeCardViewComponent implements OnChanges {
     this.offset = this.offset + this.limit;
 
   }
-
-
+  
   public async onInfinityScroll(event: any): Promise<void> 
   {
     await this.searchByQuery();
