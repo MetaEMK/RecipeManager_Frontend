@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { ScheduleAddItemModalComponent } from 'src/app/components/schedule-components/schedule-add-item-modal/schedule-add-item-modal.component';
 import { Query } from 'src/app/core/query';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { ScheduleService } from 'src/app/core/services/schedule.service';
@@ -28,7 +29,8 @@ export class SchedulerDetailsComponent implements OnInit {
     public branchService: BranchService,
     public scheduleService: ScheduleService,
     public route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    public modalController: ModalController
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -78,20 +80,43 @@ export class SchedulerDetailsComponent implements OnInit {
     }
   }
 
+  public async addScheduleItem() {
+    const modal = await this.modalController.create({
+      component: ScheduleAddItemModalComponent,
+      componentProps: {
+        branch: this.branch,
+        day: this.day
+      }
+    });
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      await this.getScheduleItems();
+    }
+  }
+
   public async deleteScheduleItem(scheduleItem: ScheduleItem): Promise<void> {
+    let toast: any;
     try {
       await this.scheduleService.deleteScheduleItem(this.branch.id, scheduleItem.id);
       this.scheduleItems = this.scheduleItems.filter(item => item.id !== scheduleItem.id);
+      toast = await this.taostController.create({
+        position: 'top',
+        color: 'success',
+        message: 'Item wurde erfolgreich gelöscht',
+        duration: 3000
+      });
+      
     } catch (error: any) {
-      const toast = await this.taostController.create({
+      toast = await this.taostController.create({
         position: 'top',
         color: 'danger',
         message: error.message,
         duration: 2000
       });
-      await toast.present();
+
     }
+    await toast.present();
   }
-
-
 }

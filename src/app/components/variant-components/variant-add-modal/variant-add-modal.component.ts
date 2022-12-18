@@ -7,7 +7,7 @@ import { Size } from 'src/app/model/size.model';
 @Component({
   selector: 'app-variant-add-modal',
   templateUrl: './variant-add-modal.component.html',
-  styleUrls: ['./variant-add-modal.component.css']
+  styleUrls: ['./variant-add-modal.component.css',]
 })
 export class VariantAddModalComponent {
 
