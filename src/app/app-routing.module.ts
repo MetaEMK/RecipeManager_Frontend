@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'branches', loadChildren: () => import('./pages/branch/branch.module').then(m => m.BranchModule) },
   { path: 'categories', loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryModule) },
   { path: 'recipes', pathMatch: 'prefix', loadChildren: () => import('./pages/recipe/recipe.module').then(m => m.RecipeModule) },
