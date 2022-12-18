@@ -10,11 +10,13 @@
                 </ion-fab-button>
             </ion-card-header>
             <ion-card-content>
-                <ion-card *ngFor="let item of scheduleItems.get(day)">
-                    <div class="item">
-                        {{item.variant.name}}
-                        <p>Menge: {{item.quantity}}, Größe: {{item.size.name}}</p>
-                    </div>
+                <ion-card (click)="navigateToVariant(item)" *ngFor="let item of scheduleItems.get(day)">
+                <ion-card-header>
+                    <ion-card-subtitle>Rezept: Was ein Test Variante: {{item.variant.name}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                    Menge: {{item.quantity}}, Größe: {{item.size.name}}
+                </ion-card-content>
                 </ion-card>
             </ion-card-content>
         </ion-card>
