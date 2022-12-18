@@ -1,16 +1,42 @@
+/* Image */
+.image-handler-container {
+    position: relative;
+}
+
 .imageContainer
 {
     position: relative;
     max-width: 500px;
     max-height: 500px;
-
-    min-width: 150px;
-    min-height: 150px;
-
-    height: fit-content;
-    width: 45vw;
+    min-width: 400px;
+    min-height: 400px;
+    width: 40vw;
 }
 
 img {
-    object-fit: scale-down;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* Button bar */
+.button-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.button-bar .edit-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+} 
+
+.button-bar-edit {
+    background-color: rgba(165, 165, 165, 0.8);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 10px;
 }

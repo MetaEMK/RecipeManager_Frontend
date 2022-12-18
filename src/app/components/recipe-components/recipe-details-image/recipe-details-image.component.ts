@@ -8,7 +8,7 @@ import { Recipe } from 'src/app/model/recipe.model';
 @Component({
   selector: 'app-recipe-details-image',
   templateUrl: './recipe-details-image.component.html',
-  styleUrls: ['./recipe-details-image.component.css']
+  styleUrls: ['./recipe-details-image.component.css', '../../../../theme/theme.css']
 })
 export class RecipeDetailsImageComponent implements OnInit {
 
