@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { BranchService } from 'src/app/core/services/branch.service';
-import { Query, QueryItem } from 'src/app/core/query';
+import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
