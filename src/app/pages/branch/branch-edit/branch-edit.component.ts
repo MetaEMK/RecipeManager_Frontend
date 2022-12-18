@@ -48,26 +48,53 @@ export class BranchEditComponent implements OnInit {
     private alertController: AlertController
   ) { }
 
-  ngOnInit()
+  async ngOnInit()
   {
     const slug = this.route.snapshot.paramMap.get('slug');
     if(slug) {
-      this.branchService.getBySlug(slug).then(async (branch) => {
-        this.branch = branch;
+      try {
+        if(Number.isNaN(+slug))
+        this.branch = await this.branchService.getBySlug(slug);
+      else
+        this.branch = await this.branchService.getById(+slug);
 
-        this.defaultQuery.add("branchExclude", branch.id.toString());
-        this.searchQuery.add("branch", branch.id.toString());
-        await this.getBranch(branch.id);
-
-        this.loading = false;
-      })
-      .catch(() => {
+      if(this.branch)
+        this.configureQuery();
+      else
         this.router.navigate(["home", '404']);
+
+      } catch (error: any) {
         this.loading = false;
-      });
+
+        console.log(error);
+        if(error.color === 404)
+          this.router.navigate(["home", '404']);
+  
+        else
+        {
+          let toast = await this.toastController.create({
+            message: error.message,
+            duration: 3000,
+            position: "top",
+            color: "danger"
+          });
+
+          await toast.present();
+        }
+      }
+
     }
     else
       this.router.navigate(["home", '404']);
+  }
+
+  public configureQuery()
+  {
+    if(this.branch)
+    {
+      this.defaultQuery.add("branchExclude", this.branch.id.toString());
+      this.searchQuery.add("branch", this.branch.id.toString())
+    } 
   }
 
   public async getBranch(id: number)
@@ -76,6 +103,7 @@ export class BranchEditComponent implements OnInit {
     try {
       this.uncategorizedRecipes = [];
       this.branch = await this.branchService.getById(id);
+      this.configureQuery();
     } catch (error) {
       console.log(error);
       this.router.navigate(["home", '404']);

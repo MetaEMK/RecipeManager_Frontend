@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: 'categories', loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryModule) },
   { path: 'recipes', pathMatch: 'prefix', loadChildren: () => import('./pages/recipe/recipe.module').then(m => m.RecipeModule) },
   { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
-  { path: '**', redirectTo: 'home' },
+  { path: '**', redirectTo: 'home/404' },
 ];
 
 @NgModule({

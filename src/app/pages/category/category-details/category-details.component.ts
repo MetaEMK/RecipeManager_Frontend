@@ -53,12 +53,28 @@ export class CategoryDetailsComponent implements OnInit {
         else
           this.category = await this.categoryService.getById(Number(slug));
 
-          this.configureQuery();
+        this.configureQuery();
 
           this.loading = false;
         } 
-      catch (error) {
+      catch (error: any) {
+        this.loading = false;
+
         console.log(error);
+        if(error.color === 404)
+          this.router.navigate(["home", '404']);
+  
+        else
+        {
+          let toast = await this.toastController.create({
+            message: error.message,
+            duration: 3000,
+            position: "top",
+            color: "danger"
+          });
+
+          await toast.present();
+        }
       }
     }
     else {
