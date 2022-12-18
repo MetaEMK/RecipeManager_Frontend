@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { ScheduleAddItemModalComponent } from 'src/app/components/schedule-components/schedule-add-item-modal/schedule-add-item-modal.component';
 import { Query } from 'src/app/core/query';
 import { BranchService } from 'src/app/core/services/branch.service';
@@ -11,7 +11,7 @@ import { ScheduleItem, scheduleItemDay } from 'src/app/model/scheduleItem.model'
 @Component({
   selector: 'app-scheduler-details',
   templateUrl: './scheduler-details.component.html',
-  styleUrls: ['./scheduler-details.component.css']
+  styleUrls: ['./scheduler-details.component.css', "../../../../theme/theme.css"]
 })
 export class SchedulerDetailsComponent implements OnInit {
 
@@ -30,7 +30,8 @@ export class SchedulerDetailsComponent implements OnInit {
     public scheduleService: ScheduleService,
     public route: ActivatedRoute,
     public router: Router,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private alertController: AlertController
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -97,26 +98,47 @@ export class SchedulerDetailsComponent implements OnInit {
   }
 
   public async deleteScheduleItem(scheduleItem: ScheduleItem): Promise<void> {
-    let toast: any;
-    try {
-      await this.scheduleService.deleteScheduleItem(this.branch.id, scheduleItem.id);
-      this.scheduleItems = this.scheduleItems.filter(item => item.id !== scheduleItem.id);
-      toast = await this.taostController.create({
-        position: 'top',
-        color: 'success',
-        message: 'Item wurde erfolgreich gelöscht',
-        duration: 3000
-      });
-      
-    } catch (error: any) {
-      toast = await this.taostController.create({
-        position: 'top',
-        color: 'danger',
-        message: error.message,
-        duration: 2000
-      });
+    const alert = await this.alertController.create({
+      header: "Soll die Variante aus dem Planer wirklich gelöscht werden?",
+      buttons: [
+        {
+          text: "Abbrechen",
+          role: "cancel"
+        },
+        {
+          text: "Ok",
+          role: "confirm"
+        }
+      ]
+    });    
+    
+    await alert.present();
 
+    const { role } = await alert.onDidDismiss();
+    
+    if (role === "confirm") {
+      let toast: any;
+
+      try {
+        await this.scheduleService.deleteScheduleItem(this.branch.id, scheduleItem.id);
+        this.scheduleItems = this.scheduleItems.filter(item => item.id !== scheduleItem.id);
+        toast = await this.taostController.create({
+          position: 'top',
+          color: 'success',
+          message: 'Item wurde erfolgreich gelöscht',
+          duration: 3000
+        });
+        
+      } catch (error: any) {
+        toast = await this.taostController.create({
+          position: 'top',
+          color: 'danger',
+          message: error.message,
+          duration: 2000
+        });
+  
+      }
+      await toast.present();
     }
-    await toast.present();
   }
 }

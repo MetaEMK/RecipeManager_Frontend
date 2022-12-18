@@ -12,7 +12,7 @@
             </ion-card-header>
 
             
-            <ion-card-content class="item-container">
+            <ion-card-content class="item-container clickable">
                 <ion-card color="primary" (click)="navigateToVariant(item)" *ngFor="let item of scheduleItems.get(day)">
                 <ion-card-header>
                     <ion-card-subtitle>{{item.variant.recipe.name}}</ion-card-subtitle>
