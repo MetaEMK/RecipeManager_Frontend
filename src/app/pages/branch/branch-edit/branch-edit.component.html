@@ -3,14 +3,22 @@
     <div class="headerContainer">
         <div class="editBox">
             <ion-fab-button color="success" (click)="updateBranch()" *ngIf="editMode">
-                <ion-icon name="save-outline"></ion-icon>
+                <span class="custom-title" title="Speichern">
+                    <ion-icon name="save-outline"></ion-icon>
+                </span>
             </ion-fab-button>
             <ion-fab-button color="danger" (click)="deleteBranch()" *ngIf="editMode">
-                <ion-icon name="trash-outline"></ion-icon>
+                <span class="custom-title" title="Löschen">
+                    <ion-icon name="trash-outline"></ion-icon>
+                </span>
             </ion-fab-button>
             <ion-fab-button (click)="changeEditMode()">
-                <ion-icon name="pencil-outline" *ngIf="!editMode"></ion-icon>
-                <ion-icon name="close-outline" *ngIf="editMode"></ion-icon>
+                <span class="custom-title" title="Bearbeiten">
+                    <ion-icon name="pencil-outline" *ngIf="!editMode"></ion-icon>
+                </span>
+                <span class="custom-title" title="Abbrechen">
+                    <ion-icon name="close-outline" *ngIf="editMode"></ion-icon>
+                </span>
             </ion-fab-button>
         </div>
         <app-name-edit title="Abteilung" [item]="branch" [editMode]="editMode" (changes)="newName = $event"></app-name-edit>

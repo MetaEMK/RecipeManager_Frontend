@@ -51,10 +51,6 @@ export class VariantDetailsComponent implements OnInit {
     const variantId = this.route.snapshot.paramMap.get('variantId');
 
     const queryParamMap = this.route.snapshot.queryParamMap;
-    console.log(queryParamMap.has('sizeId'))
-
-    
-    console.log(queryParamMap);
     
     if(!recipeIdentifier || !variantId)
     {

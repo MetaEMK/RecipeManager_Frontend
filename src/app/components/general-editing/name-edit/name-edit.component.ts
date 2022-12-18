@@ -8,7 +8,7 @@ import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 @Component({
   selector: 'app-name-edit',
   templateUrl: './name-edit.component.html',
-  styleUrls: ['./name-edit.component.css']
+  styleUrls: ['./name-edit.component.css' , '../../../../theme/theme.css']
 })
 export class NameEditComponent {
 

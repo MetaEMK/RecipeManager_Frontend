@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Query, QueryItem } from 'src/app/core/query';
@@ -15,7 +15,7 @@ import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 @Component({
   selector: 'app-branch-edit',
   templateUrl: './branch-edit.component.html',
-  styleUrls: ['./branch-edit.component.css']
+  styleUrls: ['./branch-edit.component.css', '../../../../theme/theme.css']
 })
 export class BranchEditComponent implements OnInit {
 
@@ -44,7 +44,8 @@ export class BranchEditComponent implements OnInit {
     private router: Router,
     public themeService: SettingsService,
     private toastController: ToastController,
-    public recipeService: RecipeService
+    public recipeService: RecipeService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit()
@@ -154,33 +155,56 @@ export class BranchEditComponent implements OnInit {
 
   public async deleteBranch()
   {
-    this.loading = true;
-    if(this.branch)
-    {
-      let toast;
-      this.editMode = false;
-      try {
-        await this.branchService.delete(this.branch.id);
-        this.router.navigate(["/branches"]);
-        toast = await this.toastController.create({
-          message: "Abteilung wurde erfolgreich gelöscht",
-          duration: 3000,
-          position: "top",
-          color: "success"
-        });
-      } catch (error) {
-        console.log(error);
-        const err = error as ApiError;
-        toast = await this.toastController.create({
-          message: err.message,
-          duration: 3000,
-          position: "top",
-          color: "danger"
-        });
-      }
-      await toast.present();
-    }
-    this.loading = false;
+    const alert = await this.alertController.create({
+      header: "Möchten Sie die Abteilung wirklich löschen?",
+      buttons: [
+        {
+          text: "Abbrechen",
+          role: "cancel"
+        },
+        {
+          text: "Ok",
+          role: "confirm",
+          handler: () => {
+            this.loading = true;
+            if(this.branch)
+            {
+              let toast;
+              this.editMode = false;
+
+              try {
+                this.branchService.delete(this.branch.id).then(() => {
+                  this.router.navigate(["/branches"]);
+
+                  this.toastController.create({
+                    message: "Abteilung wurde erfolgreich gelöscht",
+                    duration: 3000,
+                    position: "top",
+                    color: "success"
+                  }).then((toast) => {
+                    toast.present();
+                  });
+                });
+              } catch (error) {
+                const err = error as ApiError;
+
+                this.toastController.create({
+                  message: err.message,
+                  duration: 3000,
+                  position: "top",
+                  color: "danger"
+                }).then((toast) => {
+                  toast.present();
+                });
+              }
+            }
+            this.loading = false;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   public addItemsToAddList(event: GeneralModelWithRouting[])
