@@ -166,7 +166,7 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   async updateRecipe(): Promise<void> {
-
+    this.loading = true;
     let updateBody: UpdateRecipe = {
       category_ids: {},
       branch_ids: {}
@@ -214,6 +214,8 @@ export class RecipeDetailsComponent implements OnInit {
       await toast.present();
     }
 
+    this.loading = false;
+
   }
 
   async deleteRecipe(): Promise<void> {
@@ -236,6 +238,7 @@ export class RecipeDetailsComponent implements OnInit {
     const { role } = await alert.onDidDismiss();
 
     if (role === "confirm") {
+      this.loading = true;
       let toast;
       try {
         await this.recipeService.delete(this.recipe.id);
@@ -246,6 +249,7 @@ export class RecipeDetailsComponent implements OnInit {
           color: "success"
         });
         await toast.present();
+        this.loading = false;
         this.router.navigate(["/recipes"]);
       }
   
@@ -258,6 +262,7 @@ export class RecipeDetailsComponent implements OnInit {
           duration: 3000,
           color: "danger"
         });
+        this.loading = false;
       }
     }
   }

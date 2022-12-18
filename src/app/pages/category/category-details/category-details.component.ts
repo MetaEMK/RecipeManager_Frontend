@@ -52,7 +52,7 @@ export class CategoryDetailsComponent implements OnInit {
 
         this.configureQuery();
 
-          this.loading = false;
+        this.loading = false;
       } 
       catch (error: any) {
         this.loading = false;
@@ -89,6 +89,7 @@ export class CategoryDetailsComponent implements OnInit {
 
   public async getCategory(id: number)
   {
+    this.loading = true;
     try {
       this.category = undefined;
       const category = await this.categoryService.getById(id);
@@ -97,6 +98,7 @@ export class CategoryDetailsComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+    this.loading = false;
   }
 
   public async searchByQuery(event: Query)

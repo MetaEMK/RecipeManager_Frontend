@@ -15,6 +15,8 @@ export class CategoryOverviewComponent implements OnInit {
 
   public filteredCategories: GeneralModelWithRouting[] = [];
 
+  public loading: boolean = false;
+
   public filter?: string;
 
   public editMode: boolean = false;
@@ -28,9 +30,11 @@ export class CategoryOverviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.filter = undefined;
     this.categoryService.getAll().then((categories) => {
       this.filteredCategories = categories;
+      this.loading = false;
     })
     .catch(async (error) => {
       console.log(error);
@@ -45,14 +49,18 @@ export class CategoryOverviewComponent implements OnInit {
           },
         ]
       });
+      this.loading = false;
       await toast.present();
     });
   }
 
   public searchByQuery(queryValue: string){
+    this.loading = true;
     const query = new Query(new QueryItem("name", [queryValue]));
     this.categoryService.getByQuery(query).then((categories) => {
       this.filteredCategories = categories;
+      this.loading = false;
+
     }).catch(async (error) => {
       console.log(error);
       const toast = await this.toastController.create({
@@ -66,6 +74,7 @@ export class CategoryOverviewComponent implements OnInit {
           },
         ]
       });
+      this.loading = false;
       await toast.present();
     });
   }

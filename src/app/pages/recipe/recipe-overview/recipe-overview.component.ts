@@ -32,6 +32,7 @@ export class RecipeOverviewComponent implements OnInit {
     let status = [false, true, true];
 
     this.branchService.getAll().then(() => status[1] = false)
+    
     .catch(async (error) => {
       console.warn(error);
       const toast = await this.toastController.create({

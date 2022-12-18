@@ -1,5 +1,5 @@
 <h1>Kategorien</h1>
-
+<ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
 <app-filter-by-name [title]="'Kategorienamen'" [minimumCharacters]="0" [items]="this.categoryService.categories" (value)="searchByQuery($event)"></app-filter-by-name>
 
 <div class="categoriesContainer">
