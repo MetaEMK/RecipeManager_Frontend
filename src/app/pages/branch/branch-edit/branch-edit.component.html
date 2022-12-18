@@ -24,7 +24,6 @@
         <app-name-edit title="Abteilung" [item]="branch" [editMode]="editMode" (changes)="newName = $event"></app-name-edit>
     </div>
     
-    
     <app-filter-by-general-model [filterBranches]="false" [minimumFilterCount]="1" [branches]="[branch]" [categories]="branch.recipeCategories" searchLabel="Rezepte suchen..." searchPlaceholder="Rezepte suchen..." (filteredItems)="searchByQuery($event)"></app-filter-by-general-model>
     <app-general-details-edit-relations [service]="recipeService" [defaultQuery]="defaultQuery" cardTitle="Rezept hinzufügen" searchLabel="Alle Rezepte durchsuchen..." searchPlaceholder="Alle Rezepte durchsuchen..." (itemsToAdd)="addItemsToAddList($event)" *ngIf="editMode"></app-general-details-edit-relations>
 

@@ -2,22 +2,30 @@
 <div class="container" *ngIf="category">
     <div class="headerContainer">
         <div class="editBox">
-            <ion-fab-button (click)="updateCategory()" *ngIf="editMode">
-                <ion-icon color="success" name="save-outline"></ion-icon>
+            <ion-fab-button color="success" (click)="updateCategory()" *ngIf="editMode">
+                <span class="custom-title" title="Speichern">
+                    <ion-icon name="save-outline"></ion-icon>
+                </span>
             </ion-fab-button>
-            <ion-fab-button size="great" color="danger" (click)="deleteCategory()" *ngIf="editMode">
-                <ion-icon color="dark" name="trash-outline"></ion-icon>
+            <ion-fab-button color="danger" (click)="deleteCategory()" *ngIf="editMode">
+                <span class="custom-title" title="Löschen">
+                    <ion-icon name="trash-outline"></ion-icon>
+                </span>
             </ion-fab-button>
             <ion-fab-button (click)="changeEditMode()">
-                <ion-icon name="pencil-outline" *ngIf="!editMode"></ion-icon>
-                <ion-icon color="danger" name="close-outline" *ngIf="editMode"></ion-icon>
+                <span class="custom-title" title="Bearbeiten">
+                    <ion-icon name="pencil-outline" *ngIf="!editMode"></ion-icon>
+                </span>
+                <span class="custom-title" title="Abbrechen">
+                    <ion-icon name="close-outline" *ngIf="editMode"></ion-icon>
+                </span>
             </ion-fab-button>
         </div>
         <app-name-edit [item]="category" [editMode]="editMode" [title]="'Kategorie'" (changes)="newName = $event"></app-name-edit>
     </div>
 
-    <app-filter-by-general-model [categories]="[category]" [minimumFilterCount]="1" [branches]="category.recipeBranches" [filterCategories]="false" (filteredItems)="searchByQuery($event)"></app-filter-by-general-model> 
-    <app-general-details-edit-relations [service]="recipeService" [defaultQuery]="defaultQuery" (itemsToAdd)="addItemsToAddList($event)" *ngIf="editMode"></app-general-details-edit-relations>
+    <app-filter-by-general-model [categories]="[category]" [minimumFilterCount]="1" [branches]="category.recipeBranches" [filterCategories]="false" searchLabel="Kategorie suchen..." searchPlaceholder="Kategorie suchen..." (filteredItems)="searchByQuery($event)"></app-filter-by-general-model> 
+    <app-general-details-edit-relations [service]="recipeService" [defaultQuery]="defaultQuery" cardTitle="Kategorie hinzufügen" searchLabel="Alle Kategorien durchsuchen..." searchPlaceholder="Alle Kategorien durchsuchen..." (itemsToAdd)="addItemsToAddList($event)" *ngIf="editMode"></app-general-details-edit-relations>
 
     <app-recipe-card-view [searchQuery]="searchQuery" [category]="category" [editMode]="editMode" (rmv)="rmvRecipes = $event"></app-recipe-card-view>
 </div>
