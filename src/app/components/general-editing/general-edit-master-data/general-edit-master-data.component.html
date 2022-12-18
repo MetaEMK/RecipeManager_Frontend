@@ -8,12 +8,13 @@
         </div>
     
         <p class="description" *ngIf="description">{{description}}</p>
-    
-        <div *ngIf="size && conversionType">
-            <p>
-                Umrechenart: {{conversionType.name}}<br>
-                Basisgröße: {{size.name}}
-            </p>
+        
+        <div class="conversion-container">
+            <h5>Umrechnungsdaten</h5>
+            <div class="conversion-container-data" *ngIf="size && conversionType">
+                <span>Typ: {{conversionType.name}}</span>
+                <span>Basisgröße: {{size.name}}</span>
+            </div>
         </div>
     </div>
     
