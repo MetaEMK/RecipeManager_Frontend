@@ -1,0 +1,10 @@
+.variant-card {
+    height: 225px;
+    width: 225px;
+}
+
+.variant-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
