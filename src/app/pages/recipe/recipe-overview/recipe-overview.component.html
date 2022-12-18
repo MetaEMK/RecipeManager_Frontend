@@ -10,7 +10,6 @@
     </div>
 </div>
 
-<app-filter-by-general-model [minimumFilterCount]="1" [branches]="this.branchService.branches" [categories]="categoryService.categories" (filteredItems)="getByQuery($event)"></app-filter-by-general-model>
+<app-filter-by-general-model [defaultSelectAllBranches]="false" [defaultSelectAllCategories]="false" [minimumFilterCount]="1" [branches]="this.branchService.branches" [categories]="categoryService.categories" (filteredItems)="getByQuery($event)"></app-filter-by-general-model>
 
-
-<app-recipe-card-view [recipes]="recipeList"></app-recipe-card-view>
+<app-recipe-card-view [searchQuery]="searchQuery"></app-recipe-card-view>

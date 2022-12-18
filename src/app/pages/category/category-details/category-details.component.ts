@@ -26,6 +26,7 @@ export class CategoryDetailsComponent implements OnInit {
   public filteredRecipes: Recipe[] = [];
 
   public defaultQuery: Query = new Query();
+  public searchQuery: Query = new Query();
   private lastQuery: Query = new Query();
 
   public newName: string|undefined;
@@ -91,24 +92,7 @@ export class CategoryDetailsComponent implements OnInit {
 
   public async searchByQuery(event: Query)
   {
-    
-    if(event.items.length === 0 ) {
-      this.filteredRecipes = [];
-    }
-    else {
-      this.loading = true;
-      this.lastQuery = event;
-      if(this.category?.id) event.addFilter("category", [this.category.id.toString()]);
-      this.filteredRecipes = [];
-      console.log("Query in category-edit: " + event);
-      this.recipeService.getByQuery(event).then((recipes) => {
-        this.loading = false;
-        this.filteredRecipes = recipes;
-      }).catch((error) => {
-          this.loading = false;
-          console.error(error);
-        });
-    }
+    this.searchQuery = event;
   }
 
   public async updateCategory() {

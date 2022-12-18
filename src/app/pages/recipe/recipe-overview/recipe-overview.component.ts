@@ -91,30 +91,10 @@ export class RecipeOverviewComponent implements OnInit {
   }
 
 
+  public searchQuery: Query = new Query();
+
   public getByQuery(query: Query){
-    this.recipeList = [];
-    if(query.items.length === 0) return;
-    this.loading = true;
-    this.recipeService.getByQuery(query).then((recipes) => {
-      this.recipeList = recipes;
-      this.loading = false;
-    })
-    .catch(async (error) => {
-      console.warn(error);
-      const toast = await this.toastController.create({
-        position: "top",
-        message: error.messageForUser,
-        color: "danger",
-        buttons: [
-          {
-            text: 'OK',
-            role: 'cancel'
-          },
-        ]
-      });
-      this.loading = false;
-      await toast.present();
-    });
+    this.searchQuery = query;
   }
   
 }
