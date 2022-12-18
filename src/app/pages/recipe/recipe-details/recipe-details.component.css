@@ -1,19 +1,14 @@
 .headerContainer{
     display: flex;
+    justify-content: space-between;
 }
 
-
-
+.master-data-container {
+    display: flex;
+}
 
 .editBox{
     display: flex;
-    position: absolute;
-
-    align-self: flex-end;
+    flex-direction: column;
     gap: 10px;
 }
-.deleteButton {
-    position: absolute;
-    align-self: flex-end;
-}
-

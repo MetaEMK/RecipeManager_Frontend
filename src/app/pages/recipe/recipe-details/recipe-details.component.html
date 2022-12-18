@@ -3,37 +3,39 @@
 <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
 <div *ngIf="recipe">
     <div class="headerContainer">
-        <div class="editBox">
-            <ion-fab-button (click)="updateRecipe()" *ngIf="editMode">
-                <ion-icon color="success" name="save-outline"></ion-icon>
-            </ion-fab-button>
-            <ion-fab-button size="great" color="danger" (click)="deleteRecipe()" *ngIf="editMode">
-                <ion-icon color="dark" name="trash-outline"></ion-icon>
-            </ion-fab-button>
-            <ion-fab-button  (click)="editMode = !editMode">
-                <ion-icon  name="pencil-outline" *ngIf="!editMode"></ion-icon>
-                <ion-icon color="danger" name="close-outline" *ngIf="editMode"></ion-icon>
-            </ion-fab-button>
+        <div class="master-data-container">
+            <app-general-edit-master-data 
+                [enableNameEdit]="true"
+                [enableDescriptionEdit]="true"
+    
+                title="Rezept"
+                [name]="recipe.name"
+                [description]="recipe.description"
+                (nameChanged)="newName = $event"
+                (descriptionChanged)="newDescription = $event"
+                
+                [editMode]="editMode">
+            </app-general-edit-master-data>
+            <div class="editBox">
+                <ion-fab-button  (click)="editMode = !editMode">
+                    <ion-icon  name="pencil-outline" *ngIf="!editMode"></ion-icon>
+                    <ion-icon color="danger" name="close-outline" *ngIf="editMode"></ion-icon>
+                </ion-fab-button>
+                <ion-fab-button size="great" color="danger" (click)="deleteRecipe()" *ngIf="editMode">
+                    <ion-icon color="dark" name="trash-outline"></ion-icon>
+                </ion-fab-button>
+                <ion-fab-button (click)="updateRecipe()" *ngIf="editMode">
+                    <ion-icon color="success" name="save-outline"></ion-icon>
+                </ion-fab-button>
+            </div>
         </div>
-        <app-general-edit-master-data 
-            [enableNameEdit]="true"
-            [enableDescriptionEdit]="true"
-
-            title="Rezept"
-            [name]="recipe.name"
-            [description]="recipe.description"
-            (nameChanged)="newName = $event"
-            (descriptionChanged)="newDescription = $event"
-            
-            [editMode]="editMode">
-        </app-general-edit-master-data>
         <app-recipe-details-image [recipe]="recipe" (wasSuccessfullyChanged)="imageChanges($event)"></app-recipe-details-image>
     </div>
 
-    <h4>zugewiesenen Abteilungen</h4>
+    <h4>Abteilungen</h4>
     <app-general-details-edit-relations [service]="branchService" [editMode]="editMode" [defaultQuery]="query" [items]="branches" (itemsToAdd)="addBranches = $event" (itemsToRemove)="rmvBranches = $event"></app-general-details-edit-relations>
     
-    <h4>zugewiesenen Kategorien</h4>
+    <h4>Kategorien</h4>
     <app-general-details-edit-relations [service]="categoryService" [editMode]="editMode" [defaultQuery]="query" [items]="categories" (itemsToAdd)="addCategories = $event" (itemsToRemove)="rmvCategories = $event"></app-general-details-edit-relations>
 
 
