@@ -7,8 +7,11 @@
     padding-left: 5px;
 }
 
+.master-data-container {
+    width: 100%;
+}
+
 .description {
     max-height: 30vh;
-    max-width: 40vw;
     overflow: auto;
 }

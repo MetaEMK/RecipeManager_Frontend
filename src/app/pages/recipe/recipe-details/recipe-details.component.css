@@ -16,3 +16,7 @@
 .variant-container {
     display: flex;
 }
+
+.master-data-container {
+    width: 50%;
+}

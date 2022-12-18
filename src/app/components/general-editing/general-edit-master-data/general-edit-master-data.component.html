@@ -1,50 +1,50 @@
-<!-- MASTER DATA -->
-
-<div *ngIf="!editMode">
-    <div class="headline-stack">
-        <div class="flex-row flex-align-center">
-            <h5>{{title}}</h5>
-            <h1 *ngIf="name && title">{{name}}</h1>
+<div class="master-data-container">
+    <div *ngIf="!editMode">
+        <div class="headline-stack">
+            <div class="flex-row flex-align-center">
+                <h5>{{title}}</h5>
+                <h1 *ngIf="name && title">{{name}}</h1>
+            </div>
+        </div>
+    
+        <p class="description" *ngIf="description">{{description}}</p>
+    
+        <div *ngIf="size && conversionType">
+            <p>
+                Umrechenart: {{conversionType.name}}<br>
+                Basisgröße: {{size.name}}
+            </p>
         </div>
     </div>
-    <p class="description" *ngIf="description">{{description}}</p>
-
-    <!-- ToDO Variant -->
-    <div *ngIf="size && conversionType">
-        <p>
-            Umrechenart: {{conversionType.name}}<br>
-            Basisgröße: {{size.name}}
-        </p>
+    
+    <div *ngIf="editMode">
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>Stammdaten von: {{name}} bearbeiten</ion-card-title>
+                <ion-card-subtitle *ngIf="title">{{title}}</ion-card-subtitle>
+            </ion-card-header>
+    
+            <ion-card-content>
+                <ion-item *ngIf="enableNameEdit">
+                    <ion-label position="floating">Name</ion-label>
+                    <ion-input [value]="editedName" (ionChange)="onNameChange($event)"></ion-input>
+                </ion-item>
+            
+                <ion-item *ngIf="enableDescriptionEdit">
+                    <ion-label position="floating">Beschreibung</ion-label>
+                    <ion-textarea [value]="editedDescription" (ionChange)="onDescriptionChange($event)"></ion-textarea>
+                </ion-item>
+            
+                <div *ngIf="editMode && size && conversionType">
+                    <app-variant-size-selecter
+                        [allowChangesToConversionType]="false"
+                        [preSelectedConversionType]="conversionType"
+                        [preSelectedSize]="size"
+                        (selectedSize)="onSizeChange($event)"
+                    >
+                    </app-variant-size-selecter>
+                </div>
+            </ion-card-content>
+        </ion-card>
     </div>
-</div>
-
-<div *ngIf="editMode">
-    <ion-card>
-        <ion-card-header>
-            <ion-card-title>Stammdaten von: {{name}} bearbeiten</ion-card-title>
-            <ion-card-subtitle *ngIf="title">{{title}}</ion-card-subtitle>
-        </ion-card-header>
-
-        <ion-card-content>
-            <ion-item *ngIf="enableNameEdit">
-                <ion-label position="floating">Name</ion-label>
-                <ion-input [value]="editedName" (ionChange)="onNameChange($event)"></ion-input>
-            </ion-item>
-        
-            <ion-item *ngIf="enableDescriptionEdit">
-                <ion-label position="floating">Beschreibung</ion-label>
-                <ion-textarea [value]="editedDescription" (ionChange)="onDescriptionChange($event)"></ion-textarea>
-            </ion-item>
-        
-            <div *ngIf="editMode && size && conversionType">
-                <app-variant-size-selecter
-                    [allowChangesToConversionType]="false"
-                    [preSelectedConversionType]="conversionType"
-                    [preSelectedSize]="size"
-                    (selectedSize)="onSizeChange($event)"
-                >
-                </app-variant-size-selecter>
-            </div>
-        </ion-card-content>
-    </ion-card>
 </div>
