@@ -6,11 +6,11 @@ import { SettingsComponent } from './settings/settings.component';
 import { StartpageComponent } from './startpage/startpage.component';
 
 const routes: Routes = [
-  { path: '', pathMatch:'full', component: StartpageComponent },
+  { path: '', pathMatch: 'full', component: StartpageComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'scheduler/:branchId/:day', pathMatch: 'full', component: SchedulerDetailsComponent },
   { path: '404', component: NotFoundComponent},
-  { path: '**', redirectTo: '404'},
+  { path: '**', redirectTo: 'home/404'},
 ];
 
 @NgModule({
