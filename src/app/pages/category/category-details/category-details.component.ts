@@ -43,48 +43,44 @@ export class CategoryDetailsComponent implements OnInit {
     private modalController: ModalController
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.loading = true;
     const slug = this.route.snapshot.paramMap.get('slug');
     if(slug) {
+      try {
+        if(Number.isNaN(+slug) === true)
+          this.category = await this.categoryService.getBySlug(slug);
+        else
+          this.category = await this.categoryService.getById(Number(slug));
 
-      if(Number.isNaN(+slug) === true)
-      {
-          this.categoryService.getBySlug(slug).then((category) => {
-          this.category = category;
-          this.defaultQuery.add("categoryExclude", category.id.toString());
-          this.defaultQuery.add("categoryNone", "true");
+          this.configureQuery();
+
           this.loading = false;
-        })
-        .catch((error) => {
-          console.log(error);
-          this.loading = false;
-        });
-      }
-      else {
-        try {
-          this.categoryService.getById(Number(slug)).then((category) => {
-            this.category = category;
-            this.defaultQuery.add("categoryNone", "true");
-            this.defaultQuery.add("categoryExclude", category.id.toString());
-            this.loading = false;
-          })
-        } catch (error) {
-          console.error(error);
-          this.loading = false;
-        }
+        } 
+      catch (error) {
+        console.log(error);
       }
     }
+    else {
+      this.router.navigate(["home", '404']);
+    }
   }
+
+  public configureQuery() {
+    if(this.category)
+    {
+      this.defaultQuery.add("categoryExclude", this.category.id.toString());
+      this.searchQuery.add("category", this.category.id.toString());
+    }
+  }
+
   public async getCategory(id: number)
   {
-    console.log("his.category");
     try {
       this.category = undefined;
       const category = await this.categoryService.getById(id);
-      console.log(category);
-      console.log(category.recipeBranches);
       this.category = category;
+      this.configureQuery();
     } catch (error) {
       console.log(error);
     }
@@ -93,6 +89,8 @@ export class CategoryDetailsComponent implements OnInit {
   public async searchByQuery(event: Query)
   {
     this.searchQuery = event;
+    if(this.category)
+      this.searchQuery.add("category", this.category.id.toString());
   }
 
   public async updateCategory() {

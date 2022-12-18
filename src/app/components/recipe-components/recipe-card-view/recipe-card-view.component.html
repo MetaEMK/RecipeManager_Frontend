@@ -5,7 +5,7 @@
             <ion-card-title>Es wurden keine Rezepte für diesen Filter gefunden.</ion-card-title>
         </ion-card-header>
     </ion-card>
-    <app-recipe-card  (change)="addRecipeToRemoveList($event)" [recipe]="recipe" [editMode]="editMode" *ngFor="let recipe of recipes"></app-recipe-card>
+    <app-recipe-card (change)="addRecipeToRemoveList($event)" [recipe]="recipe" [editMode]="editMode" *ngFor="let recipe of recipes"></app-recipe-card>
     <ion-infinite-scroll (ionInfinite)="onInfinityScroll($event)">
         <ion-infinite-scroll-content threshold="50px" loadingText="lade mehr rezepte" loadingSpinner="bubbles"></ion-infinite-scroll-content>
     </ion-infinite-scroll>
