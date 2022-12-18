@@ -52,22 +52,8 @@ export class RecipeCardViewComponent implements OnChanges {
     private recipeService: RecipeService,
   ) { }
 
-  async ngOnInit() {;
-  }
-
-  public getRecipesWithCategory(): void {
-    if(this.category?.id === undefined) return;
-    this.searchQuery.add("categoryExclude", this.category.id.toString());
-  }
-
-  public async getRecipesWithBranch(): Promise<void> {
-    this.loading = true;
-    if(this.branch?.id === undefined) return;
-    this.searchQuery.add("branchExclude", this.branch.id.toString());
-    this.loading = false;
-  }
-
   async ngOnChanges(event: any): Promise<void> {
+    if(event.branch && (event.searchQuery && event.category)) console.log("branch, searchQuery, category");
     if(event.searchQuery && (!event.branch && !event.category))
     {
       this.recipes = [];
@@ -107,6 +93,7 @@ export class RecipeCardViewComponent implements OnChanges {
     query.limit = this.limit;
 
     try {
+      console.warn(query.toString())
       let newRecipes = await this.recipeService.getByQuery(query);
       this.recipes = this.recipes.concat(newRecipes);
     } catch (error) {

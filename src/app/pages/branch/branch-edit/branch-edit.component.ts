@@ -52,25 +52,22 @@ export class BranchEditComponent implements OnInit {
   {
     const slug = this.route.snapshot.paramMap.get('slug');
     if(slug) {
-      try {
-        this.branchService.getBySlug(slug).then(async (branch) => {
-          this.branch = branch;
-          this.defaultQuery.add("branchExclude", branch.id.toString());
-          this.searchQuery.add("branch", branch.id.toString());
-          await this.getBranch(branch.id);
-          this.loading = false;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      } catch (error) {
+      this.branchService.getBySlug(slug).then(async (branch) => {
+        this.branch = branch;
+
+        this.defaultQuery.add("branchExclude", branch.id.toString());
+        this.searchQuery.add("branch", branch.id.toString());
+        await this.getBranch(branch.id);
+
         this.loading = false;
-        console.log("An error occured while trying to get the branch by slug.");
-        console.log(error);
-      }
+      })
+      .catch(() => {
+        this.router.navigate(["home", '404']);
+        this.loading = false;
+      });
     }
     else
-      this.router.navigate(["/branches"]);
+      this.router.navigate(["home", '404']);
   }
 
   public async getBranch(id: number)
@@ -81,6 +78,7 @@ export class BranchEditComponent implements OnInit {
       this.branch = await this.branchService.getById(id);
     } catch (error) {
       console.log(error);
+      this.router.navigate(["home", '404']);
     }
     this.loading = false;
   }
@@ -210,3 +208,4 @@ export class BranchEditComponent implements OnInit {
     }
   }
 }
+ 
