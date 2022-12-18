@@ -19,6 +19,8 @@ export class SchedulerComponent implements OnInit, OnChanges {
   public days: number[] = [1,2,3,4,5,6,7];
 
   public getColor(day: number){
+    let currentDay = new Date().getDay();
+    if(currentDay === 0) currentDay = 7;
     if(day === new Date().getDay()){
       return 'warning';
     }
@@ -43,7 +45,7 @@ export class SchedulerComponent implements OnInit, OnChanges {
   }
 
   public async orderScheduleItems() {
-    
+
     let list = await this.scheduleService.getAllByBranchId(this.branch.id);
     this.scheduleItems = new Map<number, ScheduleItem[]>();
 
@@ -54,5 +56,10 @@ export class SchedulerComponent implements OnInit, OnChanges {
 
   public routeToScheduleDetails(day: number){
     this.router.navigate(['home', 'scheduler', this.branch.id, day]);
+  }
+
+  public navigateToVariant(item: ScheduleItem){
+    console.log("trying to navigate");
+    this.router.navigate(['recipes', item.variant.recipe.id, 'variants', item.variant.id], { queryParams: { quantity: item.quantity, sizeId: item.size } });
   }
 }
