@@ -127,7 +127,7 @@ export class VariantService {
 
         case 400:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.code, error.type, error.message, error);
+          throw ApiError.getBadRequestError(error);
 
         case 409:
           error = (await response.json()).error;
