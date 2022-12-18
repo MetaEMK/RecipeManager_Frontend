@@ -113,12 +113,15 @@ export class BranchService implements GeneralService<Branch> {
           name: name
         })
       });
-      console.log("response");
-      console.log(response);
       await this.getAll();
       switch (response.status) {
         case 201:
           return (await response.json()).data;
+
+        case 400:
+          error = (await response.json()).error;
+          throw ApiError.getBadRequestError(error);
+
         case 409:
           error = (await response.json()).error;
           throw new ApiError(response.status, error.customCode, error.type, 'Es existiert bereits eine Abteilung mit diesem Namen.' , error);
@@ -160,6 +163,10 @@ export class BranchService implements GeneralService<Branch> {
         case 200:
           await this.getAll();
           return (await response.json()).data;
+
+        case 400:
+          error = (await response.json()).error;
+          throw ApiError.getBadRequestError(error);
         
         case 409:
           error = (await response.json()).error;

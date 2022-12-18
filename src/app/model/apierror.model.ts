@@ -14,4 +14,18 @@ export class ApiError {
         this.message = messageForUser;
         this.info = info;
     }
+
+    public static getBadRequestError(error: any)
+    {
+        switch (error.code) {
+            case 'NAME_INVALID_LENGTH':
+                return new ApiError(400, 'NAME_INVALID_LENGTH', 'Bad Request', 'Der Name darf nicht länger als 20 (bei Varianten 30) Zeichen lang sein.');
+
+            case 'NAME_INVALID':
+                return new ApiError(400, 'NAME_INVALID', 'Bad Request', 'Der Name ist nicht gültig.', error);
+            
+            default:
+                return new ApiError(400, 'BAD_REQUEST', 'Bad Request', 'Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut.', error);
+        }
+    }
 }
