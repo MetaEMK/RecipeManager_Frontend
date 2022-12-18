@@ -35,8 +35,6 @@ export class VariantSizeSelecterComponent implements OnInit {
 
   @Input("preSelectedSize")
   public size?: Size;
-  public input_size?: Size;
-
 
 
   @Output("selectedConversionType")
@@ -74,6 +72,9 @@ export class VariantSizeSelecterComponent implements OnInit {
       
       this.sizes = [this.fromSize];
       conversions.forEach(x => this.sizes.push(x.toSize));
+
+      if(this.size)
+      await this.selectSize({detail: {value: this.size.id}});
     }
   }
 
