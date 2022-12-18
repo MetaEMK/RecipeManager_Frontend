@@ -30,7 +30,7 @@ export class RecipeDetailsComponent implements OnInit {
   public query?: Query;
 
   public newName?: string;
-  public newDescription?: string;
+  public newDescription?: string|null|undefined;
   public addCategories: GeneralModelWithRouting[] = [];
   public rmvCategories: GeneralModelWithRouting[] = [];
   public addBranches: GeneralModelWithRouting[] = [];
@@ -132,11 +132,10 @@ export class RecipeDetailsComponent implements OnInit {
 
   public async getAllCategoriesForRecipe(id: number)
   {
-    let toast;
     try {
       this.categories = await this.categoryService.getByQuery(new Query(new QueryItem("recipe", [id.toString()])));
     } catch (error: any) {
-      toast = await this.toastControler.create({
+      const toast = await this.toastControler.create({
         position: "top",
         message: error.message,
         duration: 3000,
@@ -176,8 +175,10 @@ export class RecipeDetailsComponent implements OnInit {
     if(this.newName)
       updateBody.name = this.newName;
 
-    if(this.newDescription)
+    if(this.newDescription !== "")
       updateBody.description = this.newDescription;
+    else if(this.newDescription === '' || this.newDescription === null ) 
+      updateBody.description = null;
 
     if(this.addCategories.length > 0)
       updateBody.category_ids.add = this.addCategories.map((category) => category.id);

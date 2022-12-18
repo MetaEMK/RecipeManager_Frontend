@@ -14,7 +14,7 @@ export interface Recipe extends GeneralModelWithRouting {
 
 export interface UpdateRecipe {
     name?: string;
-    description?: string;
+    description?: string|null|undefined;
 
     branch_ids: {
         add?: number[];

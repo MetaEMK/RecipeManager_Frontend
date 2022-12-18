@@ -43,8 +43,8 @@ export class GeneralEditMasterDataComponent implements OnInit {
   public editedName: string = "";
 
   @Output("descriptionChanged")
-  private output_description: EventEmitter<string> = new EventEmitter<string>();
-  public editedDescription: string = "";
+  private output_description: EventEmitter<string|null> = new EventEmitter<string|null>();
+  public editedDescription: string|null = "";
 
   @Output("sizeChanged")
   private output_size: EventEmitter<Size> = new EventEmitter<Size>();
@@ -79,6 +79,8 @@ export class GeneralEditMasterDataComponent implements OnInit {
 
     if(this.editedDescription !== this.description)
       this.output_description.emit(this.editedDescription);
+    else if(this.editedDescription === "")
+      this.output_description.emit(null);
     else
       this.output_description.emit(undefined);
   }

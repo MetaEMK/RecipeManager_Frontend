@@ -98,11 +98,10 @@ export class VariantService {
   public async updateVariant(recipeId: number, variantId: number, name?: string, description?: string, size?: Size, ingredients?: Ingredient[]): Promise<Variant> {
     let bodyObj: any = {};
     if(name) bodyObj.name = name;
-    if(description) bodyObj.description = description;
+    bodyObj.description = description;
     if(size) bodyObj.size = size.id;
     if(ingredients) bodyObj.ingredients = ingredients;
-
-
+    
     try {
       let response = await fetch(this.url_v1 + '/' + recipeId + '/variants/' + variantId, {
         method: 'PATCH',
