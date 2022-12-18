@@ -1,0 +1,8 @@
+.custom-title ion-icon {
+    pointer-events: none;
+    font-size: 25px;
+}
+
+.clickable:hover {
+    cursor: pointer;
+}

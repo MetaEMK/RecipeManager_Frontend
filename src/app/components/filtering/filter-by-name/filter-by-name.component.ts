@@ -6,12 +6,18 @@ import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 @Component({
   selector: 'app-filter-by-name',
   templateUrl: './filter-by-name.component.html',
-  styleUrls: ['./filter-by-name.component.css']
+  styleUrls: ['./filter-by-name.component.css', '../../../../theme/theme.css']
 })
 export class FilterByNameComponent implements OnInit {
 
   @Input()
   public title!: string;
+
+  @Input()
+  public searchLabel: string = "Suche";
+
+  @Input()
+  public searchPlaceholder: string = "Suche";
 
   @Input()
   public items!: GeneralModelWithRouting[];

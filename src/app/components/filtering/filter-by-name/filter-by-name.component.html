@@ -2,13 +2,17 @@
 <div class="controlContainer">
 
     <ion-item mode="ios">
-        <ion-label position="floating">{{title}} suchen</ion-label>
-        <ion-input [(ngModel)]="filter" [debounce]="delay" (ionChange)="sendQuery(false)" (keydown.enter)="sendQuery(true)" ></ion-input>
+        <ion-label position="floating">{{ searchLabel }}</ion-label>
+        <ion-input [(ngModel)]="filter" [debounce]="delay" [placeholder]="searchPlaceholder" (ionChange)="sendQuery(false)" (keydown.enter)="sendQuery(true)" ></ion-input>
         <ion-fab-button size="small" slot="end" (click)="sendQuery(true)">
-            <ion-icon color="success" name="search-outline"></ion-icon>
+            <span class="custom-title" title="Suche">
+                <ion-icon color="success" name="search-outline"></ion-icon>
+            </span>
         </ion-fab-button>
         <ion-fab-button size="small" slot="end" (click)="clearInput()" *ngIf="showClearButton">
-            <ion-icon color="danger" name="close-outline"></ion-icon>
+            <span class="custom-title" title="Abbrechen">
+                <ion-icon color="danger" name="close-outline"></ion-icon>
+            </span>
         </ion-fab-button>
     </ion-item>
 </div>

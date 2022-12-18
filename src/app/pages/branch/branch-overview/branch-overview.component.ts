@@ -12,7 +12,7 @@ import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 @Component({
   selector: 'app-branch-overview',
   templateUrl: './branch-overview.component.html',
-  styleUrls: ['./branch-overview.component.css']
+  styleUrls: ['./branch-overview.component.css', '../../../../theme/theme.css']
 })
 export class BranchOverviewComponent implements OnInit {
 
