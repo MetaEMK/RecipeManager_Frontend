@@ -30,7 +30,7 @@ export class BranchService implements GeneralService<Branch> {
           return this._branches;
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.customCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       } 
     } catch (error) {
       if(error instanceof ApiError) {
@@ -49,13 +49,13 @@ export class BranchService implements GeneralService<Branch> {
           return (await response.json()).data;
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.customCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     } catch (error) {
       if(error instanceof ApiError) {
         throw error;
       }
-      throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
+      throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }
 
@@ -75,7 +75,7 @@ export class BranchService implements GeneralService<Branch> {
       if(error instanceof ApiError) {
         throw error;
       }
-      throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
+      throw new ApiError(500, 'API_ERROR', 'API_BRANCH_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }
 
@@ -121,10 +121,10 @@ export class BranchService implements GeneralService<Branch> {
           return (await response.json()).data;
         case 409:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.code, error.type, 'Es existiert bereits eine Abteilung mit diesem Namen.' , error);
+          throw new ApiError(response.status, error.customCode, error.type, 'Es existiert bereits eine Abteilung mit diesem Namen.' , error);
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.customCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     } catch (error) {
       if(error instanceof ApiError) {

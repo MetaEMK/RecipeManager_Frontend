@@ -65,9 +65,8 @@ export class BranchEditComponent implements OnInit {
 
       } catch (error: any) {
         this.loading = false;
-
-        console.log(error);
-        if(error.color === 404)
+        
+        if(error.code === 404)
           this.router.navigate(["home", '404']);
   
         else
@@ -92,16 +91,18 @@ export class BranchEditComponent implements OnInit {
   {
     if(this.branch)
     {
+      console.log(this.branch);
       this.defaultQuery.add("branchExclude", this.branch.id.toString());
       this.searchQuery.add("branch", this.branch.id.toString())
     } 
+    else console.error("Branch is undefined");
   }
 
   public async getBranch(id: number)
   {
     this.loading = true;
     try {
-      this.uncategorizedRecipes = [];
+      this.branch = undefined;
       this.branch = await this.branchService.getById(id);
       this.configureQuery();
     } catch (error) {
@@ -114,6 +115,8 @@ export class BranchEditComponent implements OnInit {
   public async searchByQuery(event: Query)
   {
     this.searchQuery = event;
+    this.lastQuery = this.searchQuery;
+
     if(this.branch)
       this.searchQuery.add("branch", this.branch.id.toString());
   }
@@ -123,9 +126,6 @@ export class BranchEditComponent implements OnInit {
     this.loading = true;
     if(this.branch)
     {
-
-      console.log(this.rmvRecipe);
-
       let toast;
       if(!this.newName && this.addRecipes.length === 0 && this.rmvRecipe.length === 0) {
         toast = await this.toastController.create({
@@ -149,6 +149,7 @@ export class BranchEditComponent implements OnInit {
           this.changeEditMode();
           await this.getBranch(this.branch.id);
           await this.searchByQuery(this.lastQuery);
+
         } catch (error) {
           console.log(error);
           const err = error as ApiError;

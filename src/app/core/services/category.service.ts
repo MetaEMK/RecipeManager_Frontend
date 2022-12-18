@@ -30,10 +30,11 @@ export class CategoryService implements GeneralService<Category> {
           const error = (await response.json()).error;
           throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
-    } catch (error) {
-      console.log("An error occured while trying to get all categories.");
-      console.log(error);
-      throw new ApiError(500, 'API_ERROR', 'API_CATEGORY_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
+    } catch (error: any) {
+      if(error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError(500, 'API_ERROR', 'API_CATEGORY_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);;
     }
   }
 
@@ -44,15 +45,19 @@ export class CategoryService implements GeneralService<Category> {
       switch (response.status) {
         case 200:
           return (await response.json()).data;
+
+        case 404:
+          throw new ApiError(response.status, 'NOT_FOUND', 'API_CATEGORY_SERVICE', 'Es wurden kein Element gefunden');
+
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.customCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     } catch (error) {
       if(error instanceof ApiError) {
         throw error;
       }
-      throw new ApiError(500, 'API_ERROR', 'API_CATEGORY_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
+      throw new ApiError(500, 'API_ERROR', 'API_CATEGORY_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }
 
@@ -63,6 +68,9 @@ export class CategoryService implements GeneralService<Category> {
       switch (response.status) {
         case 200:
           return (await response.json()).data;
+
+        case 404:
+          throw new ApiError(response.status, 'NOT_FOUND', 'API_CATEGORY_SERVICE', 'Es wurden kein Element gefunden');
           
         default:
           const error = (await response.json()).error;
@@ -78,20 +86,20 @@ export class CategoryService implements GeneralService<Category> {
 
   public async getBySlug(slug: string): Promise<Category>
   {
+    console.log("getBySlug " + slug);
     let error: ApiError;
     try {
-      const response = await fetch(this.url_v1 + '/slug/' + slug);
+      const response = await fetch(this.url_v1 + '/slug/' + slug.toString());
       switch (response.status) {
         case 200:
           return (await response.json()).data;
           
         case 404:
-          error = (await response.json()).error;
-          throw new ApiError(response.status, error.code, error.type, "Die Kategorie konnte nicht gefunden werden.", error);
+          throw new ApiError(response.status, "", "", "Die Kategorie konnte nicht gefunden werden.");
 
         default:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
+          throw new ApiError(response.status, error.customCode, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     }
     catch (error) {

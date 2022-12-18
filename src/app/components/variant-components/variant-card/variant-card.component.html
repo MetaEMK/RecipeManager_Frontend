@@ -7,17 +7,6 @@
         </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-        Variante in den Warenkorb:  <ion-checkbox></ion-checkbox><br>
-
-        gewünschte Menge: 
-        <ion-input type="number"></ion-input><br>
-
-        gewünschte Größe: 
-        <app-variant-size-selecter 
-            [showConversionType]="false" 
-            [preSelectedConversionType]="variant.conversionType"
-            (selectedSize)="onSelectedToSizeChange($event)"
-            >
-        </app-variant-size-selecter><br>
+        {{variant.description}}
     </ion-card-content>
 </ion-card>

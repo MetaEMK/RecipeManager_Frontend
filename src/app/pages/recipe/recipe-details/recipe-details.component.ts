@@ -59,31 +59,42 @@ export class RecipeDetailsComponent implements OnInit {
     if(!slug) 
     {
       this.loading = false;
-      this.router.navigate(["/recipes"]);
+      this.router.navigate(["home", '404']);
       return;
     }
     
-    if(Number.isNaN(+slug))
-      await this.getRecipeDetails(undefined, slug);
-    else
-      await this.getRecipeDetails(Number(slug));
-
-    await this.getAllCategoriesForRecipe(this.recipe.id);
-    await this.getAllBranchesForRecipe(this.recipe.id);
-    await this.getAllVariantsForRecipe(this.recipe.id);
-    
-    this.query = new Query();
-    this.query.add("recipeExclude", this.recipe?.id.toString());
-    
-    if(editMode)
-    {
-      console.log("Edit mode");
-      await this.router.navigate(['/recipes', this.recipe.slug]);
-      this.editMode = true;
-
+    try {
+      if(Number.isNaN(+slug))
+        await this.getRecipeDetails(undefined, slug);
+      else
+        await this.getRecipeDetails(Number(slug));
+      
+    } catch (error: any) {
+      console.log(error);
     }
+
+    if(!this.recipe)
+     this.router.navigate(["home", '404']);
     
-    this.loading = false;
+    else
+    {
+      await this.getAllCategoriesForRecipe(this.recipe.id);
+      await this.getAllBranchesForRecipe(this.recipe.id);
+      await this.getAllVariantsForRecipe(this.recipe.id);
+      
+      this.query = new Query();
+      this.query.add("recipeExclude", this.recipe?.id.toString());
+      
+      if(editMode)
+      {
+        console.log("Edit mode");
+        await this.router.navigate(['/recipes', this.recipe.slug]);
+        this.editMode = true;
+  
+      }
+      
+      this.loading = false;
+    }
   }
   
   public async getRecipeDetails(id?: number, slug?: string)
@@ -94,6 +105,7 @@ export class RecipeDetailsComponent implements OnInit {
         this.recipe = await this.recipeService.getById(id);
       else if(slug)
         this.recipe = await this.recipeService.getBySlug(slug);
+        
     } catch (error: any) {
       toast = await this.toastControler.create({
         position: "top",

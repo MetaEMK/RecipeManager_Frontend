@@ -47,7 +47,7 @@ export class CategoryDetailsComponent implements OnInit {
     const slug = this.route.snapshot.paramMap.get('slug');
     if(slug) {
       try {
-        if(Number.isNaN(+slug) === true)
+        if(Number.isNaN(+slug))
           this.category = await this.categoryService.getBySlug(slug);
         else
           this.category = await this.categoryService.getById(Number(slug));
@@ -55,12 +55,12 @@ export class CategoryDetailsComponent implements OnInit {
         this.configureQuery();
 
           this.loading = false;
-        } 
+      } 
       catch (error: any) {
         this.loading = false;
 
         console.log(error);
-        if(error.color === 404)
+        if(error.code === 404)
           this.router.navigate(["home", '404']);
   
         else
