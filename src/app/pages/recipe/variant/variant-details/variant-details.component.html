@@ -1,6 +1,20 @@
 <p>variant-details works!</p>
 
 <div *ngIf="recipe && variant">
+
+    <div class="editBox">
+        <ion-fab-button (click)="changeEditMode()">
+            <ion-icon name="pencil-outline" *ngIf="!editMode"></ion-icon>
+            <ion-icon name="close-outline" *ngIf="editMode"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button color="danger" (click)="deleteVariant()">
+            <ion-icon name="trash-outline"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button color="success" (click)="saveVariant()">
+            <ion-icon name="save-outline"></ion-icon>
+        </ion-fab-button>
+    </div>
+
     <app-general-edit-master-data
         [enableNameEdit]="true"
         [enableDescriptionEdit]="true"
@@ -34,16 +48,13 @@
 
         <h3>Zutaten</h3>
         Multiplikator: {{multiplicator}}
-        <ion-fab-button (click)="changeEditMode()">
-            <ion-icon name="pencil-outline"></ion-icon>
-        </ion-fab-button>
+
+
         <ion-input type="number" placeholder="Anzahl eingeben" [(ngModel)]="quantity"></ion-input>
         <div *ngIf="editMode">
-            <ion-fab-button color="danger" (click)="deleteVariant()">
-                <ion-icon name="trash-outline"></ion-icon>
-            </ion-fab-button>
+            
             <ion-button (click)="addSection()">neue Sektion hinzufügen</ion-button>
-            <ion-button (click)="saveVariant()">Sektionen speichern - nur im DevMode -</ion-button>
+            <ion-button>Sektionen speichern - nur im DevMode -</ion-button>
         </div>
         <div *ngIf="ingredientMap && finMap">
             <div *ngFor="let key of keys; index as i">
