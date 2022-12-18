@@ -92,6 +92,8 @@ export class RecipeCardViewComponent implements OnChanges {
     query.offset = this.offset;
     query.limit = this.limit;
 
+    console.warn("fire query: " + query.toString())
+
     try {
       console.warn(query.toString())
       let newRecipes = await this.recipeService.getByQuery(query);
