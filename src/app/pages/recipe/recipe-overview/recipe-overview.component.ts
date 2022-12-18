@@ -87,7 +87,6 @@ export class RecipeOverviewComponent implements OnInit {
     }
   }
 
-
   public searchQuery: Query = new Query();
 
   public getByQuery(query: Query){

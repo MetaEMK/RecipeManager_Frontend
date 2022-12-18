@@ -188,7 +188,7 @@ export class VariantDetailsComponent implements OnInit {
     }
   }
 
-  public async saveAllTest(): Promise<void> {
+  public async saveVariant(): Promise<void> {
     if(this.ingredientMap && this.recipe && this.variant)
     {
       let ingredients: Ingredient[] = [];

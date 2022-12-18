@@ -43,7 +43,7 @@
                 <ion-icon name="trash-outline"></ion-icon>
             </ion-fab-button>
             <ion-button (click)="addSection()">neue Sektion hinzufügen</ion-button>
-            <ion-button (click)="saveAllTest()">Sektionen speichern - nur im DevMode -</ion-button>
+            <ion-button (click)="saveVariant()">Sektionen speichern - nur im DevMode -</ion-button>
         </div>
         <div *ngIf="ingredientMap && finMap">
             <div *ngFor="let key of keys; index as i">
