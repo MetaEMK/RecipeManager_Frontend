@@ -31,6 +31,7 @@ export class RecipeDetailsComponent implements OnInit {
   public query?: Query;
 
   public newName?: string;
+  public newDescription?: string;
   public addCategories: GeneralModelWithRouting[] = [];
   public rmvCategories: GeneralModelWithRouting[] = [];
   public addBranches: GeneralModelWithRouting[] = [];
@@ -165,6 +166,9 @@ export class RecipeDetailsComponent implements OnInit {
     if(this.newName)
       updateBody.name = this.newName;
 
+    if(this.newDescription)
+      updateBody.description = this.newDescription;
+
     if(this.addCategories.length > 0)
       updateBody.category_ids.add = this.addCategories.map((category) => category.id);
 
@@ -179,7 +183,7 @@ export class RecipeDetailsComponent implements OnInit {
 
     try
     {
-      await this.recipeService.update(this.recipe.id, updateBody);
+      this.recipe = await this.recipeService.update(this.recipe.id, updateBody);
     }
     catch(error: any)
     {

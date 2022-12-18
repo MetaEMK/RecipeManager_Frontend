@@ -14,7 +14,18 @@
                 <ion-icon color="danger" name="close-outline" *ngIf="editMode"></ion-icon>
             </ion-fab-button>
         </div>
-        <app-name-edit title="Rezept" [item]="recipe" [editMode]="editMode" (changes)="newName = $event"></app-name-edit>
+        <app-general-edit-master-data 
+            [enableNameEdit]="true"
+            [enableDescriptionEdit]="true"
+
+            title="Rezept"
+            [name]="recipe.name"
+            [description]="recipe.description"
+            (nameChanged)="newName = $event"
+            (descriptionChanged)="newDescription = $event"
+            
+            [editMode]="editMode"
+        ></app-general-edit-master-data>
         <p *ngIf="recipe.description">{{recipe.description}}</p>
     </div>
 
