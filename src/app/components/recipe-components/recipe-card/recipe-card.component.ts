@@ -39,7 +39,6 @@ export class RecipeCardComponent implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.imagePath)
   }
 
   public addRecipeToRemoveList(){

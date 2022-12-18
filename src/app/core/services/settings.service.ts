@@ -45,17 +45,11 @@ export class SettingsService  {
       break;
 
     case "dark":
-      prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-      this.toggleDarkTheme(prefersDark.matches);
-
-      prefersDark.addListener((mediaQuery) => this.toggleDarkTheme(mediaQuery.matches));
+      this.toggleDarkTheme(true);
       break;
 
     case "light":
-      prefersDark = window.matchMedia('(prefers-color-scheme: light)');
-      this.toggleDarkTheme(prefersDark.matches);
-
-      prefersDark.addListener((mediaQuery) => this.toggleDarkTheme(mediaQuery.matches));
+      this.toggleDarkTheme(false);
       break;
     }
   }

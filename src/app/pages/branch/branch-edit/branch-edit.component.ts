@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { BranchService } from 'src/app/core/services/branch.service';
-import { CategoryService } from 'src/app/core/services/category.service';
 import { Query, QueryItem } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
@@ -33,6 +32,7 @@ export class BranchEditComponent implements OnInit {
   //edit
   public editMode: boolean = false;
   public defaultQuery: Query = new Query();
+  public searchQuery: Query = new Query();
   private lastQuery: Query = new Query();
   public newName: string|undefined;
   public addRecipes: number[] = [];
@@ -56,6 +56,7 @@ export class BranchEditComponent implements OnInit {
         this.branchService.getBySlug(slug).then(async (branch) => {
           this.branch = branch;
           this.defaultQuery.add("branchExclude", branch.id.toString());
+          this.searchQuery.add("branch", branch.id.toString());
           await this.getBranch(branch.id);
           this.loading = false;
         })
@@ -84,27 +85,11 @@ export class BranchEditComponent implements OnInit {
     this.loading = false;
   }
 
-  public async searchByQuery($event: Query)
+  public async searchByQuery(event: Query)
   {
-    if($event.items.length === 0 ) {
-      this.filteredRecipes = [];
-    }
-    else {
-      this.loading = true;
-      this.lastQuery = $event;
-
-      if(this.branch?.id) $event.addFilter("branch", [this.branch.id.toString()]);
-      this.filteredRecipes = [];
-
-      this.recipeService.getByQuery($event).then((recipes) => {
-        this.loading = false;
-        this.filteredRecipes = recipes;
-      })
-      .catch((error) => {
-        this.loading = false;
-        console.error(error);
-      });
-    }
+    this.searchQuery = event;
+    if(this.branch)
+      this.searchQuery.add("branch", this.branch.id.toString());
   }
 
   public async updateBranch()
@@ -112,6 +97,9 @@ export class BranchEditComponent implements OnInit {
     this.loading = true;
     if(this.branch)
     {
+
+      console.log(this.rmvRecipe);
+
       let toast;
       if(!this.newName && this.addRecipes.length === 0 && this.rmvRecipe.length === 0) {
         toast = await this.toastController.create({
@@ -126,7 +114,6 @@ export class BranchEditComponent implements OnInit {
         try {
           await this.branchService.update(this.branch.id, this.addRecipes, this.rmvRecipe, this.newName);
           this.router.navigate(["/branches/" + this.branch.slug]);
-          this.editMode = false;
           toast = await this.toastController.create({
             message: "Abteilung wurde erfolgreich geändert",
             duration: 3000,
