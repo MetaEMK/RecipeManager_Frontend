@@ -17,7 +17,7 @@ import { Variant } from 'src/app/model/variant.model';
 @Component({
   selector: 'app-recipe-details',
   templateUrl: './recipe-details.component.html',
-  styleUrls: ['./recipe-details.component.css']
+  styleUrls: ['./recipe-details.component.css', '../../../../theme/theme.css']
 })
 export class RecipeDetailsComponent implements OnInit {
 
