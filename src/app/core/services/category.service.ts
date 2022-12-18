@@ -86,7 +86,6 @@ export class CategoryService implements GeneralService<Category> {
 
   public async getBySlug(slug: string): Promise<Category>
   {
-    console.log("getBySlug " + slug);
     let error: ApiError;
     try {
       const response = await fetch(this.url_v1 + '/slug/' + slug.toString());
@@ -158,7 +157,6 @@ export class CategoryService implements GeneralService<Category> {
 
     if (addRecipes.length > 0 || rmvRecipes.length > 0) bodyObj.recipe_ids = obj;
 
-    console.log(bodyObj);
     try {
       const response = await fetch(this.url_v1 + '/' + id, {
         method: 'PATCH',

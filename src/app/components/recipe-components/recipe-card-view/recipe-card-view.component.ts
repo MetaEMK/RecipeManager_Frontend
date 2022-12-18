@@ -51,7 +51,6 @@ export class RecipeCardViewComponent implements OnChanges {
   ) { }
 
   async ngOnChanges(event: any): Promise<void> {
-    if(event.branch && (event.searchQuery && event.category)) console.log("branch, searchQuery, category");
     if(event.searchQuery && (!event.branch && !event.category))
     {
       this.recipes = [];

@@ -30,14 +30,12 @@ export class VariantEditIngredientModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.quantity)
     if(this.ingredient){
       this.alreadyUsedIngredients = this.alreadyUsedIngredients.filter(x => x.name != this.ingredient?.name);
       this.name = this.ingredient.name;
       this.quantity = this.ingredient.quantity.toString();
       this.unit = this.ingredient.unit;
     }
-    console.log(this.quantity)
   }
 
   public onCancel()

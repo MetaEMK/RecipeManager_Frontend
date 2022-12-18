@@ -68,7 +68,6 @@ export class VariantService {
     };
 
     if (description) bodyObj.description = description;
-    console.log(bodyObj);
     try {
       let response = await fetch(this.url_v1 + '/' + recipeId + '/variants', {
         method: 'POST',

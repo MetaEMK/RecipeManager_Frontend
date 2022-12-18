@@ -192,7 +192,6 @@ export class BranchService implements GeneralService<Branch> {
       let response = await fetch(this.url_v1 + '/' + id, {
         method: 'DELETE'
       });
-      console.log(response);
       switch (response.status) {
         case 204:
           await this.getAll();

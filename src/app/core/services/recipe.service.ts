@@ -31,7 +31,6 @@ export class RecipeService implements GeneralService<Recipe> {
           return this._recipes;
         default:
           const error = (await response.json()).error;
-          console.log(error);
           throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     } catch (error) {

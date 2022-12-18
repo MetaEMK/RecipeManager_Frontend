@@ -20,7 +20,6 @@ export class VariantCardComponent {
 
   //TODO: Hier der emit für den Warenkorb später
   public onSelectedToSizeChange(size: Size) {
-    console.log(size);
     this.selectedToSize = size;
   }
 

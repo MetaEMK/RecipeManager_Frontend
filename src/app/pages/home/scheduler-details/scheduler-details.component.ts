@@ -35,7 +35,6 @@ export class SchedulerDetailsComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    console.log('SchedulerDetailsComponent.ngOnInit()');
     const params = this.route.snapshot.paramMap;
 
     if(!params.has('branchId') || !params.has('day')) 

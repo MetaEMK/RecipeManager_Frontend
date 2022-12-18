@@ -89,7 +89,6 @@ export class BranchEditComponent implements OnInit {
   {
     if(this.branch)
     {
-      console.log(this.branch);
       this.defaultQuery.add("branchExclude", this.branch.id.toString());
       this.searchQuery.add("branch", this.branch.id.toString())
     } 
@@ -104,7 +103,6 @@ export class BranchEditComponent implements OnInit {
       this.branch = await this.branchService.getById(id);
       this.configureQuery();
     } catch (error) {
-      console.log(error);
       this.router.navigate(["home", '404']);
     }
     this.loading = false;
@@ -149,7 +147,6 @@ export class BranchEditComponent implements OnInit {
           await this.searchByQuery(this.lastQuery);
 
         } catch (error) {
-          console.log(error);
           const err = error as ApiError;
           toast = await this.toastController.create({
             message: err.message + "\n" + "Es wurden keine Änderungen vorgenommen",
@@ -201,7 +198,6 @@ export class BranchEditComponent implements OnInit {
             color: "success"
           });
         } catch (error) {
-          console.log(error);
           const err = error as ApiError;
           toast = await this.toastController.create({
             message: err.message,

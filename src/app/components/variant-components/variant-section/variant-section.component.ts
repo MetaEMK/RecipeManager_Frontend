@@ -57,7 +57,6 @@ export class VariantSectionComponent implements OnInit {
 
   doReorder(ev: any) {
     ev.stopPropagation();
-    console.log(ev.detail);
     if(!this.ingredients)
       return;
 

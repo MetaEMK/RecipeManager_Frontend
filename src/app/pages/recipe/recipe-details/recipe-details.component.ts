@@ -85,7 +85,6 @@ export class RecipeDetailsComponent implements OnInit {
       
       if(editMode)
       {
-        console.log("Edit mode");
         await this.router.navigate(['/recipes', this.recipe.slug]);
         this.editMode = true;
   

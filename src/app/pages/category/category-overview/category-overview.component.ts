@@ -37,7 +37,6 @@ export class CategoryOverviewComponent implements OnInit {
       this.loading = false;
     })
     .catch(async (error) => {
-      console.log(error);
       const toast = await this.toastController.create({
         position: "top",
         message: error.messageForUser,
@@ -62,7 +61,6 @@ export class CategoryOverviewComponent implements OnInit {
       this.loading = false;
 
     }).catch(async (error) => {
-      console.log(error);
       const toast = await this.toastController.create({
         position: "top",
         message: error.messageForUser,

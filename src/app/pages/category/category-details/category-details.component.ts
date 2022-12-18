@@ -57,7 +57,6 @@ export class CategoryDetailsComponent implements OnInit {
       catch (error: any) {
         this.loading = false;
 
-        console.log(error);
         if(error.code === 404)
           this.router.navigate(["home", '404']);
   
@@ -96,7 +95,6 @@ export class CategoryDetailsComponent implements OnInit {
       this.category = category;
       this.configureQuery();
     } catch (error) {
-      console.log(error);
     }
     this.loading = false;
   }
@@ -138,7 +136,6 @@ export class CategoryDetailsComponent implements OnInit {
             await this.searchByQuery(this.lastQuery);
             this.changeEditMode();
           } catch (error) {
-            console.log(error);
             const err = error as ApiError;
             toast = await this.toastController.create({
               message: err.message + "\n" + "Es wurden keine Änderungen vorgenommen",
@@ -190,7 +187,6 @@ export class CategoryDetailsComponent implements OnInit {
               color: "success"
             });
           } catch (error) {
-            console.log(error);
             const err = error as ApiError;
             toast = await this.toastController.create({
               message: err.message,

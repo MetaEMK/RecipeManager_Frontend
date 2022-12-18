@@ -42,7 +42,6 @@ export class ConversionTypesService {
 
   public async create(name: string): Promise<ConversionType> {
     let error: any;
-    console.log(name);
     try {
       let response = await fetch(this.url_v1 , {
         method: 'POST',
@@ -54,7 +53,6 @@ export class ConversionTypesService {
         })
       });
       let res = await response.json();
-      console.log(res);
       switch (response.status) {
         case 201:
           return res.data;

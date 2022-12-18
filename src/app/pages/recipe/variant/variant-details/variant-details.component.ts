@@ -70,7 +70,6 @@ export class VariantDetailsComponent implements OnInit {
 
   private async checkForQueryParams(queryParamMap: ParamMap): Promise<void> {
     if(this.variant){
-      console.log(queryParamMap);
       if(queryParamMap.has('quantity'))
         this.quantity = Number(queryParamMap.get('quantity'));
 
@@ -149,7 +148,6 @@ export class VariantDetailsComponent implements OnInit {
       else
       this.ingredientMap.set(ingredient.section, [ingredient]);
     });
-    console.log(this.ingredientMap);
     this.keys = Array.from(this.ingredientMap.keys());
     this.finMap = true;
   }
@@ -167,7 +165,6 @@ export class VariantDetailsComponent implements OnInit {
     if(this.recipe && this.variant && !this.editMode)
     {
       await this.getVariant(this.recipe.id, this.variant.id)
-      console.log(this.variant);
       this.reorderIngredientMap();
     }
   }
@@ -185,7 +182,6 @@ export class VariantDetailsComponent implements OnInit {
     if(this.ingredientMap)
     {
       this.ingredientMap?.set(section, ingredients);
-      console.log(this.ingredientMap);
     }
   }
 

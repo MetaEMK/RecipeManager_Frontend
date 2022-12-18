@@ -18,7 +18,6 @@ export class ApiError {
     public static getBadRequestError(error: any)
     {
 
-        console.log(error.code === 'NAME_INVALID');
         switch (error.code) {
             case 'NAME_INVALID_LENGTH':
                 return new ApiError(400, 'NAME_INVALID_LENGTH', 'Bad Request', 'Der Name darf nicht länger als 20 (bei Varianten 30) Zeichen lang sein.');

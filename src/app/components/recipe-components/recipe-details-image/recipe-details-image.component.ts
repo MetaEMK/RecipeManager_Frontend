@@ -33,7 +33,6 @@ export class RecipeDetailsImageComponent implements OnInit {
     this.imagePath = undefined;
     if(this.recipe?.imagePath)
       this.imagePath = this.recipe.imagePath;
-      console.log(this.imagePath);
   }
 
   public async onFileSelected(event: any) {
