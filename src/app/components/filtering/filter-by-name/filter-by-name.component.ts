@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Query } from 'src/app/core/query';
-import { SettingsService } from 'src/app/core/services/settings.service';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
@@ -8,7 +7,7 @@ import { GeneralModelWithRouting } from 'src/app/model/generalModel';
   templateUrl: './filter-by-name.component.html',
   styleUrls: ['./filter-by-name.component.css', '../../../../theme/theme.css']
 })
-export class FilterByNameComponent implements OnInit {
+export class FilterByNameComponent {
 
   @Input()
   public title!: string;
@@ -42,12 +41,7 @@ export class FilterByNameComponent implements OnInit {
   public filteredItem: Query = new Query();
   public filter: string = "";
 
-  constructor(
-    public settingsService: SettingsService
-  ) { }
-
-  ngOnInit(): void {
-  }
+  constructor() { }
 
   public clearInput(): void {
     this.filter = "";

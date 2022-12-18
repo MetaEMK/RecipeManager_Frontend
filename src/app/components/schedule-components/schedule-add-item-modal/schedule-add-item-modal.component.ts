@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Query, QueryItem } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';

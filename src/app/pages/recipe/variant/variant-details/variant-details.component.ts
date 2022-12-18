@@ -33,10 +33,6 @@ export class VariantDetailsComponent implements OnInit {
   public newDescription?: string;
   public newSize?: Size;
 
-  public test(event: any): void {
-    console.log(event);
-  }
-
   constructor(
     private recipeService: RecipeService,
     private variantService: VariantService,

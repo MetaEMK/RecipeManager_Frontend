@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ToastController } from '@ionic/angular';
 import { Query } from 'src/app/core/query';
 import { ConversionTypesService } from 'src/app/core/services/conversion-types.service';
 import { ConversionService } from 'src/app/core/services/conversion.service';

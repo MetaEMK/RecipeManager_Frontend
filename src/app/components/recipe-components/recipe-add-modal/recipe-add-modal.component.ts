@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { RecipeService } from 'src/app/core/services/recipe.service';
-import { SettingsService } from 'src/app/core/services/settings.service';
 
 @Component({
   selector: 'app-recipe-add-modal',
@@ -18,7 +17,6 @@ export class RecipeAddModalComponent {
 
 
   constructor(
-    public settingsService: SettingsService,
     public recipeService: RecipeService,
     private toastController: ToastController,
     private modalController: ModalController

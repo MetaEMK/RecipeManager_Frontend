@@ -1,8 +1,6 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { GeneralService } from 'src/app/core/generalService';
-import { RecipeService } from 'src/app/core/services/recipe.service';
-import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
@@ -28,7 +26,6 @@ export class GeneralAddComponent implements OnInit {
 
 
   constructor(
-    public settingsService: SettingsService,
     public toastController: ToastController,
     public modalController: ModalController
   ) { }
@@ -83,11 +80,9 @@ export class GeneralAddComponent implements OnInit {
       this.loading = false;
       await toast.present();
     }
-      
   }
 
   onCancel() {
     this.modalController.dismiss(undefined);
   }
-
 }

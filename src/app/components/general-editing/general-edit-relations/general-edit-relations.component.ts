@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output  } from '@angular/core';
 import { GeneralService } from 'src/app/core/generalService';
 import { Query } from 'src/app/core/query';
-import { SettingsService } from 'src/app/core/services/settings.service';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
@@ -43,7 +42,6 @@ export class GeneralEditRelationsComponent implements OnInit, OnChanges {
 
 
   constructor(
-    public settingsService: SettingsService
   ) { }
 
   ngOnInit(): void {

@@ -1,8 +1,4 @@
-import { Component, EventEmitter, Input, Output, Type } from '@angular/core';
-import { Router } from '@angular/router';
-import { BranchService } from 'src/app/core/services/branch.service';
-import { GeneralService } from 'src/app/core/generalService';
-import { SettingsService } from 'src/app/core/services/settings.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
@@ -29,10 +25,7 @@ export class NameEditComponent {
   public nameError?: string;
   public loading: boolean = false;
 
-  constructor(
-    public themeService: SettingsService,
-    public router: Router,
-  ) { }
+  constructor( ) { }
 
   ngOnInit(): void {
       this.newItemName = this.item.name;

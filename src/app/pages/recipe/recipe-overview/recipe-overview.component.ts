@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
-import { GeneralAddComponent } from 'src/app/components/general-editing/general-add/general-add.component';
 import { RecipeAddModalComponent } from 'src/app/components/recipe-components/recipe-add-modal/recipe-add-modal.component';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
-import { SettingsService } from 'src/app/core/services/settings.service';
 import { Recipe } from 'src/app/model/recipe.model';
 
 @Component({
@@ -21,7 +19,6 @@ export class RecipeOverviewComponent implements OnInit {
   public recipeList: Recipe[] = [];
 
   constructor(
-    public settingsService: SettingsService,
     public toastController: ToastController,
     public modalController: ModalController,
     public recipeService: RecipeService,

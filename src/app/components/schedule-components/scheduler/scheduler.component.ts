@@ -45,7 +45,6 @@ export class SchedulerComponent implements OnInit, OnChanges
 
   async ngOnChanges(event: any): Promise<void>
   {
-    console.log(event);
     await this.orderScheduleItems();
   }
 

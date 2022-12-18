@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { Recipe } from 'src/app/model/recipe.model';
 import { RecipeCardViewEvent } from '../recipe-card-view/recipe-card-view.component';

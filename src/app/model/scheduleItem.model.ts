@@ -1,4 +1,3 @@
-import { Recipe } from "./recipe.model";
 import { Size } from "./size.model";
 import { Variant } from "./variant.model";
 

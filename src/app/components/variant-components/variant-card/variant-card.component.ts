@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { VariantService } from 'src/app/core/services/variant.service';
 import { Size } from 'src/app/model/size.model';
 import { Variant } from 'src/app/model/variant.model';
 

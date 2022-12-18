@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { CategoryService } from 'src/app/core/services/category.service';
-import { Query, QueryItem } from 'src/app/core/query';
+import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
-import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
 import { Recipe } from 'src/app/model/recipe.model';
@@ -36,7 +35,6 @@ export class CategoryDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     public categoryService: CategoryService,
     private router: Router,
-    public settingsService: SettingsService,
     private toastController: ToastController,
     public recipeService: RecipeService,
     private alertController: AlertController

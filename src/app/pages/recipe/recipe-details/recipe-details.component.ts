@@ -5,7 +5,6 @@ import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Query, QueryItem } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
-import { SettingsService } from 'src/app/core/services/settings.service';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
@@ -41,7 +40,6 @@ export class RecipeDetailsComponent implements OnInit {
     private recipeService: RecipeService,
     private router: Router,
     private route: ActivatedRoute,
-    public settingsService: SettingsService,
     private toastControler: ToastController,
     public branchService: BranchService,
     public categoryService: CategoryService,

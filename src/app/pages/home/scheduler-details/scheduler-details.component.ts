@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ScheduleAddItemModalComponent } from 'src/app/components/schedule-components/schedule-add-item-modal/schedule-add-item-modal.component';
