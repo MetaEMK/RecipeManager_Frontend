@@ -1,18 +1,22 @@
-<p>scheduler works!</p>
+<h3>{{branch.name}}</h3>
 <div class="scheduleContainer">
-    <h1>{{branch.name}}</h1>
     <div class="scheduleDay" *ngFor="let day of days">
         <ion-card [color]="getColor(day)">
-            <ion-card-header>
-                <ion-card-subtitle>{{scheduleItemDay[day]}}</ion-card-subtitle>
-                <ion-fab-button (click)="routeToScheduleDetails(day)">
-                    <ion-icon name="pencil"></ion-icon>
+            <ion-card-header class="column-header">
+                <ion-card-subtitle size="big">{{scheduleItemDay[day]}}</ion-card-subtitle>
+                <ion-fab-button size="small" (click)="routeToScheduleDetails(day)">
+                    <span class="custom-title" title="Hinzufügen">
+                        <ion-icon name="pencil"></ion-icon>
+                    </span>
                 </ion-fab-button>
             </ion-card-header>
-            <ion-card-content>
-                <ion-card (click)="navigateToVariant(item)" *ngFor="let item of scheduleItems.get(day)">
+
+            
+            <ion-card-content class="item-container">
+                <ion-card color="primary" (click)="navigateToVariant(item)" *ngFor="let item of scheduleItems.get(day)">
                 <ion-card-header>
-                    <ion-card-subtitle>Rezept: {{item.variant.recipe.name}}: {{item.variant.name}}</ion-card-subtitle>
+                    <ion-card-subtitle>{{item.variant.recipe.name}}</ion-card-subtitle>
+                    <ion-card-title>{{item.variant.name}}</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
                     Menge: {{item.quantity}}, Größe: {{item.size.name}}
@@ -20,5 +24,7 @@
                 </ion-card>
             </ion-card-content>
         </ion-card>
+
+
     </div>
 </div>

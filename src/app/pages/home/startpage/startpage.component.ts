@@ -24,4 +24,15 @@ export class StartpageComponent implements OnInit {
     this.selectedBranch = branch;
   }
 
+  public enabledButton(branch: Branch)
+  {
+    if (!this.selectedBranch)
+      return false;
+
+    if(branch.id === this.selectedBranch.id) {
+      return true
+    } else {
+      return false
+    }
+  }
 }
