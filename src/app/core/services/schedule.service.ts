@@ -45,6 +45,9 @@ export class ScheduleService {
       }
     }
     catch (error: any) {
+      if (error instanceof ApiError)
+        throw error;
+
       throw new ApiError(500, 'API_ERROR', 'API_SCHEDULE_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }
@@ -78,6 +81,9 @@ export class ScheduleService {
       }
     }
     catch (error: any) {
+      if (error instanceof ApiError)
+        throw error;
+
       throw new ApiError(500, 'API_ERROR', 'API_SCHEDULE_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }
@@ -102,6 +108,9 @@ export class ScheduleService {
       }
     }
     catch (error: any) {
+      if (error instanceof ApiError)
+        throw error;
+
       throw new ApiError(500, 'API_ERROR', 'API_SCHEDULE_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }

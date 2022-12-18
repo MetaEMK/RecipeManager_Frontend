@@ -195,17 +195,25 @@ export class RecipeDetailsComponent implements OnInit {
     try
     {
       this.recipe = await this.recipeService.update(this.recipe.id, updateBody);
+      
+      this.loading = false;
+      this.editMode = false;
+  
+      this.router.navigate(["/recipes", this.recipe.slug]);
+      await this.ngOnInit();    
     }
     catch(error: any)
     {
-      console.log(error);
+      let toast = await this.toastControler.create({
+        position: "top",
+        message: error.message,
+        duration: 3000,
+        color: "danger"
+      });
+
+      await toast.present();
     }
 
-    this.loading = false;
-    this.editMode = false;
-
-    this.router.navigate(["/recipes", this.recipe.slug]);
-    await this.ngOnInit();    
   }
 
   async deleteRecipe(): Promise<void> {

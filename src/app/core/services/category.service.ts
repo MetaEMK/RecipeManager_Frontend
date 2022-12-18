@@ -204,9 +204,10 @@ export class CategoryService implements GeneralService<Category> {
           throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     } catch (error) {
-      console.log("An error occured while trying to delete category.");
-      console.log(error);
-      throw new ApiError(500, 'API_ERROR', 'API_CATEGORY_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
+      if(error instanceof ApiError)
+        throw error as ApiError;
+      else
+        throw new ApiError(500, 'API_ERROR', 'API_CATEGORY_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.');
     }
   }
 }

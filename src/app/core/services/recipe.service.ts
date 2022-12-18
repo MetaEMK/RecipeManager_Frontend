@@ -135,14 +135,14 @@ export class RecipeService implements GeneralService<Recipe> {
       switch (response.status) {
         case 200:
           return (await response.json()).data;
-  
-        case 404:
-          error = (await response.json()).error;
-          throw new ApiError(response.status, error.customCode, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
-  
+
         case 400:
           error = (await response.json()).error;
           throw ApiError.getBadRequestError(error);
+
+        case 404:
+          error = (await response.json()).error;
+          throw new ApiError(response.status, error.customCode, error.type, "Die angeforderte Rezept wurde nicht gefunden", error);
   
         default:
           error = (await response.json()).error;
@@ -150,6 +150,9 @@ export class RecipeService implements GeneralService<Recipe> {
       }
     }
     catch (error) {
+      if(error instanceof ApiError)
+        throw error;
+
       throw new ApiError(500, 'API_ERROR', 'API_RECIPE_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
 
@@ -245,7 +248,6 @@ export class RecipeService implements GeneralService<Recipe> {
       });
       switch (response.status) {
         case 201:
-          console.log("response");
           return (await response.json()).data;
 
         case 400:

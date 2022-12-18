@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 import { ApiError } from 'src/app/model/apierror.model';
 import { ConversionTypes as ConversionType } from 'src/app/model/conversion-types.model';
 import { environment } from 'src/environment/environment';
-import { GeneralService } from '../generalService';
-import { Query } from '../query';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConversionTypesService implements GeneralService<ConversionType> {
+export class ConversionTypesService {
 
   private url_v1 = environment.api.baseUrl + '/conversion_types';
 
@@ -40,15 +38,6 @@ export class ConversionTypesService implements GeneralService<ConversionType> {
       }
       throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
-  }
-
-  public async getByQuery(query: Query): Promise<ConversionType[]> {
-    throw new Error("Method not implemented.");
-  }
-
-  public async getById(id: number): Promise<ConversionType>
-  {
-    throw new Error("Method not implemented.");
   }
 
   public async create(name: string): Promise<ConversionType> {
@@ -103,7 +92,11 @@ export class ConversionTypesService implements GeneralService<ConversionType> {
       }
     }
     catch (error) {
-      throw error;
+      if(error instanceof ApiError) {
+        throw error;
+      }
+
+      throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }
 }

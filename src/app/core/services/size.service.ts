@@ -26,6 +26,9 @@ export class SizeService {
           throw new Error(error.message);
       }
     } catch (error: any) {
+      if (error instanceof Error)
+        throw error;
+
       throw new Error(error);
     }
 
@@ -54,6 +57,9 @@ export class SizeService {
           throw new Error(error.message);
       }
     } catch (error: any) {
+      if (error instanceof Error)
+        throw error;
+
       throw new Error(error);
     }
   }
@@ -75,6 +81,9 @@ export class SizeService {
           throw new Error(error.message);
       }
     } catch (error: any) {
+      if (error instanceof Error)
+        throw error;
+
       throw new Error(error);
     }
   }

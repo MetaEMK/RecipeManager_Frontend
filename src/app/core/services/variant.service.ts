@@ -30,6 +30,9 @@ export class VariantService {
           throw new Error(error.message);
       }
     } catch (error: any) {
+      if (error instanceof Error)
+        throw error;
+
       throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }
@@ -49,6 +52,9 @@ export class VariantService {
           throw new Error(error.message);
       }
     } catch (error: any) {
+      if (error instanceof Error)
+        throw error;
+
       throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }
@@ -90,8 +96,11 @@ export class VariantService {
           throw new ApiError(response.status, error.code, error.type, "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut", error);
       }
     } catch (error: any) {
+      if (error instanceof Error)
+        throw error;
+
       throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
-        }
+    }
   }
 
   //TODO: implement UpdateVariant
@@ -130,6 +139,9 @@ export class VariantService {
       }
     }
     catch (error: any) {
+      if (error instanceof Error)
+        throw error;
+
       throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }
@@ -152,6 +164,9 @@ export class VariantService {
       }
     }
     catch (error: any) {
+      if (error instanceof Error)
+        throw error;
+
       throw new ApiError(500, 'API_ERROR', 'API_CONVERSION_TYPES_SERVICE', 'Es ist ein Fehler bei der Kommunikation mit dem Server aufgetreten. Bitte versuchen Sie es später erneut.', error);
     }
   }
