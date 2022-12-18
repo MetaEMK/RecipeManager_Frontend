@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { BranchService } from 'src/app/core/services/branch.service';
-import { CategoryService } from 'src/app/core/services/category.service';
 import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { Branch } from 'src/app/model/branch.model';
@@ -27,8 +25,10 @@ export class RecipeCardViewComponent implements OnChanges {
   @Input()
   public category?: Category;
 
-  @Input() 
   public recipes: Recipe[] = [];
+
+  @Input()
+  public searchQuery: Query = new Query();
 
   @Input()
   public editMode: boolean = false;
@@ -38,36 +38,43 @@ export class RecipeCardViewComponent implements OnChanges {
 
 
   public loading: boolean = false;
+  private offset: number = 0;
+  private limit: number = 10;
 
   public addRecipes: number[] = [];
   public rmvRecipes: number[] = [];
 
-  public defaultQuery: Query = new Query();
 
   public allowedItems: GeneralModelWithRouting[] = [];
 
   constructor(
-    public settingsService: SettingsService
+    public settingsService: SettingsService,
+    private recipeService: RecipeService,
   ) { }
 
   async ngOnInit() {;
-    if(this.branch) this.getRecipesWithBranch();
-    else if(this.category) this.getRecipesWithCategory();
   }
 
   public getRecipesWithCategory(): void {
     if(this.category?.id === undefined) return;
-    this.defaultQuery.add("categoryExclude", this.category.id.toString());
+    this.searchQuery.add("categoryExclude", this.category.id.toString());
   }
 
   public async getRecipesWithBranch(): Promise<void> {
     this.loading = true;
     if(this.branch?.id === undefined) return;
-    this.defaultQuery.add("branchExclude", this.branch.id.toString());
+    this.searchQuery.add("branchExclude", this.branch.id.toString());
     this.loading = false;
   }
 
-  ngOnChanges(event: any): void {
+  async ngOnChanges(event: any): Promise<void> {
+    if(event.searchQuery && (!event.branch && !event.category))
+    {
+      this.recipes = [];
+      this.searchQuery = event.searchQuery.currentValue;
+      this.offset = 0;
+      await this.searchByQuery();
+    }
     if(event.editMode)
     {
       this.addRecipes = [];
@@ -91,4 +98,28 @@ export class RecipeCardViewComponent implements OnChanges {
 
     this.rmv.emit(this.rmvRecipes);
   }
+
+  public async searchByQuery(): Promise<void> {
+    let query = new Query();
+    query.addQueryItems(this.searchQuery.items);
+
+    query.offset = this.offset;
+    query.limit = this.limit;
+
+    try {
+      let newRecipes = await this.recipeService.getByQuery(query);
+      this.recipes = this.recipes.concat(newRecipes);
+    } catch (error) {
+      console.error(error);
+    }
+    this.offset = this.offset + this.limit;
+
+  }
+  
+  public async onInfinityScroll(event: any): Promise<void> 
+  {
+    await this.searchByQuery();
+    event.target.complete();
+  }
+
 }

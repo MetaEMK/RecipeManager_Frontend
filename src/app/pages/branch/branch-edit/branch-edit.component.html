@@ -28,5 +28,5 @@
     <app-filter-by-general-model [filterBranches]="false" [minimumFilterCount]="1" [branches]="[branch]" [categories]="branch.recipeCategories" searchLabel="Rezepte suchen..." searchPlaceholder="Rezepte suchen..." (filteredItems)="searchByQuery($event)"></app-filter-by-general-model>
     <app-general-details-edit-relations [service]="recipeService" [defaultQuery]="defaultQuery" cardTitle="Rezept hinzufügen" searchLabel="Alle Rezepte durchsuchen..." searchPlaceholder="Alle Rezepte durchsuchen..." (itemsToAdd)="addItemsToAddList($event)" *ngIf="editMode"></app-general-details-edit-relations>
 
-    <app-recipe-card-view [recipes]="filteredRecipes" [branch]="branch" [editMode]="editMode" (rmv)="rmvRecipe = $event"></app-recipe-card-view>
+    <app-recipe-card-view [searchQuery]="searchQuery" [branch]="branch" [editMode]="editMode" (rmv)="rmvRecipe = $event"></app-recipe-card-view>
 </div>

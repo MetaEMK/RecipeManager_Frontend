@@ -15,6 +15,9 @@ export class GeneralModelChipListComponent implements OnInit {
   @Input()
   public title?: string;
 
+  @Input()
+  public defaultSelectAll: boolean = false;
+
   @Input("showUnassignedButton")
   public showUnassignedButton: boolean = false;
 
@@ -29,9 +32,9 @@ export class GeneralModelChipListComponent implements OnInit {
 
   public get selectAllName(): string {
     if(this.selectedItems.length == this.items.length)
-      return "alle auswählen";
-    else
       return "alle abwählen";
+    else
+      return "alle auswählen";
   }
 
   constructor(
@@ -39,9 +42,11 @@ export class GeneralModelChipListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.items);
-    if(this.items.length === 1)
+    if(this.defaultSelectAll)
       this.selectAll();
+
+    else if(this.items.length === 1)
+    this.selectAll();
   }
 
   public changeUnassignedState()
@@ -54,10 +59,21 @@ export class GeneralModelChipListComponent implements OnInit {
   public selectAll()
   {
     if(this.selectedItems.length > 0)
+    {
       this.selectedItems = [];
+      
+      if(this.stateOfUnassigned === true)
+        this.changeUnassignedState();
+    }
     else
+    {
       this.selectedItems = this.items.map(item => item.id);
+      
+      if(this.stateOfUnassigned === false)
+        this.changeUnassignedState();
+    }
 
+      
     this.selectedItemsOutput.emit(this.selectedItems);
   }
 

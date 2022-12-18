@@ -13,6 +13,12 @@ import { Recipe } from 'src/app/model/recipe.model';
 })
 export class FilterByGeneralModelComponent implements OnInit {
 
+  @Input("defaultSelectAllBranches")
+  public defaultSelectAllBranches: boolean = true;
+
+  @Input("defaultSelectAllCategories")
+  public defaultSelectAllCategories: boolean = true;
+
   @Input("categories")
   public categories: Category[] = [];
 
@@ -97,7 +103,6 @@ export class FilterByGeneralModelComponent implements OnInit {
     if(this.filterCategories && this.filterBranches)
     {
       let searchQuery = new Query();
-      console.log(searchQuery.toString())
       searchQuery.addQueryItem(this.queryForUnassignedBranches);
       searchQuery.addQueryItem(this.queryForUnassignedCategory);
       this.recipeService.getByQuery(searchQuery)
@@ -150,7 +155,6 @@ export class FilterByGeneralModelComponent implements OnInit {
     if(this.unassignedBranchState && this.filterBranches) query.addQueryItem(this.queryForUnassignedBranches);
     if(this.unassignedCategoryState && this.filterCategories) query.addQueryItem(this.queryForUnassignedCategory);
 
-    console.log(query.toString());
     this.filteredItemsOutput.emit(query);
   }
 

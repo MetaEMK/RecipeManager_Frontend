@@ -1,11 +1,11 @@
 <div class="categoryContainer">
     <div *ngIf="filterBranches">
-        <app-general-model-chip-list (unassignedState)="onChangeUnassignedBranches($event)" [showUnassignedButton]="unasignedBranches" title="Abteilungen" [items]="branches" (seletedItemIds)="onChangeSelectedBranches($event)"></app-general-model-chip-list>
+        <app-general-model-chip-list [defaultSelectAll]="defaultSelectAllBranches" (unassignedState)="onChangeUnassignedBranches($event)" [showUnassignedButton]="unasignedBranches" title="Abteilungen" [items]="branches" (seletedItemIds)="onChangeSelectedBranches($event)"></app-general-model-chip-list>
     </div>
     <div *ngIf="filterCategories">
-        <app-general-model-chip-list (unassignedState)="onChangeUnassignedCategories($event)" [showUnassignedButton]="unasignedCategories" title="Kategorien" [items]="categories" (seletedItemIds)="onChangeSelectedCategories($event)"></app-general-model-chip-list>
+        <app-general-model-chip-list [defaultSelectAll]="defaultSelectAllCategories" (unassignedState)="onChangeUnassignedCategories($event)" [showUnassignedButton]="unasignedCategories" title="Kategorien" [items]="categories" (seletedItemIds)="onChangeSelectedCategories($event)"></app-general-model-chip-list>
     </div>
     <div>
-        <app-filter-by-name [minimumCharacters]="3" [searchLabel]="searchLabel" [searchPlaceholder]="searchPlaceholder" (value)="onChangeNameQuery($event)" *ngIf="filterByName"></app-filter-by-name>
+        <app-filter-by-name [minimumCharacters]="1" [searchLabel]="searchLabel" [searchPlaceholder]="searchPlaceholder" (value)="onChangeNameQuery($event)" *ngIf="filterByName"></app-filter-by-name>
     </div>
 </div>

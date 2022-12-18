@@ -26,6 +26,9 @@ export class Query {
         return this._items;
     }
 
+    public offset?: number;
+    public limit?: number;
+
     constructor(queryItems?: QueryItem) {
         if (queryItems) {
             this._items.push(queryItems);
@@ -58,6 +61,12 @@ export class Query {
         this._items.forEach((item) => {
             query += item.toString() + '&';
         });
+
+        if(this.offset !== undefined && this.limit !== undefined) 
+        {
+            query += 'offset=' + this.offset + '&';
+            query += 'limit=' + this.limit + '&';
+        }
         query = query.slice(0, -1);
         return query;
     }
