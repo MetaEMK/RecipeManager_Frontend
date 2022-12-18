@@ -1,0 +1,22 @@
+.headerContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.master-data-container {
+    display: flex;
+}
+
+.editBox{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.variant-container {
+    display: flex;
+}
+
+.master-data-container {
+    width: 50%;
+}

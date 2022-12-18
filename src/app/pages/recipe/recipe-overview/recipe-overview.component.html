@@ -1,0 +1,17 @@
+<ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+<div class="headerContainer">
+    <div>
+        <h1>Rezepte</h1>
+    </div>
+    <div>
+        <ion-fab-button class="addButton" color="success" (click)="onAddItem()">
+            <span class="custom-title" title="Hinzufügen">
+                <ion-icon name="add"></ion-icon>
+            </span>
+        </ion-fab-button>
+    </div>
+</div>
+
+<app-filter-by-general-model [defaultSelectAllBranches]="false" [defaultSelectAllCategories]="false" [minimumFilterCount]="1" [branches]="this.branchService.branches" [categories]="categoryService.categories" (filteredItems)="getByQuery($event)"></app-filter-by-general-model>
+
+<app-recipe-card-view [searchQuery]="searchQuery"></app-recipe-card-view>

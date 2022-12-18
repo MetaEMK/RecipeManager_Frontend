@@ -1,0 +1,30 @@
+.editBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.ingredient-master-container {
+    margin-top: 50px;
+}
+
+.ingredient-master-container h3 {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.count-input {
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+}
+
+.section-container {
+    margin-top: 50px;
+}
+
+.section-container h4 {
+    margin-bottom: 0;
+}

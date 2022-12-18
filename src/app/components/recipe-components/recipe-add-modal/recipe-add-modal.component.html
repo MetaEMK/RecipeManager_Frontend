@@ -1,0 +1,40 @@
+<div>
+    <div class="headerContainer">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>neues Rezept erstellen</ion-title>
+            </ion-toolbar>
+        </ion-header>
+    </div>
+    <div class="contentContainer">
+        <ion-item>
+            <ion-label position="floating">Name</ion-label>
+            <ion-input [(ngModel)]="itemName"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="floating">Beschreibung</ion-label>
+            <ion-textarea [(ngModel)]="itemDescription"></ion-textarea>
+        </ion-item>
+        
+        <ion-item>
+            <div style="height: 250px; width: auto; object-fit: scale-down;">
+                <img [src]="imagePath" *ngIf="imagePath"/>
+            </div>
+        </ion-item>
+        <ion-item>
+            <input type="file" accept="image/jpeg,image/png" (change)="uploadImage($event)">
+        </ion-item>
+    </div>
+
+</div>
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="onCancel()">abbrechen</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button color="success" (click)="onAddItem()" expand="block">erstellen</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

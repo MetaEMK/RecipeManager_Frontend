@@ -1,0 +1,31 @@
+.column-header {
+    position: relative;
+}
+
+.column-header ion-fab-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.scheduleContainer
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.scheduleDay
+{
+    max-width: 350px;
+    min-width: 300px;
+    width: 20vw;
+}
+
+ion-card-title {
+    font-size: 18px;
+}
+
+.item-container {
+    max-height: 500px;
+    overflow: auto;
+}

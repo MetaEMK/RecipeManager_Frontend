@@ -1,0 +1,15 @@
+<h1>Einstellungern</h1>
+
+<div>
+    <ion-segment [value]="settingsService.themeMode" (ionChange)="changeTheme($event)">
+        <ion-segment-button value="dark">
+          <ion-label>Dark</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="auto">
+          <ion-label>Auto</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="light">
+            <ion-label>Light</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</div>

@@ -1,0 +1,11 @@
+.recipe
+{
+    height: fit-content;
+    width: 90vw;
+}
+.selectionList
+{
+    padding: 10px;
+    overflow: scroll;
+    max-height: 50vh;
+}

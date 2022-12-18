@@ -1,0 +1,18 @@
+<ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+<h1>Abteilungen</h1>
+
+<app-filter-by-name [title]="'Abteilungsnamen'" [minimumCharacters]="0" [items]="this.branchService.branches" searchLabel="Abteilung suchen..." searchPlaceholder="Abteilung suchen..." (value)="searchByQuery($event)"></app-filter-by-name>
+
+<div class="branchContainer">
+    <ion-card class="branchCard clickable" (click)="onAddBranch()">
+        <ion-fab-button color="success">
+            <span class="custom-title" title="Hinzufügen">
+                <ion-icon name="add"></ion-icon>
+            </span>
+        </ion-fab-button>
+    </ion-card>
+
+    <ion-card class="branchCard clickable" (click)="navigateToBranch(branch)" *ngFor="let branch of filteredBranches">
+        <div class="branchName">{{branch.name}}</div>
+    </ion-card>
+</div>

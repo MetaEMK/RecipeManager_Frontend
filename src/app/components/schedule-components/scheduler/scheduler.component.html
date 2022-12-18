@@ -1,0 +1,30 @@
+<h3>{{branch.name}}</h3>
+<div class="scheduleContainer">
+    <div class="scheduleDay" *ngFor="let day of days">
+        <ion-card [color]="getColor(day)">
+            <ion-card-header class="column-header">
+                <ion-card-subtitle size="big">{{scheduleItemDay[day]}}</ion-card-subtitle>
+                <ion-fab-button size="small" (click)="routeToScheduleDetails(day)">
+                    <span class="custom-title" title="Hinzufügen">
+                        <ion-icon name="pencil"></ion-icon>
+                    </span>
+                </ion-fab-button>
+            </ion-card-header>
+
+            
+            <ion-card-content class="item-container clickable">
+                <ion-card color="primary" (click)="navigateToVariant(item)" *ngFor="let item of scheduleItems.get(day)">
+                <ion-card-header>
+                    <ion-card-subtitle>{{item.variant.recipe.name}}</ion-card-subtitle>
+                    <ion-card-title>{{item.variant.name}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    Menge: {{item.quantity}}, Größe: {{item.size.name}}
+                </ion-card-content>
+                </ion-card>
+            </ion-card-content>
+        </ion-card>
+
+
+    </div>
+</div>

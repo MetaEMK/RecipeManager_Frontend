@@ -1,0 +1,26 @@
+<div class="headline-stack">
+    <h5>Wochenplan</h5>
+    <h1 *ngIf="branch">{{branch.name}}</h1>
+</div>
+<h5 *ngIf="day">{{scheduleItemDay[day]}}</h5>
+
+<div class="add-button-container" (click)="addScheduleItem()">
+    <ion-fab-button id="add-button" slot="end" color="success">
+        <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <label for="add-button" class="clickable">Variante hinzufügen</label>
+</div>
+
+
+<ion-list>
+    <ion-item *ngFor="let item of scheduleItems">
+        <div class="list-element">
+            {{item.variant.name}}
+            Menge: {{item.quantity}}
+            Größe: {{item.size.name}}
+            <ion-fab-button slot="end" color="danger" (click)="deleteScheduleItem(item)">
+                <ion-icon name="trash"></ion-icon>
+            </ion-fab-button>
+        </div>
+    </ion-item>
+</ion-list>

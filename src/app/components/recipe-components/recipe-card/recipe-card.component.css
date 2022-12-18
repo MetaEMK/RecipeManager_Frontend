@@ -1,0 +1,30 @@
+.recipe
+{
+    min-height: 250px;
+    min-width: 250px;
+    max-height: 350px;
+    max-width: 400px;
+    width: 50vw;
+    height: 30vw;
+}
+
+img{
+    object-fit: cover;
+    border-radius: inherit;
+    max-height: 70%;
+}
+
+.infocontainer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 30%;
+    width: 100%;
+    padding: 20px;
+}
+
+.removeButton {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}

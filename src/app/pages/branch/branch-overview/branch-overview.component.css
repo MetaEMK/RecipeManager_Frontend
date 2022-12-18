@@ -1,0 +1,24 @@
+.branchContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    justify-content: baseline;
+    align-items: center;
+    align-content: center;
+}
+
+.branchCard {
+    display: flex;
+    height: 150px;
+    width: 150px;
+    align-items: center;
+    justify-content: center;
+    word-break: break-all;
+}
+
+.branchName {
+    padding: 5px;
+    text-align: center;
+    word-wrap: break-word;
+}

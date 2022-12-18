@@ -1,0 +1,29 @@
+<div class="header">
+    <div class="headline-stack">
+        <div class="flex-row flex-align-center">
+            <h4>{{title}}</h4>
+            <ion-fab-button size="small" (click)="nameEdit = !nameEdit" *ngIf="editMode">
+                <span class="custom-title" title="Abbrechen">
+                    <ion-icon name="close"*ngIf="nameEdit"></ion-icon>
+                </span>
+                <span class="custom-title" title="Bearbeiten">
+                    <ion-icon name="pencil-outline" *ngIf="!nameEdit"></ion-icon>
+                </span>
+            </ion-fab-button>
+        </div>
+        <h1>{{item.name}}</h1>
+    </div>
+</div>
+
+<ion-card *ngIf="nameEdit && editMode">
+    <ion-card-header>
+        <h5>Namen von {{item.name}} ändern</h5>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-item mode="md" class="addBranchName">
+            <ion-label position="floating">Abteilungsname</ion-label>
+            <ion-input [value]="newItemName" (ionChange)="changeName($event)"></ion-input>
+        </ion-item>
+    </ion-card-content>
+    <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
+</ion-card>

@@ -1,0 +1,10 @@
+<h1>Wochenplaner</h1>
+<div>
+    <div class="button-bar">
+        <ion-button [disabled]="enabledButton(branch)" (click)="showSchedule(branch)" *ngFor="let branch of branchService.branches">{{branch.name}}</ion-button>
+    </div>
+
+    <div *ngIf="selectedBranch">
+        <app-scheduler [branch]="selectedBranch"></app-scheduler>
+    </div>
+</div>

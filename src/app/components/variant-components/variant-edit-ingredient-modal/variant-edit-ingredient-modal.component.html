@@ -1,0 +1,39 @@
+<div>
+    <div class="headerContainer">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Zutat bearbeiten</ion-title>
+            </ion-toolbar>
+        </ion-header>
+    </div>
+    <div class="contentContainer">
+        <ion-item>
+            <ion-label position="stacked">Name</ion-label>
+            <ion-input placeholder="Name eingeben" [(ngModel)]="name" autofocus="true" (ionChange)="checkName()"></ion-input>
+            <ion-note color="danger" *ngIf="nameErrorValue">{{nameErrorValue}}</ion-note>
+
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">Anzahl</ion-label>
+            <ion-input placeholder="Anzahl eingeben" [(ngModel)]="quantity" (ionChange)="checkQuantity()"></ion-input>
+            <ion-note color="danger" *ngIf="quantityErrorValue">{{quantityErrorValue}}</ion-note>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">Einheit</ion-label>
+            <ion-input placeholder="Einheit eingeben" [(ngModel)]="unit" (ionChange)="checkUnit()"></ion-input>
+            <ion-note color="danger" *ngIf="unitErrorValue">{{unitErrorValue}}</ion-note>
+        </ion-item>
+    </div>
+</div>
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="onCancel()">abbrechen</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button color="success" (click)="onSave()" expand="block">erstellen</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

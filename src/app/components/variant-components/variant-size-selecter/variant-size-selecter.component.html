@@ -1,0 +1,17 @@
+<ion-item lines="none" style="width: 400px;" *ngIf="showConversionType">
+    <ion-label position="floating">Typ wählen</ion-label>
+    <ion-select interface="popover" [disabled]="!allowChangesToConversionType" [value]="conversionType?.id" (ionChange)="selectType($event)" *ngIf="conversionTypes.length > 0">
+        <ion-select-option [value]="conversionType.id" *ngFor="let conversionType of conversionTypes">
+            {{conversionType.name}}
+        </ion-select-option>
+    </ion-select>
+</ion-item>
+
+<ion-item lines="none" *ngIf="showSize && conversionType">
+    <ion-label>Größe wählen</ion-label>
+    <ion-select interface="popover" [disabled]="!allowChangesToSize"  [value]="size?.id" placeholder="Wähle eine Größe" (ionChange)="selectSize($event)" *ngIf="sizes.length > 0">
+        <ion-select-option [value]="size.id" *ngFor="let size of sizes">
+            {{size.name}}
+        </ion-select-option>
+    </ion-select>
+</ion-item>
