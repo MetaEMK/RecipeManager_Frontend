@@ -8,7 +8,7 @@ import { RecipeCardViewEvent } from '../recipe-card-view/recipe-card-view.compon
 @Component({
   selector: 'app-recipe-card',
   templateUrl: './recipe-card.component.html',
-  styleUrls: ['./recipe-card.component.css']
+  styleUrls: ['./recipe-card.component.css', '../../../../theme/theme.css']
 })
 export class RecipeCardComponent implements OnChanges, OnInit {
 

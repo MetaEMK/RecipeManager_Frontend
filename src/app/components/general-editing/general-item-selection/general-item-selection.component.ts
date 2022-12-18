@@ -14,6 +14,15 @@ import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 })
 export class GeneralItemSelectionComponent  implements OnInit {
   
+  @Input()
+  public cardTitle = "Item auswählen";
+
+  @Input()
+  public searchLabel = "Suche";
+
+  @Input()
+  public searchPlaceholder = "Suche";
+
   @Input("service")
   public service?: GeneralService<GeneralModelWithRouting>;
 

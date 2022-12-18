@@ -1,13 +1,15 @@
-<ion-card class="recipe" [id]="'recipeCardId' + recipe.id" (click)="routeToRecipe()" *ngIf="recipe">
+<ion-card class="recipe clickable" [id]="'recipeCardId' + recipe.id" (click)="routeToRecipe()" *ngIf="recipe">
     <img fill loading="lazy" [ngSrc]="imagePath"/>
 
     <div class="infocontainer">
-            <div class="cardHeader">
-                <ion-card-title>{{recipe.name}}</ion-card-title>
-                <ion-fab-button class="removeButton" (click)="addRecipeToRemoveList()" *ngIf="editMode">
-                    <ion-icon color="danger" name="trash-outline" *ngIf="!isRemoved"></ion-icon>
-                    <ion-icon name="checkmark-outline" *ngIf="isRemoved"></ion-icon>
-                </ion-fab-button>
-            </div>
+        <ion-card-title>{{recipe.name}}</ion-card-title>
+        <ion-fab-button class="removeButton" (click)="addRecipeToRemoveList()" *ngIf="editMode">
+            <span class="custom-title" title="Löschen">
+                <ion-icon color="danger" name="trash-outline" *ngIf="!isRemoved"></ion-icon>
+            </span>
+            <span class="custom-title" title="Hinzufügen">
+                <ion-icon name="checkmark-outline" *ngIf="isRemoved"></ion-icon>
+            </span>
+        </ion-fab-button>
     </div>
 </ion-card>

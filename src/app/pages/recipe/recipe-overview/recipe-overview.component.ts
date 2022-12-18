@@ -13,7 +13,7 @@ import { Recipe } from 'src/app/model/recipe.model';
 @Component({
   selector: 'app-recipe-overview',
   templateUrl: './recipe-overview.component.html',
-  styleUrls: ['./recipe-overview.component.css']
+  styleUrls: ['./recipe-overview.component.css', '../../../../theme/theme.css']
 })
 export class RecipeOverviewComponent implements OnInit {
 

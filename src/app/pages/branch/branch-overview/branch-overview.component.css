@@ -1,5 +1,4 @@
-
-.branchContainer{
+.branchContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -8,28 +7,18 @@
     align-items: center;
     align-content: center;
 }
-.branchCard{
-    display: flex;
 
+.branchCard {
+    display: flex;
     height: 150px;
     width: 150px;
-
     align-items: center;
     justify-content: center;
+    word-break: break-all;
 }
-.branchName{
+
+.branchName {
     padding: 5px;
     text-align: center;
     word-wrap: break-word;
-}
-
-.branchAddCard{
-    display: flex;
-    padding: 10px;
-}
-.addBranchName {
-    padding: 5px;
-
-    border: 3px solid rgb(255, 0, 0);
-    border-radius: 5px;
 }

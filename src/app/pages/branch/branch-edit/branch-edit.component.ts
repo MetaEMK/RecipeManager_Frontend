@@ -168,7 +168,7 @@ export class BranchEditComponent implements OnInit {
   public async deleteBranch()
   {
     const alert = await this.alertController.create({
-      header: "Möchten Sie die Abteilung wirklich löschen?",
+      header: "Soll die Abteilung wirklich gelöscht werden?",
       buttons: [
         {
           text: "Abbrechen",
@@ -176,47 +176,44 @@ export class BranchEditComponent implements OnInit {
         },
         {
           text: "Ok",
-          role: "confirm",
-          handler: () => {
-            this.loading = true;
-            if(this.branch)
-            {
-              let toast;
-              this.editMode = false;
-
-              try {
-                this.branchService.delete(this.branch.id).then(() => {
-                  this.router.navigate(["/branches"]);
-
-                  this.toastController.create({
-                    message: "Abteilung wurde erfolgreich gelöscht",
-                    duration: 3000,
-                    position: "top",
-                    color: "success"
-                  }).then((toast) => {
-                    toast.present();
-                  });
-                });
-              } catch (error) {
-                const err = error as ApiError;
-
-                this.toastController.create({
-                  message: err.message,
-                  duration: 3000,
-                  position: "top",
-                  color: "danger"
-                }).then((toast) => {
-                  toast.present();
-                });
-              }
-            }
-            this.loading = false;
-          }
+          role: "confirm"
         }
       ]
     });
 
     await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+
+    if (role === "confirm") {
+      this.loading = true;
+      if(this.branch)
+      {
+        let toast;
+        this.editMode = false;
+        try {
+          await this.branchService.delete(this.branch.id);
+          this.router.navigate(["/branches"]);
+          toast = await this.toastController.create({
+            message: "Abteilung wurde erfolgreich gelöscht",
+            duration: 3000,
+            position: "top",
+            color: "success"
+          });
+        } catch (error) {
+          console.log(error);
+          const err = error as ApiError;
+          toast = await this.toastController.create({
+            message: err.message,
+            duration: 3000,
+            position: "top",
+            color: "danger"
+          });
+        }
+        await toast.present();
+      }
+      this.loading = false;
+    }
   }
 
   public addItemsToAddList(event: GeneralModelWithRouting[])

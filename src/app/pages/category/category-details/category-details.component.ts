@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Query, QueryItem } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
@@ -9,12 +9,11 @@ import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
 import { Recipe } from 'src/app/model/recipe.model';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
-import { GeneralRemoveModalComponent } from 'src/app/components/general-editing/general-remove-modal/general-remove-modal.component';
 
 @Component({
   selector: 'app-category-details',
   templateUrl: './category-details.component.html',
-  styleUrls: ['./category-details.component.css']
+  styleUrls: ['./category-details.component.css', '../../../../theme/theme.css']
 })
 export class CategoryDetailsComponent implements OnInit {
 
@@ -40,7 +39,7 @@ export class CategoryDetailsComponent implements OnInit {
     public settingsService: SettingsService,
     private toastController: ToastController,
     public recipeService: RecipeService,
-    private modalController: ModalController
+    private alertController: AlertController
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -158,48 +157,52 @@ export class CategoryDetailsComponent implements OnInit {
 
   public async deleteCategory()
   {
-    this.loading = true;
-    if(this.category)
-    {
-
-      const modal = await this.modalController.create({
-        component: GeneralRemoveModalComponent,
-        componentProps: {
-          title: "Kategorie löschen",
-          name: this.category.name,
-          confirmMessage: "Möchten Sie wirklich diese Katgeorie löschen?"
+    const alert = await this.alertController.create({
+      header: "Soll die Kategorie wirklich gelöscht werden?",
+      buttons: [
+        {
+          text: "Abbrechen",
+          role: "cancel"
+        },
+        {
+          text: "Ok",
+          role: "confirm"
         }
-      });
-      await modal.present();
+      ]
+    });
 
-      const { data } = await modal.onWillDismiss();
-      if(data) {
+    await alert.present();
 
-      let toast;
-        this.editMode = false;
-        try {
-          await this.categoryService.delete(this.category.id);
-          this.router.navigate(["/categories"]);
-          toast = await this.toastController.create({
-            message: "Kategorie wurde erfolgreich gelöscht",
-            duration: 3000,
-            position: "top",
-            color: "success"
-          });
-        } catch (error) {
-          console.log(error);
-          const err = error as ApiError;
-          toast = await this.toastController.create({
-            message: err.message,
-            duration: 3000,
-            position: "top",
-            color: "danger"
-          });
+    const { role } = await alert.onDidDismiss();
+    if (role === "confirm") {
+      this.loading = true;
+      if(this.category)
+      {
+        let toast;
+          this.editMode = false;
+          try {
+            await this.categoryService.delete(this.category.id);
+            this.router.navigate(["/categories"]);
+            toast = await this.toastController.create({
+              message: "Kategorie wurde erfolgreich gelöscht",
+              duration: 3000,
+              position: "top",
+              color: "success"
+            });
+          } catch (error) {
+            console.log(error);
+            const err = error as ApiError;
+            toast = await this.toastController.create({
+              message: err.message,
+              duration: 3000,
+              position: "top",
+              color: "danger"
+            });
         }
         await toast.present();
       }
+      this.loading = false;
     }
-    this.loading = false;
   }
   
   public addItemsToAddList(event: GeneralModelWithRouting[])

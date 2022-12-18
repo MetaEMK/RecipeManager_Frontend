@@ -37,6 +37,12 @@ export class FilterByGeneralModelComponent implements OnInit {
   @Input("minimumFilterCount")
   public minimumFilterCount: number = 1;
 
+  @Input()
+  public searchLabel: string = "Suche";
+
+  @Input()
+  public searchPlaceholder: string = "Suche";
+
   @Output("filteredItems")
   public filteredItemsOutput: EventEmitter<Query> = new EventEmitter();
 

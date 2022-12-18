@@ -1,8 +1,10 @@
 <ion-card class="recipe">
     <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
-    
+    <ion-card-header>
+        <h5>{{ cardTitle }}</h5>
+    </ion-card-header>
     <ion-card-content>
-        <app-filter-by-name [minimumCharacters]="minimumCharacters" (value)="getItemsByQuery($event)"></app-filter-by-name>
+        <app-filter-by-name [minimumCharacters]="minimumCharacters" [searchLabel]="searchLabel" [searchPlaceholder]="searchPlaceholder" (value)="getItemsByQuery($event)"></app-filter-by-name>
         <div class="selectionList"> 
             <ion-list inset="true" lines="inset">
                 <ion-item (click)="selectItem(item)" *ngFor="let item of filteredItems">

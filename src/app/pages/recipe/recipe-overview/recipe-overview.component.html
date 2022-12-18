@@ -1,11 +1,13 @@
 <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
 <div class="headerContainer">
     <div>
-        <h1>Rezeptübersicht</h1>
+        <h1>Rezepte</h1>
     </div>
     <div>
         <ion-fab-button class="addButton" color="success" (click)="onAddItem()">
-            <ion-icon name="add"></ion-icon>
+            <span class="custom-title" title="Hinzufügen">
+                <ion-icon name="add"></ion-icon>
+            </span>
         </ion-fab-button>
     </div>
 </div>

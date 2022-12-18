@@ -1,0 +1,9 @@
+/* Button bar*/
+.button-bar {
+    height: 100%;
+    margin: 0;
+}
+
+.button-bar ion-fab-button {
+    margin: 5;
+}

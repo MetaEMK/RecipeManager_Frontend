@@ -24,6 +24,15 @@ export class GeneralEditRelationsComponent implements OnInit, OnChanges {
   @Input()
   public defaultQuery?: Query;
 
+  @Input()
+  public cardTitle: string = "Relation hinzufügen";
+
+  @Input()
+  public searchLabel: string = "Suche";
+
+  @Input()
+  public searchPlaceholder: string = "Suche";
+
   @Output("itemsToAdd")
   private output_itemsToAdd: EventEmitter<GeneralModelWithRouting[]> = new EventEmitter();
   public itemsToAdd: GeneralModelWithRouting[] = [];

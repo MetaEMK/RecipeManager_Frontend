@@ -8,6 +8,10 @@
     align-items: center;
 }
 
+.flex-align-end {
+    align-items: end;
+}
+
 /* Activiating custom tooltip */
 .custom-title ion-icon {
     pointer-events: none;
