@@ -61,8 +61,8 @@ export class ScheduleService {
         },
         body: JSON.stringify({
           day: day,
-          variant_id: variantId,
-          size_id: sizeId,
+          variant: variantId,
+          size: sizeId,
           quantity: quantity
         })
       });

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { ScheduleAddItemModalComponent } from './schedule-add-item-modal/schedule-add-item-modal.component';
 import { IonicModule } from '@ionic/angular';
+import { GeneralEditingModule } from '../general-editing/general-editing.module';
+import { VariantComponentsModule } from '../variant-components/variant-components.module';
 
 
 
@@ -13,12 +15,13 @@ import { IonicModule } from '@ionic/angular';
   ],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    GeneralEditingModule,
+    VariantComponentsModule
   ],
   exports: [
     SchedulerComponent,
-    ScheduleAddItemModalComponent,
-    
+    ScheduleAddItemModalComponent,    
   ]
 })
 export class ScheduleComponentsModule { }

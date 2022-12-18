@@ -1,1 +1,65 @@
-<p>schedule-add-item-modal works!</p>
+<ion-content>
+    <div class="container">
+        <h1>Neues Planneritem hinzufügen</h1>
+        <div>
+            <h3>Rezeptauswahl</h3>
+            <app-general-item-selection [defaultQuery]="defaultQuery" [service]="recipeService" (itemSelected)="onSelectedItem($event)" *ngIf="!selectedRecipe"></app-general-item-selection>
+            <ion-item *ngIf="selectedRecipe">
+                <ion-label position="fixed">Ausgewähltes Rezept</ion-label>
+                <ion-label>{{selectedRecipe.name}}</ion-label>
+            </ion-item>
+        </div>
+
+        <div *ngIf="selectedRecipe">
+            <div *ngIf="!selectedVariant">
+                <h3>Variantenauswahl</h3>
+                <ion-list>
+                    <ion-item *ngFor="let variant of variantList">
+                        <ion-label>{{variant.name}}</ion-label>
+                        <ion-button slot="end" (click)="onSelectedVariant(variant)">Auswählen</ion-button>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div *ngIf="selectedVariant">
+                <ion-item *ngIf="selectedRecipe && selectedVariant">
+                    <ion-label position="fixed">Ausgewählte Variante</ion-label>
+                    <ion-label>{{selectedVariant.name}}</ion-label>
+                </ion-item>
+            </div>
+        </div>
+
+        <div *ngIf="selectedVariant && !selectedSize">
+            <h3>Größenauswahl</h3>
+            <app-variant-size-selecter
+                [showConversionType]="false"
+                [preSelectedConversionType]="selectedVariant.conversionType"
+                (selectedSize)="onSelectedSize($event)"
+            ></app-variant-size-selecter>
+        </div>
+        <div *ngIf="selectedSize">
+            <ion-item *ngIf="selectedRecipe && selectedVariant && selectedSize">
+                <ion-label position="fixed">Ausgewählte Größe</ion-label>
+                <ion-label>{{selectedSize.name}}</ion-label>
+            </ion-item>
+        </div>
+
+        <div *ngIf="selectedSize">
+            <h3>Mengenauswahl</h3>
+            <ion-item>
+                <ion-label position="fixed">Menge</ion-label>
+                <ion-input type="number" (ionChange)="onSelectedQuantity($event)"></ion-input>
+            </ion-item>
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="onCancel()">abbrechen</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button color="success" (click)="onAddItem()" expand="block">erstellen</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>
