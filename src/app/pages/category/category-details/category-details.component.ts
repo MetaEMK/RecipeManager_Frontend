@@ -9,12 +9,11 @@ import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
 import { Recipe } from 'src/app/model/recipe.model';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
-import { GeneralRemoveModalComponent } from 'src/app/components/general-editing/general-remove-modal/general-remove-modal.component';
 
 @Component({
   selector: 'app-category-details',
   templateUrl: './category-details.component.html',
-  styleUrls: ['./category-details.component.css']
+  styleUrls: ['./category-details.component.css', '../../../../theme/theme.css']
 })
 export class CategoryDetailsComponent implements OnInit {
 
@@ -163,20 +162,6 @@ export class CategoryDetailsComponent implements OnInit {
     this.loading = true;
     if(this.category)
     {
-
-      const modal = await this.modalController.create({
-        component: GeneralRemoveModalComponent,
-        componentProps: {
-          title: "Kategorie löschen",
-          name: this.category.name,
-          confirmMessage: "Möchten Sie wirklich diese Katgeorie löschen?"
-        }
-      });
-      await modal.present();
-
-      const { data } = await modal.onWillDismiss();
-      if(data) {
-
       let toast;
         this.editMode = false;
         try {
@@ -199,7 +184,6 @@ export class CategoryDetailsComponent implements OnInit {
           });
         }
         await toast.present();
-      }
     }
     this.loading = false;
   }

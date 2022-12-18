@@ -9,7 +9,6 @@ import { FilteringModule } from '../filtering/filtering.module';
 import { GeneralEditRelationsComponent } from './general-edit-relations/general-edit-relations.component';
 import { GeneralEditMasterDataComponent } from './general-edit-master-data/general-edit-master-data.component';
 import { VariantComponentsModule } from '../variant-components/variant-components.module';
-import { GeneralRemoveModalComponent } from './general-remove-modal/general-remove-modal.component';
 
 
 
@@ -19,8 +18,7 @@ import { GeneralRemoveModalComponent } from './general-remove-modal/general-remo
     GeneralAddComponent,
     GeneralItemSelectionComponent,
     GeneralEditRelationsComponent,
-    GeneralEditMasterDataComponent,
-    GeneralRemoveModalComponent,
+    GeneralEditMasterDataComponent
   ],
   imports: [
     CommonModule,
@@ -36,8 +34,7 @@ import { GeneralRemoveModalComponent } from './general-remove-modal/general-remo
     GeneralAddComponent,
     GeneralItemSelectionComponent,
     GeneralEditRelationsComponent,
-    GeneralEditMasterDataComponent,
-    GeneralRemoveModalComponent,
+    GeneralEditMasterDataComponent
   ]
 })
 export class GeneralEditingModule { }
