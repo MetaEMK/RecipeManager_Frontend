@@ -23,6 +23,9 @@ export class ApiError {
 
             case 'NAME_INVALID':
                 return new ApiError(400, 'NAME_INVALID', 'Bad Request', 'Der Name ist nicht gültig.', error);
+
+            case 'LIMIT_FILE_SIZE':
+                return new ApiError(400, 'LIMIT_FILE_SIZE', 'Bad Request', 'Die Datei ist zu groß. Es sind nur Bilder mit unter 1 MB erlaubt.', error);
             
             default:
                 return new ApiError(400, 'BAD_REQUEST', 'Bad Request', 'Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut.', error);

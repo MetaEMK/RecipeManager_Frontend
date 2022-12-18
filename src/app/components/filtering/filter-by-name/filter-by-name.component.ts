@@ -28,7 +28,7 @@ export class FilterByNameComponent {
   public minimumCharacters: number = 3;
 
   @Input()
-  public delay: number = 1000;
+  public delay: number = 250;
 
   private lastEmitedValue: string = "";
 

@@ -33,9 +33,10 @@ export class RecipeAddModalComponent {
         await toast.present();
         await this.modalController.dismiss(recipe);
       })
-      .catch(async (error) => {
+      .catch(async (error: any) => {
+        console.warn(error.message);
         const toast = await this.toastController.create({
-          message: `Rezept konnte nicht erstellt werden: ${error.messageForUser}`,
+          message: `Rezept konnte nicht erstellt werden: ${error.message}`,
           duration: 3000,
           position: 'top',
           color: 'danger'

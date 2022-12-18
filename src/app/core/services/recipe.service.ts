@@ -142,7 +142,7 @@ export class RecipeService implements GeneralService<Recipe> {
   
         case 400:
           error = (await response.json()).error;
-          throw new ApiError(response.status, error.customCode, error.type, "Die angeforderte Rezept konnte nicht aktualisiert werden", error);
+          throw ApiError.getBadRequestError(error);
   
         default:
           error = (await response.json()).error;
@@ -171,6 +171,14 @@ export class RecipeService implements GeneralService<Recipe> {
         switch (response.status) {
           case 200:
             return (await response.json()).data;
+
+          case 415:
+            error = (await response.json()).error;
+            throw new ApiError(response.status, error.customCode, error.type, "Das angegebene Bildformat wird nicht unterstützt", error);
+
+          case 400:
+            error = (await response.json()).error;
+            throw ApiError.getBadRequestError(error);
 
           case 404:
             error = (await response.json()).error;
@@ -239,6 +247,14 @@ export class RecipeService implements GeneralService<Recipe> {
         case 201:
           console.log("response");
           return (await response.json()).data;
+
+        case 400:
+          error = (await response.json()).error;
+          throw ApiError.getBadRequestError(error);
+
+          case 415:
+            error = (await response.json()).error;
+            throw new ApiError(response.status, error.customCode, error.type, "Das angegebene Bildformat wird nicht unterstützt", error);
 
         case 409:
           error = (await response.json()).error;

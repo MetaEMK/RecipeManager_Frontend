@@ -4,7 +4,7 @@
         <h5>{{ cardTitle }}</h5>
     </ion-card-header>
     <ion-card-content>
-        <app-filter-by-name [minimumCharacters]="minimumCharacters" [searchLabel]="searchLabel" [searchPlaceholder]="searchPlaceholder" (value)="getItemsByQuery($event)"></app-filter-by-name>
+        <app-filter-by-name [minimumCharacters]="minimumCharacters" [delay]="100" [searchLabel]="searchLabel" [searchPlaceholder]="searchPlaceholder" (value)="getItemsByQuery($event)"></app-filter-by-name>
         <div class="selectionList"> 
             <ion-list inset="true" lines="inset">
                 <ion-item (click)="selectItem(item)" *ngFor="let item of filteredItems">
