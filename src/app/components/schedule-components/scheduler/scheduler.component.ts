@@ -19,7 +19,7 @@ export class SchedulerComponent implements OnInit, OnChanges {
   public days: number[] = [1,2,3,4,5,6,7];
 
   public getColor(day: number){
-    let currentDay = new Date(2022,11,20).getDay();
+    let currentDay = new Date().getDay();
     if(currentDay === 0) currentDay = 7;
     if(day === currentDay){
       return 'warning';

@@ -5,14 +5,14 @@
         <ion-card [color]="getColor(day)">
             <ion-card-header>
                 <ion-card-subtitle>{{scheduleItemDay[day]}}</ion-card-subtitle>
-                <ion-fab-button (click)="routeToScheduleDetails(day)" >
+                <ion-fab-button (click)="routeToScheduleDetails(day)">
                     <ion-icon name="pencil"></ion-icon>
                 </ion-fab-button>
             </ion-card-header>
             <ion-card-content>
                 <ion-card (click)="navigateToVariant(item)" *ngFor="let item of scheduleItems.get(day)">
                 <ion-card-header>
-                    <ion-card-subtitle>Rezept: Was ein Test Variante: {{item.variant.name}}</ion-card-subtitle>
+                    <ion-card-subtitle>Rezept: {{item.variant.recipe.name}}: {{item.variant.name}}</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
                     Menge: {{item.quantity}}, Größe: {{item.size.name}}
