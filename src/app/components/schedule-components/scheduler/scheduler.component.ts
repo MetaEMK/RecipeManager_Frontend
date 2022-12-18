@@ -8,7 +8,7 @@ import { ScheduleItem, scheduleItemDay } from 'src/app/model/scheduleItem.model'
 @Component({
   selector: 'app-scheduler',
   templateUrl: './scheduler.component.html',
-  styleUrls: ['./scheduler.component.css']
+  styleUrls: ['./scheduler.component.css', '../../../../theme/theme.css']
 })
 export class SchedulerComponent implements OnInit, OnChanges {
 
@@ -22,9 +22,9 @@ export class SchedulerComponent implements OnInit, OnChanges {
     let currentDay = new Date().getDay();
     if(currentDay === 0) currentDay = 7;
     if(day === currentDay){
-      return 'warning';
+      return 'tertiary';
     }
-    return undefined
+    return undefined;
   }
 
   public scheduleItemDay = scheduleItemDay;
