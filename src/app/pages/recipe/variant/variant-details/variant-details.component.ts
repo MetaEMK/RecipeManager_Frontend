@@ -30,7 +30,7 @@ export class VariantDetailsComponent implements OnInit {
   public keys: number[] = [];
 
   public newName?: string;
-  public newDescription?: string;
+  public newDescription?: string|null|undefined;
   public newSize?: Size;
 
   constructor(
@@ -200,6 +200,7 @@ export class VariantDetailsComponent implements OnInit {
 
       let toast;
       try {
+        if(this.newDescription == '') this.newDescription = null;
         const newVariant = await this.variantService.updateVariant(this.recipe.id, this.variant?.id, this.newName, this.newDescription, this.newSize, ingredients);
         toast = await this.toastController.create({
           position: 'top',

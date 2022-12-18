@@ -95,7 +95,7 @@ export class VariantService {
   }
 
   //TODO: implement UpdateVariant
-  public async updateVariant(recipeId: number, variantId: number, name?: string, description?: string, size?: Size, ingredients?: Ingredient[]): Promise<Variant> {
+  public async updateVariant(recipeId: number, variantId: number, name?: string, description?: string|null, size?: Size, ingredients?: Ingredient[]): Promise<Variant> {
     let bodyObj: any = {};
     if(name) bodyObj.name = name;
     bodyObj.description = description;
