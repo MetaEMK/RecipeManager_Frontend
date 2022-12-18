@@ -1,12 +1,11 @@
-<ion-card class="clickable">
+<ion-card class="variant-card clickable">
     <ion-card-header>
-        <ion-card-title>{{variant.name}}</ion-card-title>
-        <ion-card-subtitle>
-            Umrechnungstyp: {{variant.conversionType.name}}<br>
-            Basisgröße: {{variant.size.name}}
-        </ion-card-subtitle>
+        <div class="variant-card-content">
+            <ion-card-title>{{variant.name}}</ion-card-title>
+            <div>
+                <ion-card-subtitle>Umrechnungstyp: {{variant.conversionType.name}}</ion-card-subtitle>
+                <ion-card-subtitle>Basisgröße: {{variant.size.name}}</ion-card-subtitle>
+            </div>
+        </div>
     </ion-card-header>
-    <ion-card-content>
-        {{variant.description}}
-    </ion-card-content>
 </ion-card>
