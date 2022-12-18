@@ -1,9 +1,15 @@
-<p>general-edit-master-data works!</p>
+<!-- MASTER DATA -->
+
 <div *ngIf="!editMode">
-    <h1 *ngIf="name && title">{{title}}: {{name}}</h1>
+    <div class="headline-stack">
+        <div class="flex-row flex-align-center">
+            <h5>{{title}}</h5>
+            <h1 *ngIf="name && title">{{name}}</h1>
+        </div>
+    </div>
+    <p class="description" *ngIf="description">{{description}}</p>
 
-    <p *ngIf="description">{{description}}</p>
-
+    <!-- ToDO Variant -->
     <div *ngIf="size && conversionType">
         <p>
             Umrechenart: {{conversionType.name}}<br>

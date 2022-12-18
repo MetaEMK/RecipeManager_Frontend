@@ -1,24 +1,28 @@
 <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
 
-<p>recipe-details-image works!</p>
-<p>Hier noch den ImageContainer anpassen</p>
-<div class="imageContainer" *ngIf="imagePath && rerenderImage">
-    <img fill [ngSrc]="imagePath">
-</div>
-<div>
-    <ion-fab-button (click)="imageEditMode = !imageEditMode" *ngIf="!imageEditMode">
-        <ion-icon name="pencil-outline"></ion-icon>
-    </ion-fab-button>
-</div>
-<div *ngIf="imageEditMode">
-    <input type="file" (change)="onFileSelected($event)">
-    <ion-fab-button (click)="abort()">
-        <ion-icon color="danger" name="close-outline"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button color="danger" (click)="delete()">
-        <ion-icon color="dark" name="trash-outline"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button (click)="save()">
-        <ion-icon color="success" name="save-outline"></ion-icon>
-    </ion-fab-button>
+<div class="image-handler-container">
+    <div class="imageContainer" *ngIf="imagePath && rerenderImage">
+        <img fill [ngSrc]="imagePath">
+    </div>
+    <div class="button-bar">
+        <ion-fab-button class="edit-button" (click)="imageEditMode = !imageEditMode" *ngIf="!imageEditMode">
+            <span class="custom-title" title="Bearbeiten">
+                <ion-icon name="pencil-outline"></ion-icon>
+            </span>
+        </ion-fab-button>
+        <div class="button-bar-edit" *ngIf="imageEditMode">
+
+            <input class="clickable" type="file" (change)="onFileSelected($event)">
+
+            <ion-fab-button (click)="save()">
+                <ion-icon color="success" name="save-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="danger" (click)="delete()">
+                <ion-icon color="dark" name="trash-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button (click)="abort()">
+                <ion-icon color="danger" name="close-outline"></ion-icon>
+            </ion-fab-button>
+        </div>
+    </div>
 </div>
