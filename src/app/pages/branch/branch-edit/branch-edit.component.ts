@@ -65,9 +65,8 @@ export class BranchEditComponent implements OnInit {
 
       } catch (error: any) {
         this.loading = false;
-
-        console.log(error);
-        if(error.color === 404)
+        
+        if(error.code === 404)
           this.router.navigate(["home", '404']);
   
         else

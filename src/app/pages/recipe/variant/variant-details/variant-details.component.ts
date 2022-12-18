@@ -54,17 +54,17 @@ export class VariantDetailsComponent implements OnInit {
     
     if(!recipeIdentifier || !variantId)
     {
-      this.router.navigate(["/recipes"]);
+      this.router.navigate(["home", '404']);
       return;
     }
     
     if(!await this.getRecipe(recipeIdentifier))
-    this.router.navigate(["/recipes"]);
+    this.router.navigate(["home", '404']);
     
     if(this.recipe && !Number.isNaN(+variantId))
-    await this.getVariant(this.recipe.id, Number(variantId));
+      await this.getVariant(this.recipe.id, Number(variantId));
     else
-    this.router.navigate(["/recipes", recipeIdentifier]);
+      this.router.navigate(["home", '404']);
     
     
     await this.checkForQueryParams(queryParamMap);
