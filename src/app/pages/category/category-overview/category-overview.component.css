@@ -1,21 +1,24 @@
-.controlContainer
-{
-    position: sticky;
-}
-
-.categoriesContainer
-{    
+.categoriesContainer {    
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
 
+    justify-content: baseline;
+    align-items: center;
+    align-content: center;
 }
 
-.categoryCard{
+.categoryCard {
     display: flex;
-
     height: 150px;
     width: 150px;
-
     align-items: center;
     justify-content: center;
+    word-break: break-all;
+}
+
+.categoryName {
+    padding: 5px;
+    text-align: center;
+    word-wrap: break-word;
 }

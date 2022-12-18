@@ -12,7 +12,7 @@ import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 @Component({
   selector: 'app-category-overview',
   templateUrl: './category-overview.component.html',
-  styleUrls: ['./category-overview.component.css']
+  styleUrls: ['./category-overview.component.css', '../../../../theme/theme.css']
 })
 export class CategoryOverviewComponent implements OnInit {
 

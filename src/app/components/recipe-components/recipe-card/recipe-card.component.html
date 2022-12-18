@@ -1,4 +1,4 @@
-<ion-card class="recipe" [id]="'recipeCardId' + recipe.id" (click)="routeToRecipe()" *ngIf="recipe">
+<ion-card class="recipe clickable" [id]="'recipeCardId' + recipe.id" (click)="routeToRecipe()" *ngIf="recipe">
     <img fill loading="lazy" [ngSrc]="imagePath"/>
 
     <div class="infocontainer">

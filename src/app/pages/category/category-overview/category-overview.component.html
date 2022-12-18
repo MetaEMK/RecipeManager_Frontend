@@ -1,17 +1,17 @@
 <h1>Kategorien</h1>
-<div class="container">
-    <div class="controlContainer">
-        <app-filter-by-name [title]="'Kategorienamen'" [minimumCharacters]="0" [items]="this.categoryService.categories" (value)="searchByQuery($event)"></app-filter-by-name>
-    </div>
-    
-    <div class="categoriesContainer">
-        <ion-card class="categoryCard">
-            <ion-fab-button color="success" (click)="openAddModal()">
+
+<app-filter-by-name [title]="'Kategorienamen'" [minimumCharacters]="0" [items]="this.categoryService.categories" (value)="searchByQuery($event)"></app-filter-by-name>
+
+<div class="categoriesContainer">
+    <ion-card class="categoryCard clickable" (click)="openAddModal()">
+        <ion-fab-button color="success">
+            <span class="custom-title" title="Hinzufügen">
                 <ion-icon name="add"></ion-icon>
-            </ion-fab-button>
-        </ion-card>
-        <ion-card  class="categoryCard" (click)="router.navigate(['categories/', category.id])" *ngFor="let category of filteredCategories">
-                {{category.name}}
-        </ion-card>
-    </div>
+            </span>
+        </ion-fab-button>
+    </ion-card>
+
+    <ion-card  class="categoryCard clickable" (click)="router.navigate(['categories/', category.id])" *ngFor="let category of filteredCategories">
+        <div class="categoryName">{{category.name}}</div>
+    </ion-card>
 </div>
