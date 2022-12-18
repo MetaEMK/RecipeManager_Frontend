@@ -1,0 +1,14 @@
+/* Headlines stacked on top of each other */
+.headline-stack h4 {
+    margin-right: 10px;
+}
+.headline-stack h1 {
+    margin: 10px 0 10px 0;
+    padding-left: 5px;
+}
+
+.description {
+    max-height: 30vh;
+    max-width: 40vw;
+    overflow: auto;
+}

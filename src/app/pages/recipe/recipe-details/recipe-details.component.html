@@ -33,10 +33,10 @@
     </div>
 
     <h4>Abteilungen</h4>
-    <app-general-details-edit-relations [service]="branchService" [editMode]="editMode" [defaultQuery]="query" [items]="branches" (itemsToAdd)="addBranches = $event" (itemsToRemove)="rmvBranches = $event"></app-general-details-edit-relations>
+    <app-general-details-edit-relations [service]="branchService" [editMode]="editMode" [defaultQuery]="query" [items]="branches" cardTitle="Abteilung hinzufügen" searchLabel="Alle Abteilungen durchsuchen..." searchPlaceholder="Alle Abteilungen durchsuchen..." (itemsToAdd)="addBranches = $event" (itemsToRemove)="rmvBranches = $event"></app-general-details-edit-relations>
     
     <h4>Kategorien</h4>
-    <app-general-details-edit-relations [service]="categoryService" [editMode]="editMode" [defaultQuery]="query" [items]="categories" (itemsToAdd)="addCategories = $event" (itemsToRemove)="rmvCategories = $event"></app-general-details-edit-relations>
+    <app-general-details-edit-relations [service]="categoryService" [editMode]="editMode" [defaultQuery]="query" [items]="categories" cardTitle="Kategorie hinzufügen" searchLabel="Alle Kategorien durchsuchen..." searchPlaceholder="Alle Kategorien durchsuchen..." (itemsToAdd)="addCategories = $event" (itemsToRemove)="rmvCategories = $event"></app-general-details-edit-relations>
 
 
     <h4>Varianten</h4>

@@ -5,7 +5,7 @@ import { Variant } from 'src/app/model/variant.model';
 @Component({
   selector: 'app-variant-card',
   templateUrl: './variant-card.component.html',
-  styleUrls: ['./variant-card.component.css']
+  styleUrls: ['./variant-card.component.css' , '../../../../theme/theme.css']
 })
 export class VariantCardComponent {
 
