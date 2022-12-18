@@ -22,12 +22,12 @@
         <ion-card-content>
             <ion-item *ngIf="enableNameEdit">
                 <ion-label position="floating">Name</ion-label>
-                <ion-input (ionChange)="onNameChange($event)"></ion-input>
+                <ion-input [value]="editedName" (ionChange)="onNameChange($event)"></ion-input>
             </ion-item>
         
             <ion-item *ngIf="enableDescriptionEdit">
                 <ion-label position="floating">Beschreibung</ion-label>
-                <ion-textarea (ionChange)="onDescriptionChange($event)"></ion-textarea>
+                <ion-textarea [value]="editedDescription" (ionChange)="onDescriptionChange($event)"></ion-textarea>
             </ion-item>
         
             <div *ngIf="editMode && size && conversionType">
