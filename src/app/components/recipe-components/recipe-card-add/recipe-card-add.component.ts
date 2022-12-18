@@ -1,12 +1,9 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { RecipeService } from 'src/app/core/services/recipe.service';
-import { SettingsService } from 'src/app/core/services/settings.service';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
-import { GeneralModelWithRouting } from 'src/app/model/generalModel';
-import { Recipe } from 'src/app/model/recipe.model';
 
 
 export interface FilteredRecipe {
@@ -38,7 +35,6 @@ export class RecipeCardAddComponent implements OnInit {
   public recipeFilterValue?: string;
 
   constructor(
-    public themeService: SettingsService,
     public recipeService: RecipeService,
     public branchService: BranchService,
     public categoryService: CategoryService,

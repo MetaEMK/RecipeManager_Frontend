@@ -5,7 +5,6 @@ import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 import { Recipe } from 'src/app/model/recipe.model';
-import { SettingsService } from 'src/app/core/services/settings.service';
 
 
 export interface RecipeCardViewEvent {
@@ -48,7 +47,6 @@ export class RecipeCardViewComponent implements OnChanges {
   public allowedItems: GeneralModelWithRouting[] = [];
 
   constructor(
-    public settingsService: SettingsService,
     private recipeService: RecipeService,
   ) { }
 

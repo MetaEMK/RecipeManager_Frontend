@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { GeneralAddComponent } from 'src/app/components/general-editing/general-add/general-add.component';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { Query, QueryItem } from 'src/app/core/query';
-import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
-import { Branch } from 'src/app/model/branch.model';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
@@ -22,7 +20,6 @@ export class BranchOverviewComponent implements OnInit {
   constructor(
     public branchService: BranchService,
     private router: Router,
-    public themeService: SettingsService,
     public modalContoller: ModalController,
     public toastController: ToastController
   ) { }

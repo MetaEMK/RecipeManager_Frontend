@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { GeneralService } from 'src/app/core/generalService';
 import { Query } from 'src/app/core/query';
-import { RecipeService } from 'src/app/core/services/recipe.service';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
@@ -12,7 +11,7 @@ import { GeneralModelWithRouting } from 'src/app/model/generalModel';
   templateUrl: './general-item-selection.component.html',
   styleUrls: ['./general-item-selection.component.css']
 })
-export class GeneralItemSelectionComponent  implements OnInit {
+export class GeneralItemSelectionComponent {
   
   @Input()
   public cardTitle = "Item auswählen";
@@ -46,9 +45,6 @@ export class GeneralItemSelectionComponent  implements OnInit {
     public settingsService: SettingsService,
     private toastController: ToastController
    ) { }
-
-  ngOnInit(): void {
-  }
 
 
   public async getItemsByQuery(nameQueryValue: string): Promise<void>

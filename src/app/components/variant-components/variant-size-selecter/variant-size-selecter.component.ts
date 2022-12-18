@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ToastController } from '@ionic/angular';
 import { Query } from 'src/app/core/query';
 import { ConversionTypesService } from 'src/app/core/services/conversion-types.service';
 import { ConversionService } from 'src/app/core/services/conversion.service';
@@ -35,8 +34,6 @@ export class VariantSizeSelecterComponent implements OnInit {
 
   @Input("preSelectedSize")
   public size?: Size;
-  public input_size?: Size;
-
 
 
   @Output("selectedConversionType")
@@ -74,6 +71,9 @@ export class VariantSizeSelecterComponent implements OnInit {
       
       this.sizes = [this.fromSize];
       conversions.forEach(x => this.sizes.push(x.toSize));
+
+      if(this.size)
+      await this.selectSize({detail: {value: this.size.id}});
     }
   }
 

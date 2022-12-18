@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { BranchService } from 'src/app/core/services/branch.service';
-import { Query, QueryItem } from 'src/app/core/query';
+import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
-import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
@@ -42,7 +41,6 @@ export class BranchEditComponent implements OnInit {
     private route: ActivatedRoute,
     private branchService: BranchService,
     private router: Router,
-    public themeService: SettingsService,
     private toastController: ToastController,
     public recipeService: RecipeService,
     private alertController: AlertController

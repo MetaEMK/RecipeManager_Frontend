@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Query, QueryItem } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
-import { SettingsService } from 'src/app/core/services/settings.service';
 import { Branch } from 'src/app/model/branch.model';
 import { Category } from 'src/app/model/category.model';
 import { Recipe } from 'src/app/model/recipe.model';
@@ -71,7 +70,6 @@ export class FilterByGeneralModelComponent implements OnInit {
   public nameQuery?: string;
 
   constructor(
-    public settingsService: SettingsService,
     public recipeService: RecipeService,
   ) { }
 

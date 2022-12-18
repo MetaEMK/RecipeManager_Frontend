@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { SettingsService } from 'src/app/core/services/settings.service';
 
 
@@ -13,7 +12,6 @@ export class SettingsComponent {
 
   constructor(
     public settingsService: SettingsService,
-
     ) { }
 
   public changeTheme(event: any): void {

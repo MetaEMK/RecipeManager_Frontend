@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SettingsService } from 'src/app/core/services/settings.service';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
 
 @Component({
@@ -38,7 +37,6 @@ export class GeneralModelChipListComponent implements OnInit {
   }
 
   constructor(
-    public settingsService: SettingsService
   ) { }
 
   ngOnInit() {

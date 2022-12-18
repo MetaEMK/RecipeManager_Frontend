@@ -17,6 +17,7 @@ export class StartpageComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.branchService.getAll();
+    this.selectedBranch = this.branchService.branches[0];
   }
 
   public showSchedule(branch: Branch)
