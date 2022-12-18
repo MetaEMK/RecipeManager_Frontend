@@ -1,6 +1,7 @@
+<!-- PAGE -->
+
 <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
 <div *ngIf="recipe">
-    <app-recipe-details-image [recipe]="recipe" (wasSuccessfullyChanged)="imageChanges($event)"></app-recipe-details-image>
     <div class="headerContainer">
         <div class="editBox">
             <ion-fab-button (click)="updateRecipe()" *ngIf="editMode">
@@ -24,8 +25,9 @@
             (nameChanged)="newName = $event"
             (descriptionChanged)="newDescription = $event"
             
-            [editMode]="editMode"
-        ></app-general-edit-master-data>
+            [editMode]="editMode">
+        </app-general-edit-master-data>
+        <app-recipe-details-image [recipe]="recipe" (wasSuccessfullyChanged)="imageChanges($event)"></app-recipe-details-image>
     </div>
 
     <h4>zugewiesenen Abteilungen</h4>
