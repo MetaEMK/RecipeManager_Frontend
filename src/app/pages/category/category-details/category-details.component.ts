@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Query, QueryItem } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
@@ -9,6 +9,7 @@ import { ApiError } from 'src/app/model/apierror.model';
 import { Category } from 'src/app/model/category.model';
 import { Recipe } from 'src/app/model/recipe.model';
 import { GeneralModelWithRouting } from 'src/app/model/generalModel';
+import { GeneralRemoveModalComponent } from 'src/app/components/general-editing/general-remove-modal/general-remove-modal.component';
 
 @Component({
   selector: 'app-category-details',
@@ -37,7 +38,8 @@ export class CategoryDetailsComponent implements OnInit {
     private router: Router,
     public settingsService: SettingsService,
     private toastController: ToastController,
-    public recipeService: RecipeService
+    public recipeService: RecipeService,
+    private modalController: ModalController
   ) { }
 
   ngOnInit(): void {
@@ -161,28 +163,43 @@ export class CategoryDetailsComponent implements OnInit {
     this.loading = true;
     if(this.category)
     {
+
+      const modal = await this.modalController.create({
+        component: GeneralRemoveModalComponent,
+        componentProps: {
+          title: "Kategorie löschen",
+          name: this.category.name,
+          confirmMessage: "Möchten Sie wirklich diese Katgeorie löschen?"
+        }
+      });
+      await modal.present();
+
+      const { data } = await modal.onWillDismiss();
+      if(data) {
+
       let toast;
-      this.editMode = false;
-      try {
-        await this.categoryService.delete(this.category.id);
-        this.router.navigate(["/categories"]);
-        toast = await this.toastController.create({
-          message: "Kategorie wurde erfolgreich gelöscht",
-          duration: 3000,
-          position: "top",
-          color: "success"
-        });
-      } catch (error) {
-        console.log(error);
-        const err = error as ApiError;
-        toast = await this.toastController.create({
-          message: err.message,
-          duration: 3000,
-          position: "top",
-          color: "danger"
-        });
+        this.editMode = false;
+        try {
+          await this.categoryService.delete(this.category.id);
+          this.router.navigate(["/categories"]);
+          toast = await this.toastController.create({
+            message: "Kategorie wurde erfolgreich gelöscht",
+            duration: 3000,
+            position: "top",
+            color: "success"
+          });
+        } catch (error) {
+          console.log(error);
+          const err = error as ApiError;
+          toast = await this.toastController.create({
+            message: err.message,
+            duration: 3000,
+            position: "top",
+            color: "danger"
+          });
+        }
+        await toast.present();
       }
-      await toast.present();
     }
     this.loading = false;
   }
