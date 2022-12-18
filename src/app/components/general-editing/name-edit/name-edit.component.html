@@ -1,8 +1,7 @@
 <div class="header">
     <div class="headline-stack">
-        <h4>{{title}}</h4>
         <div class="flex-row flex-align-center">
-            <h1>{{item.name}}</h1>
+            <h4>{{title}}</h4>
             <ion-fab-button size="small" (click)="nameEdit = !nameEdit" *ngIf="editMode">
                 <span class="custom-title" title="Abbrechen">
                     <ion-icon name="close"*ngIf="nameEdit"></ion-icon>
@@ -12,6 +11,7 @@
                 </span>
             </ion-fab-button>
         </div>
+        <h1>{{item.name}}</h1>
     </div>
 </div>
 
