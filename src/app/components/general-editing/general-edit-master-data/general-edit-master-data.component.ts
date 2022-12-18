@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ConversionTypes } from 'src/app/model/conversion-types.model';
 import { Size } from 'src/app/model/size.model';
 
@@ -7,7 +7,7 @@ import { Size } from 'src/app/model/size.model';
   templateUrl: './general-edit-master-data.component.html',
   styleUrls: ['./general-edit-master-data.component.css']
 })
-export class GeneralEditMasterDataComponent {
+export class GeneralEditMasterDataComponent implements OnInit {
 
   @Input()
   public title: string = "";
@@ -52,6 +52,14 @@ export class GeneralEditMasterDataComponent {
 
 
   constructor() { }
+
+  ngOnInit(): void {
+    if(this.enableNameEdit)
+      this.editedName = this.name;
+
+    if(this.enableDescriptionEdit)
+      this.editedDescription = this.description;
+  }
 
 
   public onNameChange(event: any) {
