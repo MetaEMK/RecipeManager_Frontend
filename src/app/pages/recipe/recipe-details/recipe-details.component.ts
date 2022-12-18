@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { BranchService } from 'src/app/core/services/branch.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Query, QueryItem } from 'src/app/core/query';
@@ -44,8 +44,8 @@ export class RecipeDetailsComponent implements OnInit {
     public branchService: BranchService,
     public categoryService: CategoryService,
     private modalcontroller: ModalController,
-    private variantService: VariantService
-    
+    private variantService: VariantService,
+    private alertController: AlertController
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -208,28 +208,48 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   async deleteRecipe(): Promise<void> {
-    let toast;
-    try {
-      await this.recipeService.delete(this.recipe.id);
-      toast = await this.toastControler.create({
-        position: "top",
-        message: "Rezept gelöscht",
-        duration: 3000,
-        color: "success"
-      });
-      await toast.present();
-      this.router.navigate(["/recipes"]);
-    }
+    const alert = await this.alertController.create({
+      header: "Soll das Rezept wirklich gelöscht werden?",
+      buttons: [
+        {
+          text: "Abbrechen",
+          role: "cancel"
+        },
+        {
+          text: "Ok",
+          role: "confirm"
+        }
+      ]
+    });
 
-    catch(error: any)
-    {
-      console.error(error);
-      toast = await this.toastControler.create({
-        position: "top",
-        message: error.message,
-        duration: 3000,
-        color: "danger"
-      });
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+
+    if (role === "confirm") {
+      let toast;
+      try {
+        await this.recipeService.delete(this.recipe.id);
+        toast = await this.toastControler.create({
+          position: "top",
+          message: "Rezept gelöscht",
+          duration: 3000,
+          color: "success"
+        });
+        await toast.present();
+        this.router.navigate(["/recipes"]);
+      }
+  
+      catch(error: any)
+      {
+        console.error(error);
+        toast = await this.toastControler.create({
+          position: "top",
+          message: error.message,
+          duration: 3000,
+          color: "danger"
+        });
+      }
     }
   }
 
