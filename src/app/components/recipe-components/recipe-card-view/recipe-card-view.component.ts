@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Query } from 'src/app/core/query';
 import { RecipeService } from 'src/app/core/services/recipe.service';
 import { Branch } from 'src/app/model/branch.model';
@@ -16,7 +16,7 @@ export interface RecipeCardViewEvent {
   templateUrl: './recipe-card-view.component.html',
   styleUrls: ['./recipe-card-view.component.css']
 })
-export class RecipeCardViewComponent implements OnChanges {
+export class RecipeCardViewComponent implements OnInit, OnChanges {
 
   @Input()
   public branch?: Branch;
@@ -49,6 +49,11 @@ export class RecipeCardViewComponent implements OnChanges {
   constructor(
     private recipeService: RecipeService,
   ) { }
+
+  ngOnInit(): void
+  {
+    this.recipes = [];
+  }
 
   async ngOnChanges(event: any): Promise<void> {
     if(event.searchQuery && (!event.branch && !event.category))
@@ -89,10 +94,7 @@ export class RecipeCardViewComponent implements OnChanges {
     query.offset = this.offset;
     query.limit = this.limit;
 
-    console.warn("fire query: " + query.toString())
-
     try {
-      console.warn(query.toString())
       let newRecipes = await this.recipeService.getByQuery(query);
       this.recipes = this.recipes.concat(newRecipes);
     } catch (error) {
