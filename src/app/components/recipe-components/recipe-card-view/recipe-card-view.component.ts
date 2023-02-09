@@ -96,7 +96,10 @@ export class RecipeCardViewComponent implements OnInit, OnChanges {
 
     try {
       let newRecipes = await this.recipeService.getByQuery(query);
-      this.recipes = this.recipes.concat(newRecipes);
+      newRecipes.forEach(newR => {
+        if(!this.recipes.find(item => item.id === newR.id))
+          this.recipes.push(newR);
+      })
     } catch (error) {
       console.error(error);
     }
