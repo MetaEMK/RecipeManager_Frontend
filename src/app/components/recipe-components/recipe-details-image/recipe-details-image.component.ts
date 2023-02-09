@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { RecipeService } from 'src/app/core/services/recipe.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 import { ApiError } from 'src/app/model/apierror.model';
 import { Recipe } from 'src/app/model/recipe.model';
 
@@ -27,12 +28,15 @@ export class RecipeDetailsImageComponent implements OnInit {
   constructor(
     private toastControler: ToastController,
     private recipeService: RecipeService,
+    private settingsService: SettingsService
   ) { }
 
   ngOnInit(): void {
     this.imagePath = undefined;
     if(this.recipe?.imagePath)
       this.imagePath = this.recipe.imagePath;
+    else
+      this.imagePath = this.settingsService.recipeImagePlaceholderPath;
   }
 
   public async onFileSelected(event: any) {
