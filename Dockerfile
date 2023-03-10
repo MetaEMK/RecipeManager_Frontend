@@ -7,7 +7,7 @@ FROM node:18 as build
 WORKDIR /usr/local/rema
 
 # Add the source code to app
-RUN git clone -b v0.2.0 https://github.com/MetaEMK/RecipeManager_Frontend.git ./
+RUN git clone https://github.com/MetaEMK/RecipeManager_Frontend.git ./
 
 # Install all the dependencies
 RUN npm install
