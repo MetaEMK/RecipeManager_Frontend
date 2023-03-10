@@ -1,0 +1,5 @@
+documentation
+.gitignore
+REAMDME*
+node_modules
+.vscode
